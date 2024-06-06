@@ -9,8 +9,8 @@ const propulsionai = new Propulsionai({
 });
 
 describe('resource models', () => {
-  test('run: only required params', async () => {
-    const responsePromise = propulsionai.models.run('string', {
+  test('chat: only required params', async () => {
+    const responsePromise = propulsionai.models.chat('string', {
       messages: [{}, {}, {}],
       model: 'string',
       stream: true,
@@ -24,8 +24,8 @@ describe('resource models', () => {
     expect(dataAndResponse.response).toBe(rawResponse);
   });
 
-  test('run: required and optional params', async () => {
-    const response = await propulsionai.models.run('string', {
+  test('chat: required and optional params', async () => {
+    const response = await propulsionai.models.chat('string', {
       messages: [
         { role: 'system', content: 'string' },
         { role: 'system', content: 'string' },
