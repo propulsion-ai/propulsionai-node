@@ -29,6 +29,8 @@ export interface ModelRunResponse {
 
   object?: string;
 
+  toolCalls?: Array<ModelRunResponse.ToolCall>;
+
   usage?: ModelRunResponse.Usage;
 }
 
@@ -45,6 +47,12 @@ export namespace ModelRunResponse {
 
       role?: string;
     }
+  }
+
+  export interface ToolCall {
+    id?: string;
+
+    function?: unknown;
   }
 
   export interface Usage {
