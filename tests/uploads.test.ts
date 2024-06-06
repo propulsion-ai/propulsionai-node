@@ -1,6 +1,6 @@
 import fs from 'fs';
-import { toFile, type ResponseLike } from 'petstore/uploads';
-import { File } from 'petstore/_shims/index';
+import { toFile, type ResponseLike } from 'propulsionai/uploads';
+import { File } from 'propulsionai/_shims/index';
 
 class MyClass {
   name: string = 'foo';

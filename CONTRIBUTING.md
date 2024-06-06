@@ -55,12 +55,12 @@ cd propulsionai-node
 # With yarn
 yarn link
 cd ../my-package
-yarn link petstore
+yarn link propulsionai
 
 # With pnpm
 pnpm link --global
 cd ../my-package
-pnpm link -—global petstore
+pnpm link -—global propulsionai
 ```
 
 ## Running tests

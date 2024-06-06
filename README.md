@@ -1,10 +1,10 @@
-# Petstore Node API Library
+# Propulsionai Node API Library
 
-[![NPM version](https://img.shields.io/npm/v/petstore.svg)](https://npmjs.org/package/petstore) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/petstore)
+[![NPM version](https://img.shields.io/npm/v/propulsionai.svg)](https://npmjs.org/package/propulsionai) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/propulsionai)
 
-This library provides convenient access to the Petstore REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Propulsionai REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on app.stainlessapi.com](https://app.stainlessapi.com/docs). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found [on docs.propulsionai.com](https://docs.propulsionai.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
@@ -15,7 +15,7 @@ npm install git+ssh://git@github.com:stainless-sdks/propulsionai-node.git
 ```
 
 > [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install petstore`
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install propulsionai`
 
 ## Usage
 
@@ -23,16 +23,20 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import Petstore from 'petstore';
+import Propulsionai from 'propulsionai';
 
-const petstore = new Petstore({
-  apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
+const propulsionai = new Propulsionai({
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
-  const order = await petstore.store.createOrder({ petId: 1, quantity: 1, status: 'placed' });
+  const modelRunResponse = await propulsionai.models.run('REPLACE_ME', {
+    messages: [],
+    model: 'REPLACE_ME',
+    stream: true,
+  });
 
-  console.log(order.id);
+  console.log(modelRunResponse.id);
 }
 
 main();
@@ -44,14 +48,15 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import Petstore from 'petstore';
+import Propulsionai from 'propulsionai';
 
-const petstore = new Petstore({
-  apiKey: process.env['PETSTORE_API_KEY'], // This is the default and can be omitted
+const propulsionai = new Propulsionai({
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
-  const storeInventoryResponse: Petstore.StoreInventoryResponse = await petstore.store.inventory();
+  const params: Propulsionai.ModelRunParams = { messages: [], model: 'REPLACE_ME', stream: true };
+  const modelRunResponse: Propulsionai.ModelRunResponse = await propulsionai.models.run('REPLACE_ME', params);
 }
 
 main();
@@ -68,15 +73,17 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const storeInventoryResponse = await petstore.store.inventory().catch(async (err) => {
-    if (err instanceof Petstore.APIError) {
-      console.log(err.status); // 400
-      console.log(err.name); // BadRequestError
-      console.log(err.headers); // {server: 'nginx', ...}
-    } else {
-      throw err;
-    }
-  });
+  const modelRunResponse = await propulsionai.models
+    .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+    .catch(async (err) => {
+      if (err instanceof Propulsionai.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
 }
 
 main();
@@ -106,12 +113,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const petstore = new Petstore({
+const propulsionai = new Propulsionai({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await petstore.store.inventory({
+await propulsionai.models.run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
   maxRetries: 5,
 });
 ```
@@ -123,12 +130,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const petstore = new Petstore({
+const propulsionai = new Propulsionai({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await petstore.store.inventory({
+await propulsionai.models.run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
   timeout: 5 * 1000,
 });
 ```
@@ -147,15 +154,19 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const petstore = new Petstore();
+const propulsionai = new Propulsionai();
 
-const response = await petstore.store.inventory().asResponse();
+const response = await propulsionai.models
+  .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: storeInventoryResponse, response: raw } = await petstore.store.inventory().withResponse();
+const { data: modelRunResponse, response: raw } = await propulsionai.models
+  .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(storeInventoryResponse);
+console.log(modelRunResponse.id);
 ```
 
 ### Making custom/undocumented requests
@@ -208,16 +219,16 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "Petstore"`:
+add the following import before your first import `from "Propulsionai"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
-import 'petstore/shims/web';
-import Petstore from 'petstore';
+import 'propulsionai/shims/web';
+import Propulsionai from 'propulsionai';
 ```
 
-To do the inverse, add `import "petstore/shims/node"` (which does import polyfills).
+To do the inverse, add `import "propulsionai/shims/node"` (which does import polyfills).
 This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/propulsionai-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
@@ -227,9 +238,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import Petstore from 'petstore';
+import Propulsionai from 'propulsionai';
 
-const client = new Petstore({
+const client = new Propulsionai({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -254,14 +265,18 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const petstore = new Petstore({
+const propulsionai = new Propulsionai({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await petstore.store.inventory({
-  httpAgent: new http.Agent({ keepAlive: false }),
-});
+await propulsionai.models.run(
+  'REPLACE_ME',
+  { messages: [], model: 'REPLACE_ME', stream: true },
+  {
+    httpAgent: new http.Agent({ keepAlive: false }),
+  },
+);
 ```
 
 ## Semantic versioning
@@ -283,7 +298,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import Petstore from "npm:petstore"`.
+- Deno v1.28.0 or higher, using `import Propulsionai from "npm:propulsionai"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.
