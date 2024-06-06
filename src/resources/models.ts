@@ -8,20 +8,20 @@ export class Models extends APIResource {
   /**
    * Run a model with specified tools and messages.
    */
-  run(
+  chat(
     modelId: string,
-    params: ModelRunParams,
+    params: ModelChatParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ModelRunResponse> {
+  ): Core.APIPromise<ModelChatResponse> {
     const { wait, ...body } = params;
     return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
   }
 }
 
-export interface ModelRunResponse {
+export interface ModelChatResponse {
   id?: string;
 
-  choices?: Array<ModelRunResponse.Choice>;
+  choices?: Array<ModelChatResponse.Choice>;
 
   created?: number;
 
@@ -29,12 +29,12 @@ export interface ModelRunResponse {
 
   object?: string;
 
-  toolCalls?: Array<ModelRunResponse.ToolCall>;
+  toolCalls?: Array<ModelChatResponse.ToolCall>;
 
-  usage?: ModelRunResponse.Usage;
+  usage?: ModelChatResponse.Usage;
 }
 
-export namespace ModelRunResponse {
+export namespace ModelChatResponse {
   export interface Choice {
     index?: number;
 
@@ -50,9 +50,11 @@ export namespace ModelRunResponse {
   }
 
   export interface ToolCall {
-    id?: string;
+    arguments?: unknown;
 
-    function?: unknown;
+    functionName?: string;
+
+    response?: unknown;
   }
 
   export interface Usage {
@@ -64,11 +66,11 @@ export namespace ModelRunResponse {
   }
 }
 
-export interface ModelRunParams {
+export interface ModelChatParams {
   /**
    * Body param:
    */
-  messages: Array<ModelRunParams.Message>;
+  messages: Array<ModelChatParams.Message>;
 
   /**
    * Body param:
@@ -104,11 +106,12 @@ export interface ModelRunParams {
   n?: number | null;
 
   /**
-   * Body param: What sampling temperature to use, between 0 and 2. Higher values
-   * like 0.8 will make the output more random, while lower values like 0.2 will make
-   * it more focused and deterministic.
+   * Body param: An alternative to sampling with temperature, called nucleus
+   * sampling, where the model considers the results of the tokens with top_p
+   * probability mass. So 0.1 means only the tokens comprising the top 10%
+   * probability mass are considered.
    *
-   * We generally recommend altering this or `top_p` but not both.
+   * We generally recommend altering this or `temperature` but not both.
    */
   temperature?: number | null;
 
@@ -123,14 +126,14 @@ export interface ModelRunParams {
    * `none` is the default when no tools are present. `auto` is the default if tools
    * are present.
    */
-  tool_choice?: 'none' | 'auto' | 'required' | ModelRunParams.ChatCompletionNamedToolChoice;
+  tool_choice?: 'none' | 'auto' | 'required' | ModelChatParams.ChatCompletionNamedToolChoice;
 
   /**
    * Body param: A list of tools the model may call. Currently, only functions are
    * supported as a tool. Use this to provide a list of functions the model may
    * generate JSON inputs for. A max of 128 functions are supported.
    */
-  tools?: Array<ModelRunParams.Tool>;
+  tools?: Array<ModelChatParams.Tool>;
 
   /**
    * Body param: An alternative to sampling with temperature, called nucleus
@@ -143,7 +146,7 @@ export interface ModelRunParams {
   top_p?: number | null;
 }
 
-export namespace ModelRunParams {
+export namespace ModelChatParams {
   export interface Message {
     content?: string;
 
@@ -219,6 +222,6 @@ export namespace ModelRunParams {
 }
 
 export namespace Models {
-  export import ModelRunResponse = ModelsAPI.ModelRunResponse;
-  export import ModelRunParams = ModelsAPI.ModelRunParams;
+  export import ModelChatResponse = ModelsAPI.ModelChatResponse;
+  export import ModelChatParams = ModelsAPI.ModelChatParams;
 }

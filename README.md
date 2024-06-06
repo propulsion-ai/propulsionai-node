@@ -30,13 +30,13 @@ const propulsionai = new Propulsionai({
 });
 
 async function main() {
-  const modelRunResponse = await propulsionai.models.run('REPLACE_ME', {
+  const modelChatResponse = await propulsionai.models.chat('REPLACE_ME', {
     messages: [],
     model: 'REPLACE_ME',
     stream: true,
   });
 
-  console.log(modelRunResponse.id);
+  console.log(modelChatResponse.id);
 }
 
 main();
@@ -55,8 +55,11 @@ const propulsionai = new Propulsionai({
 });
 
 async function main() {
-  const params: Propulsionai.ModelRunParams = { messages: [], model: 'REPLACE_ME', stream: true };
-  const modelRunResponse: Propulsionai.ModelRunResponse = await propulsionai.models.run('REPLACE_ME', params);
+  const params: Propulsionai.ModelChatParams = { messages: [], model: 'REPLACE_ME', stream: true };
+  const modelChatResponse: Propulsionai.ModelChatResponse = await propulsionai.models.chat(
+    'REPLACE_ME',
+    params,
+  );
 }
 
 main();
@@ -73,8 +76,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const modelRunResponse = await propulsionai.models
-    .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  const modelChatResponse = await propulsionai.models
+    .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
     .catch(async (err) => {
       if (err instanceof Propulsionai.APIError) {
         console.log(err.status); // 400
@@ -118,7 +121,7 @@ const propulsionai = new Propulsionai({
 });
 
 // Or, configure per-request:
-await propulsionai.models.run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
+await propulsionai.models.chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
   maxRetries: 5,
 });
 ```
@@ -135,7 +138,7 @@ const propulsionai = new Propulsionai({
 });
 
 // Override per-request:
-await propulsionai.models.run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
+await propulsionai.models.chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
   timeout: 5 * 1000,
 });
 ```
@@ -157,16 +160,16 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const propulsionai = new Propulsionai();
 
 const response = await propulsionai.models
-  .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: modelRunResponse, response: raw } = await propulsionai.models
-  .run('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+const { data: modelChatResponse, response: raw } = await propulsionai.models
+  .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(modelRunResponse.id);
+console.log(modelChatResponse.id);
 ```
 
 ### Making custom/undocumented requests
@@ -270,7 +273,7 @@ const propulsionai = new Propulsionai({
 });
 
 // Override per-request:
-await propulsionai.models.run(
+await propulsionai.models.chat(
   'REPLACE_ME',
   { messages: [], model: 'REPLACE_ME', stream: true },
   {

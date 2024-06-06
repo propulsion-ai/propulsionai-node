@@ -176,8 +176,8 @@ export namespace Propulsionai {
   export import RequestOptions = Core.RequestOptions;
 
   export import Models = API.Models;
-  export import ModelRunResponse = API.ModelRunResponse;
-  export import ModelRunParams = API.ModelRunParams;
+  export import ModelChatResponse = API.ModelChatResponse;
+  export import ModelChatParams = API.ModelChatParams;
 }
 
 export default Propulsionai;
