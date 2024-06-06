@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.4 (2024-06-06)
+
+Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#11](https://github.com/propulsion-ai/propulsionai-node/issues/11)) ([d81b314](https://github.com/propulsion-ai/propulsionai-node/commit/d81b31443a7755dc3b5c8e9a8378c901b3cf35eb))
+
 ## 0.1.0-alpha.3 (2024-06-06)
 
 Full Changelog: [v0.1.0-alpha.2...v0.1.0-alpha.3](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.2...v0.1.0-alpha.3)
