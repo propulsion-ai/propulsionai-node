@@ -182,6 +182,7 @@ export namespace ModelChatParams {
        * Omitting `parameters` defines a function with an empty parameter list.
        */
       parameters?: Record<string, unknown>;
+      [k: string]: unknown;
     }
   }
 
@@ -217,6 +218,7 @@ export namespace ModelChatParams {
        * Omitting `parameters` defines a function with an empty parameter list.
        */
       parameters?: Record<string, unknown>;
+      [k: string]: unknown;
     }
   }
 }
