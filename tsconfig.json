@@ -9,9 +9,9 @@
     "esModuleInterop": true,
     "baseUrl": "./",
     "paths": {
-      "petstore/_shims/auto/*": ["src/_shims/auto/*-node"],
-      "petstore/*": ["src/*"],
-      "petstore": ["src/index.ts"],
+      "propulsionai/_shims/auto/*": ["src/_shims/auto/*-node"],
+      "propulsionai/*": ["src/*"],
+      "propulsionai": ["src/index.ts"],
     },
     "noEmit": true,
 

@@ -1,6 +1,6 @@
-import { multipartFormRequestOptions, createForm } from 'petstore/core';
-import { Blob } from 'petstore/_shims/index';
-import { toFile } from 'petstore';
+import { multipartFormRequestOptions, createForm } from 'propulsionai/core';
+import { Blob } from 'propulsionai/_shims/index';
+import { toFile } from 'propulsionai';
 
 describe('form data validation', () => {
   test('valid values do not error', async () => {
