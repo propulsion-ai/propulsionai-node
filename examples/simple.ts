@@ -6,7 +6,7 @@ const propulsionai = new Propulsionai({
   bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
-async function mongo_query(parameters: any){
+async function mongo_query(parameters: any) {
   console.log(parameters);
   return {
     "_id": "",
@@ -14,6 +14,10 @@ async function mongo_query(parameters: any){
       "amount": "4345300"
     }
   }
+}
+
+let af:any = {
+  "mongo_query": mongo_query
 }
 
 async function main() {
@@ -63,15 +67,18 @@ async function main() {
     wait: true,
   });
 
-  console.log(modelRunResponse.id);
-  console.log(modelRunResponse.choices);
-  console.log(modelRunResponse.toolCalls);
-  
-  if(modelRunResponse.toolCalls){
-    modelRunResponse.toolCalls.forEach((toolCall: any) => {
-      console.log(JSON.stringify(toolCall));
-    });
-  }
+  // console.log(modelRunResponse.id);
+  // console.log(modelRunResponse.choices);
+  // console.log(modelRunResponse.toolCalls);
+
+  // if (modelRunResponse.toolCalls) {
+  //   modelRunResponse.toolCalls.forEach((toolCall: any) => {
+  //     if(af.indexOf(toolCall.function.name) > -1) {
+  //       const func:any = af[toolCall.function.name](toolCall.arguments);
+  //       let x = await func;
+  //     } 
+  //   });
+  // }
 }
 
 main();
