@@ -6,41 +6,43 @@ const propulsionai = new Propulsionai({
   bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
-async function mongo_query(parameters: any){
+async function mongo_query(parameters: any) {
   // console.log(parameters);
   return {
-    "_id": "",
-    "result": {
-      "amount": "4345300"
-    }
-  }
+    _id: '',
+    result: {
+      amount: '4345300',
+    },
+  };
 }
 
 async function main() {
   const modelRunResponse = await propulsionai.models.chatAuto('khzhgybzctm6e8m', {
-    tools: [{
-      type: 'function',
-      function: {
-        name: 'mongo_query',
-        description: 'Write a MongoDB for aggregating data.',
-        function: mongo_query,
-        parameters: {
-          collection: {
-            type: "string",
-            description: "Name of the collection to query",
+    tools: [
+      {
+        type: 'function',
+        function: {
+          name: 'mongo_query',
+          description: 'Write a MongoDB for aggregating data.',
+          function: mongo_query,
+          parameters: {
+            collection: {
+              type: 'string',
+              description: 'Name of the collection to query',
+            },
+            aggregate: {
+              type: 'array',
+              description: 'Array of aggregation stages',
+            },
           },
-          aggregate: {
-            type: "array",
-            description: "Array of aggregation stages",
-          }
-        }
-      }
-    }],
+        },
+      },
+    ],
     tool_choice: 'auto',
     messages: [
       {
-        "role": "system",
-        "content": `
+        role: 'system',
+        content: `
             You are a helpful coder - MongoDB Expert
             here is the transaction collection schema:
             {
@@ -51,12 +53,12 @@ async function main() {
               type: Enum('sales', 'refund', 'chargeback', 'dispute')
             }
             My user_id is '60b9b3b3e4b0b3b3b3b3b3b3'
-        `
+        `,
       },
       {
-        "role": "user",
-        "content": "What are my total sales for 2022"
-      }
+        role: 'user',
+        content: 'What are my total sales for 2022',
+      },
     ],
     model: 'khzhgybzctm6e8m',
     stream: false,
