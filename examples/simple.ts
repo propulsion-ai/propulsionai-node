@@ -7,7 +7,7 @@ const propulsionai = new Propulsionai({
 });
 
 async function mongo_query(parameters: any){
-  console.log(parameters);
+  // console.log(parameters);
   return {
     "_id": "",
     "result": {
@@ -17,7 +17,7 @@ async function mongo_query(parameters: any){
 }
 
 async function main() {
-  const modelRunResponse = await propulsionai.models.chat('khzhgybzctm6e8m', {
+  const modelRunResponse = await propulsionai.models.chatAuto('khzhgybzctm6e8m', {
     tools: [{
       type: 'function',
       function: {
@@ -66,12 +66,6 @@ async function main() {
   console.log(modelRunResponse.id);
   console.log(modelRunResponse.choices);
   console.log(modelRunResponse.toolCalls);
-  
-  if(modelRunResponse.toolCalls){
-    modelRunResponse.toolCalls.forEach((toolCall: any) => {
-      console.log(JSON.stringify(toolCall));
-    });
-  }
 }
 
 main();
