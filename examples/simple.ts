@@ -7,7 +7,13 @@ const propulsionai = new Propulsionai({
 });
 
 async function mongo_query(parameters: any){
-
+  console.log(parameters);
+  return {
+    "_id": "",
+    "result": {
+      "amount": "4345300"
+    }
+  }
 }
 
 async function main() {
