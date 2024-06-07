@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.0-alpha.7 (2024-06-07)
+
+Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
+
+### Features
+
+* various codegen changes ([df8a6e7](https://github.com/propulsion-ai/propulsionai-node/commit/df8a6e76f087dedc507b253eda807bb9d2613f23))
+
 ## 0.1.0-alpha.6 (2024-06-07)
 
 Full Changelog: [v0.1.0-alpha.5...v0.1.0-alpha.6](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.5...v0.1.0-alpha.6)
