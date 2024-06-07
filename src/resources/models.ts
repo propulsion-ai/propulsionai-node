@@ -222,7 +222,7 @@ export namespace ModelChatParams {
       /**
        * The function to be called. Must be a valid JavaScript function.
        */
-      function?: (parameters: any) => Promise<any>;
+      function?: (parameters: any) => Promise<void>;
     }
   }
 }
