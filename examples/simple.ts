@@ -6,13 +6,18 @@ const propulsionai = new Propulsionai({
   bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
+async function mongo_query(parameters: any){
+
+}
+
 async function main() {
-  const modelRunResponse = await propulsionai.models.run('khzhgybzctm6e8m', {
+  const modelRunResponse = await propulsionai.models.chat('khzhgybzctm6e8m', {
     tools: [{
       type: 'function',
       function: {
         name: 'mongo_query',
         description: 'Write a MongoDB for aggregating data.',
+        function: mongo_query,
         parameters: {
           collection: {
             type: "string",
@@ -55,10 +60,12 @@ async function main() {
   console.log(modelRunResponse.id);
   console.log(modelRunResponse.choices);
   console.log(modelRunResponse.toolCalls);
-  let x: any = modelRunResponse;
-  x.toolCalls.forEach((toolCall: any) => {
-    console.log(JSON.stringify(toolCall));
-  });
+  
+  if(modelRunResponse.toolCalls){
+    modelRunResponse.toolCalls.forEach((toolCall: any) => {
+      console.log(JSON.stringify(toolCall));
+    });
+  }
 }
 
 main();
