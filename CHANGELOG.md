@@ -15,6 +15,10 @@ Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/propulsion-
 
 ## 0.1.0-alpha.4 (2024-06-06)
 
+Full Changelog: [v0.1.0-alpha.4...v0.1.0-alpha.5](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.4...v0.1.0-alpha.5)
+
+## 0.1.0-alpha.4 (2024-06-06)
+
 Full Changelog: [v0.1.0-alpha.3...v0.1.0-alpha.4](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.3...v0.1.0-alpha.4)
 
 ### Features
