@@ -218,7 +218,11 @@ export namespace ModelChatParams {
        * Omitting `parameters` defines a function with an empty parameter list.
        */
       parameters?: Record<string, unknown>;
-      [k: string]: unknown;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => Promise<void>;
     }
   }
 }
