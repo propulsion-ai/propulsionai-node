@@ -25,7 +25,7 @@ from ._utils import (
 )
 from ._version import __version__
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
-from ._exceptions import APIStatusError, PropulsionaiError
+from ._exceptions import APIStatusError, PropulsionAIError
 from ._base_client import (
     DEFAULT_MAX_RETRIES,
     SyncAPIClient,
@@ -38,17 +38,17 @@ __all__ = [
     "ProxiesTypes",
     "RequestOptions",
     "resources",
-    "Propulsionai",
-    "AsyncPropulsionai",
+    "PropulsionAI",
+    "AsyncPropulsionAI",
     "Client",
     "AsyncClient",
 ]
 
 
-class Propulsionai(SyncAPIClient):
+class PropulsionAI(SyncAPIClient):
     models: resources.ModelsResource
-    with_raw_response: PropulsionaiWithRawResponse
-    with_streaming_response: PropulsionaiWithStreamedResponse
+    with_raw_response: PropulsionAIWithRawResponse
+    with_streaming_response: PropulsionAIWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -76,20 +76,20 @@ class Propulsionai(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous propulsionai client instance.
+        """Construct a new synchronous PropulsionAI client instance.
 
         This automatically infers the `bearer_token` argument from the `PROPULSIONAI_BEARER_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
             bearer_token = os.environ.get("PROPULSIONAI_BEARER_TOKEN")
         if bearer_token is None:
-            raise PropulsionaiError(
+            raise PropulsionAIError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the PROPULSIONAI_BEARER_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("PROPULSIONAI_BASE_URL")
+            base_url = os.environ.get("PROPULSION_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://api.propulsionhq.com"
 
@@ -105,8 +105,8 @@ class Propulsionai(SyncAPIClient):
         )
 
         self.models = resources.ModelsResource(self)
-        self.with_raw_response = PropulsionaiWithRawResponse(self)
-        self.with_streaming_response = PropulsionaiWithStreamedResponse(self)
+        self.with_raw_response = PropulsionAIWithRawResponse(self)
+        self.with_streaming_response = PropulsionAIWithStreamedResponse(self)
 
     @property
     @override
@@ -213,10 +213,10 @@ class Propulsionai(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncPropulsionai(AsyncAPIClient):
+class AsyncPropulsionAI(AsyncAPIClient):
     models: resources.AsyncModelsResource
-    with_raw_response: AsyncPropulsionaiWithRawResponse
-    with_streaming_response: AsyncPropulsionaiWithStreamedResponse
+    with_raw_response: AsyncPropulsionAIWithRawResponse
+    with_streaming_response: AsyncPropulsionAIWithStreamedResponse
 
     # client options
     bearer_token: str
@@ -244,20 +244,20 @@ class AsyncPropulsionai(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async propulsionai client instance.
+        """Construct a new async PropulsionAI client instance.
 
         This automatically infers the `bearer_token` argument from the `PROPULSIONAI_BEARER_TOKEN` environment variable if it is not provided.
         """
         if bearer_token is None:
             bearer_token = os.environ.get("PROPULSIONAI_BEARER_TOKEN")
         if bearer_token is None:
-            raise PropulsionaiError(
+            raise PropulsionAIError(
                 "The bearer_token client option must be set either by passing bearer_token to the client or by setting the PROPULSIONAI_BEARER_TOKEN environment variable"
             )
         self.bearer_token = bearer_token
 
         if base_url is None:
-            base_url = os.environ.get("PROPULSIONAI_BASE_URL")
+            base_url = os.environ.get("PROPULSION_AI_BASE_URL")
         if base_url is None:
             base_url = f"https://api.propulsionhq.com"
 
@@ -273,8 +273,8 @@ class AsyncPropulsionai(AsyncAPIClient):
         )
 
         self.models = resources.AsyncModelsResource(self)
-        self.with_raw_response = AsyncPropulsionaiWithRawResponse(self)
-        self.with_streaming_response = AsyncPropulsionaiWithStreamedResponse(self)
+        self.with_raw_response = AsyncPropulsionAIWithRawResponse(self)
+        self.with_streaming_response = AsyncPropulsionAIWithStreamedResponse(self)
 
     @property
     @override
@@ -381,26 +381,26 @@ class AsyncPropulsionai(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class PropulsionaiWithRawResponse:
-    def __init__(self, client: Propulsionai) -> None:
+class PropulsionAIWithRawResponse:
+    def __init__(self, client: PropulsionAI) -> None:
         self.models = resources.ModelsResourceWithRawResponse(client.models)
 
 
-class AsyncPropulsionaiWithRawResponse:
-    def __init__(self, client: AsyncPropulsionai) -> None:
+class AsyncPropulsionAIWithRawResponse:
+    def __init__(self, client: AsyncPropulsionAI) -> None:
         self.models = resources.AsyncModelsResourceWithRawResponse(client.models)
 
 
-class PropulsionaiWithStreamedResponse:
-    def __init__(self, client: Propulsionai) -> None:
+class PropulsionAIWithStreamedResponse:
+    def __init__(self, client: PropulsionAI) -> None:
         self.models = resources.ModelsResourceWithStreamingResponse(client.models)
 
 
-class AsyncPropulsionaiWithStreamedResponse:
-    def __init__(self, client: AsyncPropulsionai) -> None:
+class AsyncPropulsionAIWithStreamedResponse:
+    def __init__(self, client: AsyncPropulsionAI) -> None:
         self.models = resources.AsyncModelsResourceWithStreamingResponse(client.models)
 
 
-Client = Propulsionai
+Client = PropulsionAI
 
-AsyncClient = AsyncPropulsionai
+AsyncClient = AsyncPropulsionAI
