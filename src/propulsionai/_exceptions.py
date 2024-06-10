@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class PropulsionaiError(Exception):
+class PropulsionAIError(Exception):
     pass
 
 
-class APIError(PropulsionaiError):
+class APIError(PropulsionAIError):
     message: str
     request: httpx.Request
 
