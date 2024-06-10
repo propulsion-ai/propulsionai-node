@@ -1,121 +1,92 @@
-# Propulsion AI Python API library
+# Propulsion AI Node API Library
 
-[![PyPI version](https://img.shields.io/pypi/v/propulsionai.svg)](https://pypi.org/project/propulsionai/)
+[![NPM version](https://img.shields.io/npm/v/propulsionai.svg)](https://npmjs.org/package/propulsionai) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/propulsionai)
 
-The Propulsion AI Python library provides convenient access to the Propulsion AI REST API from any Python 3.7+
-application. The library includes type definitions for all request params and response fields,
-and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
-
-It is generated with [Stainless](https://www.stainlessapi.com/).
-
-## Documentation
+This library provides convenient access to the Propulsion AI REST API from server-side TypeScript or JavaScript.
 
 The REST API documentation can be found [on docs.propulsionai.com](https://docs.propulsionai.com). The full API of this library can be found in [api.md](api.md).
+
+It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
 ```sh
-# install from PyPI
-pip install --pre propulsionai
+npm install propulsionai
 ```
 
 ## Usage
 
 The full API of this library can be found in [api.md](api.md).
 
-```python
-import os
-from propulsionai import PropulsionAI
+<!-- prettier-ignore -->
+```js
+import PropulsionAI from 'propulsionai';
 
-client = PropulsionAI(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("PROPULSIONAI_BEARER_TOKEN"),
-)
+const propulsionAI = new PropulsionAI({
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
+});
 
-model_chat_response = client.models.chat(
-    "REPLACE_ME",
-    messages=[],
-    model="REPLACE_ME",
-    stream=True,
-)
-print(model_chat_response.id)
+async function main() {
+  const modelChatResponse = await propulsionAI.models.chat('REPLACE_ME', {
+    messages: [],
+    model: 'REPLACE_ME',
+    stream: true,
+  });
+
+  console.log(modelChatResponse.id);
+}
+
+main();
 ```
 
-While you can provide a `bearer_token` keyword argument,
-we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `PROPULSIONAI_BEARER_TOKEN="My Bearer Token"` to your `.env` file
-so that your Bearer Token is not stored in source control.
+### Request & Response types
 
-## Async usage
+This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:
 
-Simply import `AsyncPropulsionAI` instead of `PropulsionAI` and use `await` with each API call:
+<!-- prettier-ignore -->
+```ts
+import PropulsionAI from 'propulsionai';
 
-```python
-import os
-import asyncio
-from propulsionai import AsyncPropulsionAI
+const propulsionAI = new PropulsionAI({
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
+});
 
-client = AsyncPropulsionAI(
-    # This is the default and can be omitted
-    bearer_token=os.environ.get("PROPULSIONAI_BEARER_TOKEN"),
-)
+async function main() {
+  const params: PropulsionAI.ModelChatParams = { messages: [], model: 'REPLACE_ME', stream: true };
+  const modelChatResponse: PropulsionAI.ModelChatResponse = await propulsionAI.models.chat(
+    'REPLACE_ME',
+    params,
+  );
+}
 
-
-async def main() -> None:
-    model_chat_response = await client.models.chat(
-        "REPLACE_ME",
-        messages=[],
-        model="REPLACE_ME",
-        stream=True,
-    )
-    print(model_chat_response.id)
-
-
-asyncio.run(main())
+main();
 ```
 
-Functionality between the synchronous and asynchronous clients is otherwise identical.
-
-## Using types
-
-Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
-
-- Serializing back into JSON, `model.to_json()`
-- Converting to a dictionary, `model.to_dict()`
-
-Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
+Documentation for each method, request param, and response field are available in docstrings and will appear on hover in most modern editors.
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `propulsionai.APIConnectionError` is raised.
+When the library is unable to connect to the API,
+or if the API returns a non-success status code (i.e., 4xx or 5xx response),
+a subclass of `APIError` will be thrown:
 
-When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `propulsionai.APIStatusError` is raised, containing `status_code` and `response` properties.
+<!-- prettier-ignore -->
+```ts
+async function main() {
+  const modelChatResponse = await propulsionAI.models
+    .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+    .catch(async (err) => {
+      if (err instanceof PropulsionAI.APIError) {
+        console.log(err.status); // 400
+        console.log(err.name); // BadRequestError
+        console.log(err.headers); // {server: 'nginx', ...}
+      } else {
+        throw err;
+      }
+    });
+}
 
-All errors inherit from `propulsionai.APIError`.
-
-```python
-import propulsionai
-from propulsionai import PropulsionAI
-
-client = PropulsionAI()
-
-try:
-    client.models.chat(
-        "REPLACE_ME",
-        messages=[],
-        model="REPLACE_ME",
-        stream=True,
-    )
-except propulsionai.APIConnectionError as e:
-    print("The server could not be reached")
-    print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except propulsionai.RateLimitError as e:
-    print("A 429 status code was received; we should back off a bit.")
-except propulsionai.APIStatusError as e:
-    print("Another non-200-range status code was received")
-    print(e.status_code)
-    print(e.response)
+main();
 ```
 
 Error codes are as followed:
@@ -133,192 +104,182 @@ Error codes are as followed:
 
 ### Retries
 
-Certain errors are automatically retried 2 times by default, with a short exponential backoff.
+Certain errors will be automatically retried 2 times by default, with a short exponential backoff.
 Connection errors (for example, due to a network connectivity problem), 408 Request Timeout, 409 Conflict,
-429 Rate Limit, and >=500 Internal errors are all retried by default.
+429 Rate Limit, and >=500 Internal errors will all be retried by default.
 
-You can use the `max_retries` option to configure or disable retry settings:
+You can use the `maxRetries` option to configure or disable this:
 
-```python
-from propulsionai import PropulsionAI
+<!-- prettier-ignore -->
+```js
+// Configure the default for all requests:
+const propulsionAI = new PropulsionAI({
+  maxRetries: 0, // default is 2
+});
 
-# Configure the default for all requests:
-client = PropulsionAI(
-    # default is 2
-    max_retries=0,
-)
-
-# Or, configure per-request:
-client.with_options(max_retries=5).models.chat(
-    "REPLACE_ME",
-    messages=[],
-    model="REPLACE_ME",
-    stream=True,
-)
+// Or, configure per-request:
+await propulsionAI.models.chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
+  maxRetries: 5,
+});
 ```
 
 ### Timeouts
 
-By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+Requests time out after 1 minute by default. You can configure this with a `timeout` option:
 
-```python
-from propulsionai import PropulsionAI
+<!-- prettier-ignore -->
+```ts
+// Configure the default for all requests:
+const propulsionAI = new PropulsionAI({
+  timeout: 20 * 1000, // 20 seconds (default is 1 minute)
+});
 
-# Configure the default for all requests:
-client = PropulsionAI(
-    # 20 seconds (default is 1 minute)
-    timeout=20.0,
-)
-
-# More granular control:
-client = PropulsionAI(
-    timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
-)
-
-# Override per-request:
-client.with_options(timeout=5.0).models.chat(
-    "REPLACE_ME",
-    messages=[],
-    model="REPLACE_ME",
-    stream=True,
-)
+// Override per-request:
+await propulsionAI.models.chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true }, {
+  timeout: 5 * 1000,
+});
 ```
 
-On timeout, an `APITimeoutError` is thrown.
+On timeout, an `APIConnectionTimeoutError` is thrown.
 
-Note that requests that time out are [retried twice by default](#retries).
+Note that requests which time out will be [retried twice by default](#retries).
 
-## Advanced
+## Advanced Usage
 
-### Logging
+### Accessing raw Response data (e.g., headers)
 
-We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
+The "raw" `Response` returned by `fetch()` can be accessed through the `.asResponse()` method on the `APIPromise` type that all methods return.
 
-You can enable logging by setting the environment variable `PROPULSION_AI_LOG` to `debug`.
+You can also use the `.withResponse()` method to get the raw `Response` along with the parsed data.
 
-```shell
-$ export PROPULSION_AI_LOG=debug
+<!-- prettier-ignore -->
+```ts
+const propulsionAI = new PropulsionAI();
+
+const response = await propulsionAI.models
+  .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  .asResponse();
+console.log(response.headers.get('X-My-Header'));
+console.log(response.statusText); // access the underlying Response object
+
+const { data: modelChatResponse, response: raw } = await propulsionAI.models
+  .chat('REPLACE_ME', { messages: [], model: 'REPLACE_ME', stream: true })
+  .withResponse();
+console.log(raw.headers.get('X-My-Header'));
+console.log(modelChatResponse.id);
 ```
-
-### How to tell whether `None` means `null` or missing
-
-In an API response, a field may be explicitly `null`, or missing entirely; in either case, its value is `None` in this library. You can differentiate the two cases with `.model_fields_set`:
-
-```py
-if response.my_field is None:
-  if 'my_field' not in response.model_fields_set:
-    print('Got json like {}, without a "my_field" key present at all.')
-  else:
-    print('Got json like {"my_field": null}.')
-```
-
-### Accessing raw response data (e.g. headers)
-
-The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
-
-```py
-from propulsionai import PropulsionAI
-
-client = PropulsionAI()
-response = client.models.with_raw_response.chat(
-    "REPLACE_ME",
-    messages=[],
-    model="REPLACE_ME",
-    stream=True,
-)
-print(response.headers.get('X-My-Header'))
-
-model = response.parse()  # get the object that `models.chat()` would have returned
-print(model.id)
-```
-
-These methods return an [`APIResponse`](https://github.com/propulsion-ai/propulsionai-node/tree/main/src/propulsionai/_response.py) object.
-
-The async client returns an [`AsyncAPIResponse`](https://github.com/propulsion-ai/propulsionai-node/tree/main/src/propulsionai/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
-
-#### `.with_streaming_response`
-
-The above interface eagerly reads the full response body when you make the request, which may not always be what you want.
-
-To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
-
-```python
-with client.models.with_streaming_response.chat(
-    "REPLACE_ME",
-    messages=[],
-    model="REPLACE_ME",
-    stream=True,
-) as response:
-    print(response.headers.get("X-My-Header"))
-
-    for line in response.iter_lines():
-        print(line)
-```
-
-The context manager is required so that the response will reliably be closed.
 
 ### Making custom/undocumented requests
 
-This library is typed for convenient access to the documented API.
-
-If you need to access undocumented endpoints, params, or response properties, the library can still be used.
+This library is typed for convenient access to the documented API. If you need to access undocumented
+endpoints, params, or response properties, the library can still be used.
 
 #### Undocumented endpoints
 
-To make requests to undocumented endpoints, you can make requests using `client.get`, `client.post`, and other
-http verbs. Options on the client will be respected (such as retries) will be respected when making this
-request.
+To make requests to undocumented endpoints, you can use `client.get`, `client.post`, and other HTTP verbs.
+Options on the client, such as retries, will be respected when making these requests.
 
-```py
-import httpx
-
-response = client.post(
-    "/foo",
-    cast_to=httpx.Response,
-    body={"my_param": True},
-)
-
-print(response.headers.get("x-foo"))
+```ts
+await client.post('/some/path', {
+  body: { some_prop: 'foo' },
+  query: { some_query_arg: 'bar' },
+});
 ```
 
 #### Undocumented request params
 
-If you want to explicitly send an extra param, you can do so with the `extra_query`, `extra_body`, and `extra_headers` request
+To make requests using undocumented parameters, you may use `// @ts-expect-error` on the undocumented
+parameter. This library doesn't validate at runtime that the request matches the type, so any extra values you
+send will be sent as-is.
+
+```ts
+client.foo.create({
+  foo: 'my_param',
+  bar: 12,
+  // @ts-expect-error baz is not yet public
+  baz: 'undocumented option',
+});
+```
+
+For requests with the `GET` verb, any extra params will be in the query, all other requests will send the
+extra param in the body.
+
+If you want to explicitly send an extra argument, you can do so with the `query`, `body`, and `headers` request
 options.
 
 #### Undocumented response properties
 
-To access undocumented response properties, you can access the extra fields like `response.unknown_prop`. You
-can also get all the extra fields on the Pydantic model as a dict with
-[`response.model_extra`](https://docs.pydantic.dev/latest/api/base_model/#pydantic.BaseModel.model_extra).
+To access undocumented response properties, you may access the response object with `// @ts-expect-error` on
+the response object, or cast the response object to the requisite type. Like the request params, we do not
+validate or strip extra properties from the response from the API.
 
-### Configuring the HTTP client
+### Customizing the fetch client
 
-You can directly override the [httpx client](https://www.python-httpx.org/api/#client) to customize it for your use case, including:
+By default, this library uses `node-fetch` in Node, and expects a global `fetch` function in other environments.
 
-- Support for proxies
-- Custom transports
-- Additional [advanced](https://www.python-httpx.org/advanced/#client-instances) functionality
+If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
+(for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
+add the following import before your first import `from "PropulsionAI"`:
 
-```python
-from propulsionai import PropulsionAI, DefaultHttpxClient
-
-client = PropulsionAI(
-    # Or use the `PROPULSION_AI_BASE_URL` env var
-    base_url="http://my.test.server.example.com:8083",
-    http_client=DefaultHttpxClient(
-        proxies="http://my.test.proxy.example.com",
-        transport=httpx.HTTPTransport(local_address="0.0.0.0"),
-    ),
-)
+```ts
+// Tell TypeScript and the package to use the global web fetch instead of node-fetch.
+// Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
+import 'propulsionai/shims/web';
+import PropulsionAI from 'propulsionai';
 ```
 
-### Managing HTTP resources
+To do the inverse, add `import "propulsionai/shims/node"` (which does import polyfills).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/propulsion-ai/propulsionai-node/tree/main/src/_shims#readme)).
 
-By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
+### Logging and middleware
 
-## Versioning
+You may also provide a custom `fetch` function when instantiating the client,
+which can be used to inspect or alter the `Request` or `Response` before/after each request:
+
+```ts
+import { fetch } from 'undici'; // as one example
+import PropulsionAI from 'propulsionai';
+
+const client = new PropulsionAI({
+  fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
+    console.log('About to make a request', url, init);
+    const response = await fetch(url, init);
+    console.log('Got response', response);
+    return response;
+  },
+});
+```
+
+Note that if given a `DEBUG=true` environment variable, this library will log all requests and responses automatically.
+This is intended for debugging purposes only and may change in the future without notice.
+
+### Configuring an HTTP(S) Agent (e.g., for proxies)
+
+By default, this library uses a stable agent for all http/https requests to reuse TCP connections, eliminating many TCP & TLS handshakes and shaving around 100ms off most requests.
+
+If you would like to disable or customize this behavior, for example to use the API behind a proxy, you can pass an `httpAgent` which is used for all requests (be they http or https), for example:
+
+<!-- prettier-ignore -->
+```ts
+import http from 'http';
+import { HttpsProxyAgent } from 'https-proxy-agent';
+
+// Configure the default for all requests:
+const propulsionAI = new PropulsionAI({
+  httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
+});
+
+// Override per-request:
+await propulsionAI.models.chat(
+  'REPLACE_ME',
+  { messages: [], model: 'REPLACE_ME', stream: true },
+  {
+    httpAgent: new http.Agent({ keepAlive: false }),
+  },
+);
+```
+
+## Semantic versioning
 
 This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) conventions, though certain backwards-incompatible changes may be released as minor versions:
 
@@ -332,4 +293,18 @@ We are keen for your feedback; please open an [issue](https://www.github.com/pro
 
 ## Requirements
 
-Python 3.7 or higher.
+TypeScript >= 4.5 is supported.
+
+The following runtimes are supported:
+
+- Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
+- Deno v1.28.0 or higher, using `import PropulsionAI from "npm:propulsionai"`.
+- Bun 1.0 or later.
+- Cloudflare Workers.
+- Vercel Edge Runtime.
+- Jest 28 or greater with the `"node"` environment (`"jsdom"` is not supported at this time).
+- Nitro v2.6 or greater.
+
+Note that React Native is not supported at this time.
+
+If you are interested in other runtime environments, please open or upvote an issue on GitHub.
