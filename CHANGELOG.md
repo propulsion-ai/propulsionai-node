@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2024-06-10)
+
+Full Changelog: [v0.1.0-alpha.7...v0.1.0-alpha.8](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.7...v0.1.0-alpha.8)
+
+### Features
+
+* **api:** update via SDK Studio ([#25](https://github.com/propulsion-ai/propulsionai-node/issues/25)) ([49c15d9](https://github.com/propulsion-ai/propulsionai-node/commit/49c15d9807f6defd612ec959ceb809a45983ffdc))
+
+
+### Chores
+
+* **internal:** version bump ([#22](https://github.com/propulsion-ai/propulsionai-node/issues/22)) ([cea2448](https://github.com/propulsion-ai/propulsionai-node/commit/cea244835f22bf778c2434a931639d4d9bbaaf3c))
+
 ## 0.1.0-alpha.7 (2024-06-07)
 
 Full Changelog: [v0.1.0-alpha.6...v0.1.0-alpha.7](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.6...v0.1.0-alpha.7)
