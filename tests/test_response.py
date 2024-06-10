@@ -6,7 +6,7 @@ import httpx
 import pytest
 import pydantic
 
-from propulsionai import BaseModel, Propulsionai, AsyncPropulsionai
+from propulsionai import BaseModel, PropulsionAI, AsyncPropulsionAI
 from propulsionai._response import (
     APIResponse,
     BaseAPIResponse,
@@ -60,7 +60,7 @@ class PydanticModel(pydantic.BaseModel):
     ...
 
 
-def test_response_parse_mismatched_basemodel(client: Propulsionai) -> None:
+def test_response_parse_mismatched_basemodel(client: PropulsionAI) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -78,7 +78,7 @@ def test_response_parse_mismatched_basemodel(client: Propulsionai) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_mismatched_basemodel(async_client: AsyncPropulsionai) -> None:
+async def test_async_response_parse_mismatched_basemodel(async_client: AsyncPropulsionAI) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -95,7 +95,7 @@ async def test_async_response_parse_mismatched_basemodel(async_client: AsyncProp
         await response.parse(to=PydanticModel)
 
 
-def test_response_parse_custom_stream(client: Propulsionai) -> None:
+def test_response_parse_custom_stream(client: PropulsionAI) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=client,
@@ -110,7 +110,7 @@ def test_response_parse_custom_stream(client: Propulsionai) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_stream(async_client: AsyncPropulsionai) -> None:
+async def test_async_response_parse_custom_stream(async_client: AsyncPropulsionAI) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=b"foo"),
         client=async_client,
@@ -129,7 +129,7 @@ class CustomModel(BaseModel):
     bar: int
 
 
-def test_response_parse_custom_model(client: Propulsionai) -> None:
+def test_response_parse_custom_model(client: PropulsionAI) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -145,7 +145,7 @@ def test_response_parse_custom_model(client: Propulsionai) -> None:
 
 
 @pytest.mark.asyncio
-async def test_async_response_parse_custom_model(async_client: AsyncPropulsionai) -> None:
+async def test_async_response_parse_custom_model(async_client: AsyncPropulsionAI) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
@@ -160,7 +160,7 @@ async def test_async_response_parse_custom_model(async_client: AsyncPropulsionai
     assert obj.bar == 2
 
 
-def test_response_parse_annotated_type(client: Propulsionai) -> None:
+def test_response_parse_annotated_type(client: PropulsionAI) -> None:
     response = APIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=client,
@@ -177,7 +177,7 @@ def test_response_parse_annotated_type(client: Propulsionai) -> None:
     assert obj.bar == 2
 
 
-async def test_async_response_parse_annotated_type(async_client: AsyncPropulsionai) -> None:
+async def test_async_response_parse_annotated_type(async_client: AsyncPropulsionAI) -> None:
     response = AsyncAPIResponse(
         raw=httpx.Response(200, content=json.dumps({"foo": "hello!", "bar": 2})),
         client=async_client,
