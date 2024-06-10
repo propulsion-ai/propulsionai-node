@@ -11,9 +11,8 @@ if [ -f "Brewfile" ] && [ "$(uname -s)" = "Darwin" ]; then
   }
 fi
 
-echo "==> Installing Python dependencies…"
+echo "==> Installing Node dependencies…"
 
-# experimental uv support makes installations significantly faster
-rye config --set-bool behavior.use-uv=true
+PACKAGE_MANAGER=$(command -v yarn >/dev/null 2>&1 && echo "yarn" || echo "npm")
 
-rye sync --all-features
+$PACKAGE_MANAGER install

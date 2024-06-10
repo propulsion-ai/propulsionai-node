@@ -1,38 +1,21 @@
 ## Setting up the environment
 
-### With Rye
+This repository uses [`yarn@v1`](https://classic.yarnpkg.com/lang/en/docs/install/#mac-stable).
+Other package managers may work but are not officially supported for development.
 
-We use [Rye](https://rye.astral.sh/) to manage dependencies so we highly recommend [installing it](https://rye.astral.sh/guide/installation/) as it will automatically provision a Python environment with the expected Python version.
+To set up the repository, run:
 
-After installing Rye, you'll just have to run this command:
-
-```sh
-$ rye sync --all-features
+```bash
+yarn
+yarn build
 ```
 
-You can then run scripts using `rye run python script.py` or by activating the virtual environment:
-
-```sh
-$ rye shell
-# or manually activate - https://docs.python.org/3/library/venv.html#how-venvs-work
-$ source .venv/bin/activate
-
-# now you can omit the `rye run` prefix
-$ python script.py
-```
-
-### Without Rye
-
-Alternatively if you don't want to install `Rye`, you can stick with the standard `pip` setup by ensuring you have the Python version specified in `.python-version`, create a virtual environment however you desire and then install dependencies using this command:
-
-```sh
-$ pip install -r requirements-dev.lock
-```
+This will install all the required dependencies and build output files to `dist/`.
 
 ## Modifying/Adding code
 
 Most of the SDK is generated code, and any modified code will be overridden on the next generation. The
-`src/propulsionai/lib/` and `examples/` directories are exceptions and will never be overridden.
+`src/lib/` and `examples/` directories are exceptions and will never be overridden.
 
 ## Adding and running examples
 
@@ -40,16 +23,16 @@ All files in the `examples/` directory are not modified by the Stainless generat
 added to.
 
 ```bash
-# add an example to examples/<your-example>.py
+// add an example to examples/<your-example>.ts
 
-#!/usr/bin/env -S rye run python
+#!/usr/bin/env -S npm run tsn -T
 …
 ```
 
 ```
-chmod +x examples/<your-example>.py
+chmod +x examples/<your-example>.ts
 # run the example against your api
-./examples/<your-example>.py
+yarn tsn -T examples/<your-example>.ts
 ```
 
 ## Using the repository from source
@@ -59,25 +42,25 @@ If you’d like to use the repository from source, you can either install from g
 To install via git:
 
 ```bash
-pip install git+ssh://git@github.com/propulsion-ai/propulsionai-python.git
+npm install git+ssh://git@github.com:propulsion-ai/propulsionai-node.git
 ```
 
-Alternatively, you can build from source and install the wheel file:
-
-Building this package will create two files in the `dist/` directory, a `.tar.gz` containing the source files and a `.whl` that can be used to install the package efficiently.
-
-To create a distributable version of the library, all you have to do is run this command:
+Alternatively, to link a local copy of the repo:
 
 ```bash
-rye build
-# or
-python -m build
-```
+# Clone
+git clone https://www.github.com/propulsion-ai/propulsionai-node
+cd propulsionai-node
 
-Then to install:
+# With yarn
+yarn link
+cd ../my-package
+yarn link propulsionai
 
-```sh
-pip install ./path-to-wheel-file.whl
+# With pnpm
+pnpm link --global
+cd ../my-package
+pnpm link -—global propulsionai
 ```
 
 ## Running tests
@@ -85,41 +68,40 @@ pip install ./path-to-wheel-file.whl
 Most tests require you to [set up a mock server](https://github.com/stoplightio/prism) against the OpenAPI spec to run the tests.
 
 ```bash
-# you will need npm installed
 npx prism mock path/to/your/openapi.yml
 ```
 
 ```bash
-rye run pytest
+yarn run test
 ```
 
 ## Linting and formatting
 
-This repository uses [ruff](https://github.com/astral-sh/ruff) and
-[black](https://github.com/psf/black) to format the code in the repository.
+This repository uses [prettier](https://www.npmjs.com/package/prettier) and
+[eslint](https://www.npmjs.com/package/eslint) to format the code in the repository.
 
 To lint:
 
 ```bash
-rye run lint
+yarn lint
 ```
 
-To format and fix all ruff issues automatically:
+To format and fix all lint issues automatically:
 
 ```bash
-rye run format
+yarn fix
 ```
 
 ## Publishing and releases
 
-Changes made to this repository via the automated release PR pipeline should publish to PyPI automatically. If
+Changes made to this repository via the automated release PR pipeline should publish to npm automatically. If
 the changes aren't made through the automated pipeline, you may want to make releases manually.
 
 ### Publish with a GitHub workflow
 
-You can release to package managers by using [the `Publish PyPI` GitHub action](https://www.github.com/propulsion-ai/propulsionai-python/actions/workflows/publish-pypi.yml). This requires a setup organization or repository secret to be set up.
+You can release to package managers by using [the `Publish NPM` GitHub action](https://www.github.com/propulsion-ai/propulsionai-node/actions/workflows/publish-npm.yml). This requires a setup organization or repository secret to be set up.
 
 ### Publish manually
 
-If you need to manually release a package, you can run the `bin/publish-pypi` script with a `PYPI_TOKEN` set on
+If you need to manually release a package, you can run the `bin/publish-npm` script with an `NPM_TOKEN` set on
 the environment.
