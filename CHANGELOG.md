@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.1.0-alpha.8 (2024-06-11)
+
+Full Changelog: [v0.1.0-alpha.1...v0.1.0-alpha.8](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.1...v0.1.0-alpha.8)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#39](https://github.com/propulsion-ai/propulsionai-node/issues/39)) ([73c5c08](https://github.com/propulsion-ai/propulsionai-node/commit/73c5c08d693cf4f4e10f709841d1bff8a0d171f5))
+* **api:** update via SDK Studio ([#40](https://github.com/propulsion-ai/propulsionai-node/issues/40)) ([53ca6d9](https://github.com/propulsion-ai/propulsionai-node/commit/53ca6d91cab3637c81052fc28fe81d7c035062ca))
+* **api:** update via SDK Studio ([#41](https://github.com/propulsion-ai/propulsionai-node/issues/41)) ([182af37](https://github.com/propulsion-ai/propulsionai-node/commit/182af372547b14055b6af535e33a2aa04a0144e9))
+* various codegen changes ([ccd08ae](https://github.com/propulsion-ai/propulsionai-node/commit/ccd08ae4285b5295c368c50f90ea49697dd6b15c))
+
+
+### Chores
+
+* **deps:** bump braces from 3.0.2 to 3.0.3 ([18949ca](https://github.com/propulsion-ai/propulsionai-node/commit/18949ca9164d44cf364f1a8b9dc6a708b4678e3b))
+
 ## 0.1.0-alpha.1 (2024-06-10)
 
 Full Changelog: [v0.0.1-alpha.0...v0.1.0-alpha.1](https://github.com/propulsion-ai/propulsionai-node/compare/v0.0.1-alpha.0...v0.1.0-alpha.1)
