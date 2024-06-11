@@ -18,7 +18,7 @@ export class Models extends APIResource {
   }
 
   /**
-   * Run a model with specified tools and messages.
+   * Run a model with specified tools and messages and automatically call the tools.
    */
   async chatAuto(
     modelId: string,
@@ -26,24 +26,32 @@ export class Models extends APIResource {
     options?: Core.RequestOptions,
   ): Promise<Core.APIPromise<ModelChatResponse>> {
     const { wait, ...body } = params;
-    if(body.tool_choice !== 'auto' || body.tools?.length === 0) {
+    if (body.tools?.length === 0) {
       return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
-    }else{
-      let inital_response:ModelChatResponse = await this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
-      if(inital_response.toolCalls){
-        for (let i in inital_response.toolCalls){
-          const toolCall:any = inital_response.toolCalls[i];
-          const uf:any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function.function;
-          if(!uf){
+    } else {
+      let inital_response: ModelChatResponse = await this._client.post(`/api/v1/${modelId}/run`, {
+        query: { wait },
+        body,
+        ...options,
+      });
+      if (inital_response.toolCalls) {
+        for (let i in inital_response.toolCalls) {
+          const toolCall: any = inital_response.toolCalls[i];
+          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function
+            .function;
+          if (!uf) {
             return inital_response;
           }
           let toolResponse = await uf(toolCall.function.parameters);
-          if(!toolResponse){
+          if (!toolResponse) {
             return inital_response;
           }
-          body.messages.push({content: `Call the function named ${toolCall.function.name} with provided parameters.`, role: 'assistant'});
-          body.messages.push({content: JSON.stringify(toolResponse), role: 'user'});
-          
+          body.messages.push({
+            content: `Call the function named ${toolCall.function.name} with provided parameters.`,
+            role: 'assistant',
+          });
+          body.messages.push({ content: JSON.stringify(toolResponse), role: 'user' });
+
           delete body.tool_choice;
           delete body.tools;
 
@@ -52,7 +60,6 @@ export class Models extends APIResource {
       }
       return inital_response;
     }
-    
   }
 }
 
@@ -260,7 +267,7 @@ export namespace ModelChatParams {
       /**
        * The function to be called. Must be a valid JavaScript function.
        */
-      function?: (parameters: any) => Promise<void>;
+      function?: (parameters: any) => any;
     }
   }
 }
