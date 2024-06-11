@@ -117,6 +117,7 @@ export class PropulsionAI extends Core.APIClient {
   }
 
   models: API.Models = new API.Models(this);
+  datasets: API.Datasets = new API.Datasets(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -178,6 +179,8 @@ export namespace PropulsionAI {
   export import Models = API.Models;
   export import ModelChatResponse = API.ModelChatResponse;
   export import ModelChatParams = API.ModelChatParams;
+
+  export import Datasets = API.Datasets;
 }
 
 export default PropulsionAI;
