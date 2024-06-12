@@ -29,7 +29,7 @@ export interface ModelChatResponse {
 
   object?: string;
 
-  toolCalls?: Array<ModelChatResponse.ToolCall>;
+  toolCalls?: Array<unknown>;
 
   usage?: ModelChatResponse.Usage;
 }
@@ -47,14 +47,6 @@ export namespace ModelChatResponse {
 
       role?: string;
     }
-  }
-
-  export interface ToolCall {
-    arguments?: unknown;
-
-    functionName?: string;
-
-    response?: unknown;
   }
 
   export interface Usage {
