@@ -16,6 +16,51 @@ export class Models extends APIResource {
     const { wait, ...body } = params;
     return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
   }
+
+  /**
+   * Run a model with specified tools and messages and automatically call the tools.
+   */
+  async chatAuto(
+    modelId: string,
+    params: ModelChatParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIPromise<ModelChatResponse>> {
+    const { wait, ...body } = params;
+    if (body.tools?.length === 0) {
+      return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
+    } else {
+      let inital_response: ModelChatResponse = await this._client.post(`/api/v1/${modelId}/run`, {
+        query: { wait },
+        body,
+        ...options,
+      });
+      if (inital_response.toolCalls) {
+        for (let i in inital_response.toolCalls) {
+          const toolCall: any = inital_response.toolCalls[i];
+          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function
+            .function;
+          if (!uf) {
+            return inital_response;
+          }
+          let toolResponse = await uf(toolCall.function.parameters);
+          if (!toolResponse) {
+            return inital_response;
+          }
+          body.messages.push({
+            content: `Call the function named ${toolCall.function.name} with provided parameters.`,
+            role: 'assistant',
+          });
+          body.messages.push({ content: JSON.stringify(toolResponse), role: 'user' });
+
+          delete body.tool_choice;
+          delete body.tools;
+
+          return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
+        }
+      }
+      return inital_response;
+    }
+  }
 }
 
 export interface ModelChatResponse {
@@ -206,6 +251,11 @@ export namespace ModelChatParams {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => any;
     }
   }
 }
