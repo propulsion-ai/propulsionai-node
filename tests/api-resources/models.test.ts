@@ -36,14 +36,14 @@ describe('resource models', () => {
       wait: true,
       max_tokens: 0,
       n: 1,
-      temperature: 1,
+      temperature: 0,
       tool_choice: 'none',
       tools: [
         { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
         { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
         { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
       ],
-      top_p: 1,
+      top_p: 0,
     });
   });
 });

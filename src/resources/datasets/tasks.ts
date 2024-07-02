@@ -6,7 +6,7 @@ import * as TasksAPI from './tasks';
 
 export class Tasks extends APIResource {
   /**
-   * This endpoint creates a new task for the dataset with specific columns.
+   * Create a new dataset task
    */
   create(datasetId: number, body: TaskCreateParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/api/v1/dataset/${datasetId}/task`, {

@@ -6,7 +6,7 @@ import * as ModelsAPI from './models';
 
 export class Models extends APIResource {
   /**
-   * This endpoint runs a model with the specified tools and messages.
+   * Run a model with specified tools and messages.
    */
   chat(
     modelId: string,
@@ -115,15 +115,9 @@ export namespace ModelChatResponse {
       description?: string;
 
       /**
-       * The parameters the functions accepts, described as a JSON Schema object. See the
-       * [guide](/docs/guides/function-calling) for examples, and the
-       * [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for
-       * documentation about the format.
-       *
-       * Omitting `parameters` defines a function with an empty parameter list.
+       * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
-      [k: string]: unknown;
     }
   }
 
@@ -158,30 +152,19 @@ export interface ModelChatParams {
   wait?: boolean;
 
   /**
-   * Body param: The maximum number of [tokens](/tokenizer) that can be generated in
-   * the chat completion.
-   *
-   * The total length of input tokens and generated tokens is limited by the model's
-   * context length.
-   * [Example Python code](https://cookbook.openai.com/examples/how_to_count_tokens_with_tiktoken)
-   * for counting tokens.
+   * Body param: The maximum number of tokens that can be generated in the chat
+   * completion.
    */
   max_tokens?: number | null;
 
   /**
    * Body param: How many chat completion choices to generate for each input message.
-   * Note that you will be charged based on the number of generated tokens across all
-   * of the choices. Keep `n` as `1` to minimize costs.
    */
   n?: number | null;
 
   /**
    * Body param: An alternative to sampling with temperature, called nucleus
-   * sampling, where the model considers the results of the tokens with top_p
-   * probability mass. So 0.1 means only the tokens comprising the top 10%
-   * probability mass are considered.
-   *
-   * We generally recommend altering this or `temperature` but not both.
+   * sampling.
    */
   temperature?: number | null;
 
@@ -189,12 +172,7 @@ export interface ModelChatParams {
    * Body param: Controls which (if any) tool is called by the model. `none` means
    * the model will not call any tool and instead generates a message. `auto` means
    * the model can pick between generating a message or calling one or more tools.
-   * `required` means the model must call one or more tools. Specifying a particular
-   * tool via `{"type": "function", "function": {"name": "my_function"}}` forces the
-   * model to call that tool.
-   *
-   * `none` is the default when no tools are present. `auto` is the default if tools
-   * are present.
+   * `required` means the model must call one or more tools.
    */
   tool_choice?: 'none' | 'auto' | 'required' | ModelChatParams.ChatCompletionNamedToolChoice;
 
@@ -207,11 +185,7 @@ export interface ModelChatParams {
 
   /**
    * Body param: An alternative to sampling with temperature, called nucleus
-   * sampling, where the model considers the results of the tokens with top_p
-   * probability mass. So 0.1 means only the tokens comprising the top 10%
-   * probability mass are considered.
-   *
-   * We generally recommend altering this or `temperature` but not both.
+   * sampling.
    */
   top_p?: number | null;
 }
@@ -244,15 +218,9 @@ export namespace ModelChatParams {
       description?: string;
 
       /**
-       * The parameters the functions accepts, described as a JSON Schema object. See the
-       * [guide](/docs/guides/function-calling) for examples, and the
-       * [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for
-       * documentation about the format.
-       *
-       * Omitting `parameters` defines a function with an empty parameter list.
+       * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
-      [k: string]: unknown;
     }
   }
 
@@ -280,12 +248,7 @@ export namespace ModelChatParams {
       description?: string;
 
       /**
-       * The parameters the functions accepts, described as a JSON Schema object. See the
-       * [guide](/docs/guides/function-calling) for examples, and the
-       * [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for
-       * documentation about the format.
-       *
-       * Omitting `parameters` defines a function with an empty parameter list.
+       * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
 
