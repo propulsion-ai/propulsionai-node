@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.0-alpha.11 (2024-07-03)
+
+Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
+
+### Features
+
+* add epAuto ([6f605ef](https://github.com/propulsion-ai/propulsionai-node/commit/6f605ef69faf8236453741bf19b58d5439955ff0))
+* add example ([517b860](https://github.com/propulsion-ai/propulsionai-node/commit/517b8605bcd970a9c1c6f2d164a698ea3e43443f))
+* lint ([2a8c72c](https://github.com/propulsion-ai/propulsionai-node/commit/2a8c72cf94177700ae86a05f1d6bce595eda3fcc))
+
 ## 0.1.0-alpha.10 (2024-07-03)
 
 Full Changelog: [v0.1.0-alpha.9...v0.1.0-alpha.10](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.9...v0.1.0-alpha.10)
