@@ -7,7 +7,7 @@ const propulsionai = new Propulsionai({
 });
 
 async function mongo_query(parameters: any) {
-  // console.log(parameters);
+  console.log(parameters);
   return {
     _id: '',
     result: {
