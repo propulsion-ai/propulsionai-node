@@ -181,9 +181,7 @@ export namespace PropulsionAI {
 
   export import Models = API.Models;
   export import ModelChatResponse = API.ModelChatResponse;
-  export import ModelEpResponse = API.ModelEpResponse;
   export import ModelChatParams = API.ModelChatParams;
-  export import ModelEpParams = API.ModelEpParams;
 
   export import Datasets = API.Datasets;
 }
