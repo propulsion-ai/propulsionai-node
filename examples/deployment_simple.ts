@@ -17,39 +17,33 @@ async function main() {
       {
         type: 'function',
         function: {
-          "name": "query_financial_report",
-          "description": "Get the financial report data by running a Mongoose query with various operations including joins, aggregations, and filtering.",
+          name: 'query_financial_report',
+          description:
+            'Get the financial report data by running a Mongoose query with various operations including joins, aggregations, and filtering.',
           function: mongo_query,
-          "parameters": {
-            "type": "object",
-            "properties": {
-              "scenarioId": {
-                "type": "number",
-                "description": "the unique id of the scneario that links to the financial report"
+          parameters: {
+            type: 'object',
+            properties: {
+              scenarioId: {
+                type: 'number',
+                description: 'the unique id of the scneario that links to the financial report',
               },
-              "accountType": {
-                "type": "string",
-                "description": "the type of account to filter by",
-                "enum": [
-                  "income",
-                  "expenses",
-                  "costOfSales"
-                ]
+              accountType: {
+                type: 'string',
+                description: 'the type of account to filter by',
+                enum: ['income', 'expenses', 'costOfSales'],
               },
-              "fromDate": {
-                "type": "string",
-                "description": "Date in the format of 'YYYY-MM-DD' to filter the transactions from",
+              fromDate: {
+                type: 'string',
+                description: "Date in the format of 'YYYY-MM-DD' to filter the transactions from",
               },
-              "toDate": {
-                "type": "string",
-                "description": "Date in the format of 'YYYY-MM-DD' to filter the transactions till",
+              toDate: {
+                type: 'string',
+                description: "Date in the format of 'YYYY-MM-DD' to filter the transactions till",
               },
             },
-            "required": [
-              "scenarioId",
-              "accountType"
-            ]
-          }
+            required: ['scenarioId', 'accountType'],
+          },
         },
       },
     ],
