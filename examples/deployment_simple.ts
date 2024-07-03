@@ -12,14 +12,15 @@ async function mongo_query(parameters: any) {
 }
 
 async function main() {
-  const modelRunResponse = await propulsionai.models.epAuto('d-imon', {
+  console.log('Running the model...');
+  const modelRunResponse = await propulsionai.models.epAuto('d-qptg', {
     tools: [
       {
         type: 'function',
         function: {
           name: 'query_financial_report',
           description:
-            'Get the financial report data by running a Mongoose query with various operations including joins, aggregations, and filtering.',
+            'Get the financial report data.',
           function: mongo_query,
           parameters: {
             type: 'object',
