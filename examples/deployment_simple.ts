@@ -19,8 +19,7 @@ async function main() {
         type: 'function',
         function: {
           name: 'query_financial_report',
-          description:
-            'Get the financial report data.',
+          description: 'Get the financial report data.',
           function: mongo_query,
           parameters: {
             type: 'object',
