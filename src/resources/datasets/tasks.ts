@@ -1,12 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import * as Core from '../../core';
 import { APIResource } from '../../resource';
+import * as Core from '../../core';
 import * as TasksAPI from './tasks';
 
 export class Tasks extends APIResource {
   /**
-   * This endpoint creates a new task for the dataset with specific columns.
+   * Create a new dataset task
    */
   create(datasetId: number, body: TaskCreateParams, options?: Core.RequestOptions): Core.APIPromise<void> {
     return this._client.post(`/api/v1/dataset/${datasetId}/task`, {
