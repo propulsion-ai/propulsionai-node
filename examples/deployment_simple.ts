@@ -12,7 +12,7 @@ async function mongo_query(parameters: any) {
 }
 
 async function main() {
-  const modelRunResponse = await propulsionai.models.chatAuto('d-imon', {
+  const modelRunResponse = await propulsionai.models.epAuto('d-imon', {
     tools: [
       {
         type: 'function',
@@ -66,7 +66,7 @@ async function main() {
         content: 'What are my revenues for Jan 2023?',
       },
     ],
-    model: 'khzhgybzctm6e8m',
+    model: 'auto',
     stream: false,
     wait: true,
   });
