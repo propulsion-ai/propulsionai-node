@@ -18,7 +18,7 @@ async function main() {
     messages: [
       {
         role: 'user',
-        content: 'Can you tell me something about PropulsionAI\'s Astro and Orion?',
+        content: "Can you tell me something about PropulsionAI's Astro and Orion?",
       },
     ],
     model: 'auto',
