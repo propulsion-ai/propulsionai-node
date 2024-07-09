@@ -6,7 +6,7 @@ import * as ModelsAPI from './models';
 
 export class Models extends APIResource {
   /**
-   * Run a model with specified tools and messages.
+   * (Deprecated) Run a model with specified tools and messages.
    */
   chat(
     modelId: string,
