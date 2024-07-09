@@ -13,12 +13,12 @@ async function mongo_query(parameters: any): Promise<any> {
 
 async function main() {
   console.log('Running the model...');
-  const modelRunResponse = await propulsionai.models.epAuto('d-qptg', {
-    knowledgebases: ['r4293kdpstbjmuc'],
+  const modelRunResponse = await propulsionai.models.epAuto('<deployment_tag>', {
+    knowledgebases: ['<knowledgebase_ids>'],
     messages: [
       {
         role: 'user',
-        content: 'Can you tell me something about PropulsionAI?',
+        content: 'Can you tell me something about PropulsionAI\'s Astro and Orion?',
       },
     ],
     model: 'auto',
