@@ -37,6 +37,7 @@ describe('resource models', () => {
       knowledgebases: ['string', 'string', 'string'],
       max_tokens: 0,
       n: 1,
+      task_id: 'string',
       temperature: 0,
       tool_choice: 'none',
       tools: [
@@ -76,6 +77,7 @@ describe('resource models', () => {
       knowledgebases: ['string', 'string', 'string'],
       max_tokens: 0,
       n: 1,
+      task_id: 'string',
       temperature: 0,
       tool_choice: 'none',
       tools: [
