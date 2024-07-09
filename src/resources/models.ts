@@ -18,15 +18,93 @@ export class Models extends APIResource {
   }
 
   /**
-   * Call a deployment endpoint with specified tools and messages.
+   * Run a model with specified tools and messages and automatically call the tools.
    */
-  ep(
-    deploymentTag: string,
-    params: ModelEpParams,
+  async chatAuto(
+    modelId: string,
+    params: ModelChatParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<ModelEpResponse> {
+  ): Promise<Core.APIPromise<ModelChatResponse>> {
     const { wait, ...body } = params;
-    return this._client.post(`/api/v1/chat/${deploymentTag}`, { query: { wait }, body, ...options });
+    if (body.tools?.length === 0) {
+      return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
+    } else {
+      let inital_response: ModelChatResponse = await this._client.post(`/api/v1/${modelId}/run`, {
+        query: { wait },
+        body,
+        ...options,
+      });
+      if (inital_response.toolCalls) {
+        for (let i in inital_response.toolCalls) {
+          const toolCall: any = inital_response.toolCalls[i];
+          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function
+            .function;
+          if (!uf) {
+            return inital_response;
+          }
+          let toolResponse = await uf(toolCall.function.parameters);
+          if (!toolResponse) {
+            return inital_response;
+          }
+          body.messages.push({
+            content: `Call the function named ${toolCall.function.name} with provided parameters.`,
+            role: 'assistant',
+          });
+          body.messages.push({ content: JSON.stringify(toolResponse), role: 'user' });
+
+          delete body.tool_choice;
+          delete body.tools;
+
+          return this._client.post(`/api/v1/${modelId}/run`, { query: { wait }, body, ...options });
+        }
+      }
+      return inital_response;
+    }
+  }
+
+  /**
+   * Call a deployment endpoint with specified tools and messages and automatically call the tools.
+   */
+  async epAuto(
+    deploymentTag: string,
+    params: ModelChatParams,
+    options?: Core.RequestOptions,
+  ): Promise<Core.APIPromise<ModelChatResponse>> {
+    const { wait, ...body } = params;
+    if (body.tools?.length === 0) {
+      return this._client.post(`/api/v1/chat/${deploymentTag}`, { query: { wait }, body, ...options });
+    } else {
+      let inital_response: ModelChatResponse = await this._client.post(`/api/v1/chat/${deploymentTag}`, {
+        query: { wait },
+        body,
+        ...options,
+      });
+      if (inital_response.toolCalls) {
+        for (let i in inital_response.toolCalls) {
+          const toolCall: any = inital_response.toolCalls[i];
+          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function
+            .function;
+          if (!uf) {
+            return inital_response;
+          }
+          let toolResponse = await uf(toolCall.function.parameters);
+          if (!toolResponse) {
+            return inital_response;
+          }
+          body.messages.push({
+            content: `Call the function named ${toolCall.function.name} with provided parameters.`,
+            role: 'assistant',
+          });
+          body.messages.push({ content: JSON.stringify(toolResponse), role: 'user' });
+
+          delete body.tool_choice;
+          delete body.tools;
+
+          return this._client.post(`/api/v1/chat/${deploymentTag}`, { query: { wait }, body, ...options });
+        }
+      }
+      return inital_response;
+    }
   }
 }
 
@@ -47,73 +125,6 @@ export interface ModelChatResponse {
 }
 
 export namespace ModelChatResponse {
-  export interface Choice {
-    index?: number;
-
-    message?: Choice.Message;
-  }
-
-  export namespace Choice {
-    export interface Message {
-      content?: string;
-
-      role?: string;
-    }
-  }
-
-  export interface ToolCall {
-    function?: ToolCall.Function;
-
-    type?: 'function';
-  }
-
-  export namespace ToolCall {
-    export interface Function {
-      /**
-       * The name of the function to be called. Must be a-z, A-Z, 0-9, or contain
-       * underscores and dashes, with a maximum length of 64.
-       */
-      name: string;
-
-      /**
-       * A description of what the function does, used by the model to choose when and
-       * how to call the function.
-       */
-      description?: string;
-
-      /**
-       * The parameters the functions accepts, described as a JSON Schema object.
-       */
-      parameters?: Record<string, unknown>;
-    }
-  }
-
-  export interface Usage {
-    completion_tokens?: number;
-
-    prompt_tokens?: number;
-
-    total_tokens?: number;
-  }
-}
-
-export interface ModelEpResponse {
-  id?: string;
-
-  choices?: Array<ModelEpResponse.Choice>;
-
-  created?: number;
-
-  model?: string;
-
-  object?: string;
-
-  toolCalls?: Array<ModelEpResponse.ToolCall>;
-
-  usage?: ModelEpResponse.Usage;
-}
-
-export namespace ModelEpResponse {
   export interface Choice {
     index?: number;
 
@@ -393,40 +404,15 @@ export namespace ModelEpParams {
     }
   }
 
-  export interface Tool {
-    function: Tool.Function;
-
-    /**
-     * The type of the tool. Currently, only `function` is supported.
-     */
-    type: 'function';
-  }
-
-  export namespace Tool {
-    export interface Function {
       /**
-       * The name of the function to be called. Must be a-z, A-Z, 0-9, or contain
-       * underscores and dashes, with a maximum length of 64.
+       * The function to be called. Must be a valid JavaScript function.
        */
-      name: string;
-
-      /**
-       * A description of what the function does, used by the model to choose when and
-       * how to call the function.
-       */
-      description?: string;
-
-      /**
-       * The parameters the functions accepts, described as a JSON Schema object.
-       */
-      parameters?: Record<string, unknown>;
+      function?: (parameters: any) => any;
     }
   }
 }
 
 export namespace Models {
   export import ModelChatResponse = ModelsAPI.ModelChatResponse;
-  export import ModelEpResponse = ModelsAPI.ModelEpResponse;
   export import ModelChatParams = ModelsAPI.ModelChatParams;
-  export import ModelEpParams = ModelsAPI.ModelEpParams;
 }
