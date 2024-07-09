@@ -65,9 +65,10 @@ async function main() {
     wait: true,
   });
 
-  console.log(modelRunResponse.id);
-  console.log(modelRunResponse.choices);
-  console.log(modelRunResponse.toolCalls);
+  console.log('Model Run ID:', modelRunResponse.id);
+  console.log('Task ID:', modelRunResponse.task_id || 'N/A');
+  console.log('Choices:', modelRunResponse.choices);
+  console.log('Tool Calls:', modelRunResponse.toolCalls);
 }
 
 main();
