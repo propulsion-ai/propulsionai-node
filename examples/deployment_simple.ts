@@ -13,7 +13,7 @@ async function mongo_query(parameters: any): Promise<any> {
 
 async function main() {
   console.log('Running the model...');
-  const modelRunResponse = await propulsionai.models.epAuto('d-qptg', {
+  const modelRunResponse = await propulsionai.models.epAuto('<deployment_tag>', {
     tools: [
       {
         type: 'function',
