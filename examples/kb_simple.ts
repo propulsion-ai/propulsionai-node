@@ -27,7 +27,7 @@ async function main() {
   });
   
   console.log('Model Run ID:', modelRunResponse.id);
-  console.log('Task ID:', modelRunResponse.task_id);
+  console.log('Task ID:', modelRunResponse.task_id || 'N/A');
   console.log('Choices:', modelRunResponse.choices);
   console.log('Tool Calls:', modelRunResponse.toolCalls);
 }
