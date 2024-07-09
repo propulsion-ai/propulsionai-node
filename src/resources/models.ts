@@ -111,7 +111,7 @@ export class Models extends APIResource {
 
           delete body.tool_choice;
           delete body.tools;
-          if(inital_response.task_id){
+          if (inital_response.task_id) {
             body.task_id = inital_response.task_id;
           }
 
