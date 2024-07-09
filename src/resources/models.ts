@@ -111,6 +111,9 @@ export class Models extends APIResource {
 
           delete body.tool_choice;
           delete body.tools;
+          if(inital_response.task_id){
+            body.task_id = inital_response.task_id;
+          }
 
           return this._client.post(`/api/v1/chat/${deploymentTag}`, { query: { wait }, body, ...options });
         }
@@ -134,6 +137,8 @@ export interface ModelChatResponse {
   toolCalls?: Array<ModelChatResponse.ToolCall>;
 
   usage?: ModelChatResponse.Usage;
+
+  task_id?: string;
 }
 
 export namespace ModelChatResponse {
