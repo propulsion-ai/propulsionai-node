@@ -197,6 +197,11 @@ export interface ModelChatParams {
   wait?: boolean;
 
   /**
+   * Body param: A list of knowledgebase IDs to use in the model.
+   */
+  knowledgebases?: Array<string>;
+
+  /**
    * Body param: The maximum number of tokens that can be generated in the chat
    * completion.
    */
@@ -296,6 +301,108 @@ export namespace ModelChatParams {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+    }
+  }
+}
+
+export interface ModelEpParams {
+  /**
+   * Body param:
+   */
+  messages: Array<ModelEpParams.Message>;
+
+  /**
+   * Body param:
+   */
+  model: string;
+
+  /**
+   * Body param:
+   */
+  stream: boolean;
+
+  /**
+   * Query param: Whether to wait for the response or not.
+   */
+  wait?: boolean;
+
+  /**
+   * Body param: A list of knowledgebase IDs to use in the model.
+   */
+  knowledgebases?: Array<string>;
+
+  /**
+   * Body param: The maximum number of tokens that can be generated in the chat
+   * completion.
+   */
+  max_tokens?: number | null;
+
+  /**
+   * Body param: How many chat completion choices to generate for each input message.
+   */
+  n?: number | null;
+
+  /**
+   * Body param: An alternative to sampling with temperature, called nucleus
+   * sampling.
+   */
+  temperature?: number | null;
+
+  /**
+   * Body param: Controls which (if any) tool is called by the model. `none` means
+   * the model will not call any tool and instead generates a message. `auto` means
+   * the model can pick between generating a message or calling one or more tools.
+   * `required` means the model must call one or more tools.
+   */
+  tool_choice?: 'none' | 'auto' | 'required' | ModelEpParams.ChatCompletionNamedToolChoice;
+
+  /**
+   * Body param: A list of tools the model may call. Currently, only functions are
+   * supported as a tool. Use this to provide a list of functions the model may
+   * generate JSON inputs for. A max of 128 functions are supported.
+   */
+  tools?: Array<ModelEpParams.Tool>;
+
+  /**
+   * Body param: An alternative to sampling with temperature, called nucleus
+   * sampling.
+   */
+  top_p?: number | null;
+}
+
+export namespace ModelEpParams {
+  export interface Message {
+    content?: string;
+
+    role?: 'system' | 'user' | 'assistant' | 'tool';
+  }
+
+  export interface ChatCompletionNamedToolChoice {
+    function: ChatCompletionNamedToolChoice.Function;
+
+    type: 'function';
+  }
+
+  export namespace ChatCompletionNamedToolChoice {
+    export interface Function {
+      /**
+       * The name of the function to be called. Must be a-z, A-Z, 0-9, or contain
+       * underscores and dashes, with a maximum length of 64.
+       */
+      name: string;
+
+      /**
+       * A description of what the function does, used by the model to choose when and
+       * how to call the function.
+       */
+      description?: string;
+
+      /**
+       * The parameters the functions accepts, described as a JSON Schema object.
+       */
+      parameters?: Record<string, unknown>;
+    }
+  }
 
       /**
        * The function to be called. Must be a valid JavaScript function.
