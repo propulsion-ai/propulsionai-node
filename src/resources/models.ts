@@ -186,6 +186,11 @@ export interface ModelChatParams {
   wait?: boolean;
 
   /**
+   * Body param: A list of knowledgebase IDs to use in the model.
+   */
+  knowledgebases?: Array<string>;
+
+  /**
    * Body param: The maximum number of tokens that can be generated in the chat
    * completion.
    */
@@ -309,6 +314,11 @@ export interface ModelEpParams {
    * Query param: Whether to wait for the response or not.
    */
   wait?: boolean;
+
+  /**
+   * Body param: A list of knowledgebase IDs to use in the model.
+   */
+  knowledgebases?: Array<string>;
 
   /**
    * Body param: The maximum number of tokens that can be generated in the chat
