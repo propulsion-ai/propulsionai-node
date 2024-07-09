@@ -202,6 +202,11 @@ export interface ModelChatParams {
   n?: number | null;
 
   /**
+   * Body param: Optional task ID associated with the request.
+   */
+  task_id?: string;
+
+  /**
    * Body param: An alternative to sampling with temperature, called nucleus
    * sampling.
    */
@@ -330,6 +335,11 @@ export interface ModelEpParams {
    * Body param: How many chat completion choices to generate for each input message.
    */
   n?: number | null;
+
+  /**
+   * Body param: Optional task ID associated with the request.
+   */
+  task_id?: string;
 
   /**
    * Body param: An alternative to sampling with temperature, called nucleus
