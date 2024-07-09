@@ -22,7 +22,7 @@ export class Models extends APIResource {
    */
   async chatAuto(
     modelId: string,
-    params: ModelChatParams,
+    params: ModelEpParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIPromise<ModelChatResponse>> {
     const { wait, ...body } = params;
@@ -67,7 +67,7 @@ export class Models extends APIResource {
    */
   async epAuto(
     deploymentTag: string,
-    params: ModelChatParams,
+    params: ModelEpParams,
     options?: Core.RequestOptions,
   ): Promise<Core.APIPromise<ModelChatResponse>> {
     const { wait, ...body } = params;
@@ -82,7 +82,8 @@ export class Models extends APIResource {
       if (inital_response.toolCalls) {
         for (let i in inital_response.toolCalls) {
           const toolCall: any = inital_response.toolCalls[i];
-          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function;
+          const uf: any = body.tools?.find((t) => t.function.name === toolCall.function.name)?.function
+            .function;
           if (!uf) {
             return inital_response;
           }
@@ -162,6 +163,11 @@ export namespace ModelChatResponse {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => any | Promise<any>;
     }
   }
 
@@ -237,6 +243,11 @@ export interface ModelChatParams {
    * sampling.
    */
   top_p?: number | null;
+
+  /**
+   * Body param: Optional task ID associated with the request.
+   */
+  task_id?: string;
 }
 
 export namespace ModelChatParams {
@@ -270,6 +281,11 @@ export namespace ModelChatParams {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => any | Promise<any>;
     }
   }
 
@@ -300,6 +316,11 @@ export namespace ModelChatParams {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => any | Promise<any>;
     }
   }
 }
@@ -367,6 +388,11 @@ export interface ModelEpParams {
    * sampling.
    */
   top_p?: number | null;
+
+  /**
+   * Body param: Optional task ID associated with the request.
+   */
+  task_id?: string;
 }
 
 export namespace ModelEpParams {
@@ -404,9 +430,10 @@ export namespace ModelEpParams {
       /**
        * The function to be called. Must be a valid JavaScript function.
        */
-      function?: (parameters: any) => any;
+      function?: (parameters: any) => any | Promise<any>;
     }
   }
+
   export interface Tool {
     function: Tool.Function;
 
@@ -434,6 +461,11 @@ export namespace ModelEpParams {
        * The parameters the functions accepts, described as a JSON Schema object.
        */
       parameters?: Record<string, unknown>;
+
+      /**
+       * The function to be called. Must be a valid JavaScript function.
+       */
+      function?: (parameters: any) => any | Promise<any>;
     }
   }
 }
@@ -441,4 +473,5 @@ export namespace ModelEpParams {
 export namespace Models {
   export import ModelChatResponse = ModelsAPI.ModelChatResponse;
   export import ModelChatParams = ModelsAPI.ModelChatParams;
+  export import ModelEpParams = ModelsAPI.ModelEpParams;
 }
