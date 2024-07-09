@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.12 (2024-07-09)
+
+Full Changelog: [v0.1.0-alpha.11...v0.1.0-alpha.12](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.11...v0.1.0-alpha.12)
+
+### Features
+
+* add ep endpoint ([a19f724](https://github.com/propulsion-ai/propulsionai-node/commit/a19f7240d0ed0e3aaa0a22799ebbba5854ffabc0))
+* **api:** OpenAPI spec update via Stainless API ([#59](https://github.com/propulsion-ai/propulsionai-node/issues/59)) ([1a86aad](https://github.com/propulsion-ai/propulsionai-node/commit/1a86aada72b770d040d39baab3c8d6e6d71f97e9))
+
 ## 0.1.0-alpha.11 (2024-07-03)
 
 Full Changelog: [v0.1.0-alpha.10...v0.1.0-alpha.11](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.10...v0.1.0-alpha.11)
