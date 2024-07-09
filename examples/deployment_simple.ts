@@ -64,7 +64,7 @@ async function main() {
     stream: false,
     wait: true,
   });
-  
+
   console.log('Model Run ID:', modelRunResponse.id);
   console.log('Task ID:', modelRunResponse.task_id);
   console.log('Choices:', modelRunResponse.choices);

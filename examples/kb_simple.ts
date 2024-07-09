@@ -14,7 +14,7 @@ async function mongo_query(parameters: any): Promise<any> {
 async function main() {
   console.log('Running the model...');
   const modelRunResponse = await propulsionai.models.epAuto('d-qptg', {
-    knowledgebases: ["r4293kdpstbjmuc"],
+    knowledgebases: ['r4293kdpstbjmuc'],
     messages: [
       {
         role: 'user',
@@ -25,7 +25,7 @@ async function main() {
     stream: false,
     wait: true,
   });
-  
+
   console.log('Model Run ID:', modelRunResponse.id);
   console.log('Task ID:', modelRunResponse.task_id || 'N/A');
   console.log('Choices:', modelRunResponse.choices);
