@@ -104,6 +104,7 @@ export class APIPromise<T> extends Promise<T> {
   asResponse(): Promise<Response> {
     return this.responsePromise.then((p) => p.response);
   }
+
   /**
    * Gets the parsed response data and the raw `Response` instance.
    *
@@ -122,9 +123,16 @@ export class APIPromise<T> extends Promise<T> {
     return { data, response };
   }
 
-  private parse(): Promise<T> {
+  private async parse(): Promise<T> {
     if (!this.parsedPromise) {
-      this.parsedPromise = this.responsePromise.then(this.parseResponse);
+      this.parsedPromise = this.responsePromise.then(async (props) => {
+        const data = await this.parseResponse(props);
+        const taskId = props.response.headers.get('X-TASK-ID');
+        if (taskId) {
+          (data as any).task_id = taskId;
+        }
+        return data;
+      });
     }
     return this.parsedPromise;
   }
