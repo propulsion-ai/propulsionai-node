@@ -18,6 +18,18 @@ export class Models extends APIResource {
   }
 
   /**
+   * Execute a deployment endpoint with specified tools and messages.
+   */
+  ep(
+    deploymentTag: string,
+    params: ModelChatParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<ModelChatResponse> {
+    const { wait, ...body } = params;
+    return this._client.post(`/api/v1/chat/${deploymentTag}`, { query: { wait }, body, ...options });
+  }
+
+  /**
    * Run a model with specified tools and messages and automatically call the tools.
    */
   async chatAuto(
