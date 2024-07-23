@@ -16,11 +16,11 @@ before making any information public.
 ## Reporting Non-SDK Related Security Issues
 
 If you encounter security issues that are not directly related to SDKs but pertain to the services
-or products provided by Propulsion AI please follow the respective company's security reporting guidelines.
+or products provided by Propulsionai please follow the respective company's security reporting guidelines.
 
-### Propulsion AI Terms and Policies
+### Propulsionai Terms and Policies
 
-Please contact dev-feedback@propulsionhq.com for any questions or concerns regarding security of our services.
+Please contact dev-feedback@propulsionai.com for any questions or concerns regarding security of our services.
 
 ---
 
