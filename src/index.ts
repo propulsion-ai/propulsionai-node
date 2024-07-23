@@ -119,7 +119,7 @@ export class PropulsionAI extends Core.APIClient {
     this.apiKey = apiKey;
   }
 
-  chats: API.Chats = new API.Chats(this);
+  chat: API.Chat = new API.Chat(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -178,7 +178,7 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace PropulsionAI {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Chats = API.Chats;
+  export import Chat = API.Chat;
 }
 
 export default PropulsionAI;
