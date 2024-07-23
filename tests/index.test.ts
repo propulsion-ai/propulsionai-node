@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Propulsionai from 'propulsionai';
+import { PropulsionAI } from 'propulsionai';
 import { APIUserAbortError } from 'propulsionai';
 import { Headers } from 'propulsionai/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
@@ -20,7 +20,7 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       apiKey: 'My API Key',
@@ -52,7 +52,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         apiKey: 'My API Key',
@@ -61,7 +61,7 @@ describe('instantiate client', () => {
     });
 
     test('multiple default query params', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         apiKey: 'My API Key',
@@ -70,7 +70,7 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         apiKey: 'My API Key',
@@ -80,7 +80,7 @@ describe('instantiate client', () => {
   });
 
   test('custom fetch', async () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: 'http://localhost:5000/',
       apiKey: 'My API Key',
       fetch: (url) => {
@@ -97,7 +97,7 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       apiKey: 'My API Key',
       fetch: (...args) => {
@@ -124,7 +124,7 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/custom/path/',
         apiKey: 'My API Key',
       });
@@ -132,7 +132,7 @@ describe('instantiate client', () => {
     });
 
     test('no trailing slash', () => {
-      const client = new Propulsionai({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
+      const client = new PropulsionAI({ baseURL: 'http://localhost:5000/custom/path', apiKey: 'My API Key' });
       expect(client.buildURL('/foo', null)).toEqual('http://localhost:5000/custom/path/foo');
     });
 
@@ -141,55 +141,55 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new Propulsionai({ baseURL: 'https://example.com', apiKey: 'My API Key' });
+      const client = new PropulsionAI({ baseURL: 'https://example.com', apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Propulsionai({ apiKey: 'My API Key' });
+      const client = new PropulsionAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = ''; // empty
-      const client = new Propulsionai({ apiKey: 'My API Key' });
+      const client = new PropulsionAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
     });
 
     test('blank env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = '  '; // blank
-      const client = new Propulsionai({ apiKey: 'My API Key' });
+      const client = new PropulsionAI({ apiKey: 'My API Key' });
       expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Propulsionai({ maxRetries: 4, apiKey: 'My API Key' });
+    const client = new PropulsionAI({ maxRetries: 4, apiKey: 'My API Key' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Propulsionai({ apiKey: 'My API Key' });
+    const client2 = new PropulsionAI({ apiKey: 'My API Key' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['PROPULSIONAI_API_KEY'] = 'My API Key';
-    const client = new Propulsionai();
+    const client = new PropulsionAI();
     expect(client.apiKey).toBe('My API Key');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
     process.env['PROPULSIONAI_API_KEY'] = 'another My API Key';
-    const client = new Propulsionai({ apiKey: 'My API Key' });
+    const client = new PropulsionAI({ apiKey: 'My API Key' });
     expect(client.apiKey).toBe('My API Key');
   });
 });
 
 describe('request building', () => {
-  const client = new Propulsionai({ apiKey: 'My API Key' });
+  const client = new PropulsionAI({ apiKey: 'My API Key' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -231,7 +231,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
+    const client = new PropulsionAI({ apiKey: 'My API Key', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -258,7 +258,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new PropulsionAI({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -285,7 +285,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ apiKey: 'My API Key', fetch: testFetch });
+    const client = new PropulsionAI({ apiKey: 'My API Key', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);

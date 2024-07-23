@@ -70,15 +70,15 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Propulsionai API.
+ * API Client for interfacing with the PropulsionAI API.
  */
-export class Propulsionai extends Core.APIClient {
+export class PropulsionAI extends Core.APIClient {
   apiKey: string;
 
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Propulsionai API.
+   * API Client for interfacing with the PropulsionAI API.
    *
    * @param {string | undefined} [opts.apiKey=process.env['PROPULSIONAI_API_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v1] - Override the default base URL for the API.
@@ -95,8 +95,8 @@ export class Propulsionai extends Core.APIClient {
     ...opts
   }: ClientOptions = {}) {
     if (apiKey === undefined) {
-      throw new Errors.PropulsionaiError(
-        "The PROPULSIONAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the Propulsionai client with an apiKey option, like new Propulsionai({ apiKey: 'My API Key' }).",
+      throw new Errors.PropulsionAIError(
+        "The PROPULSIONAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the PropulsionAI client with an apiKey option, like new PropulsionAI({ apiKey: 'My API Key' }).",
       );
     }
 
@@ -136,9 +136,9 @@ export class Propulsionai extends Core.APIClient {
     return { apiKeyAuth: this.apiKey };
   }
 
-  static Propulsionai = this;
+  static PropulsionAI = this;
 
-  static PropulsionaiError = Errors.PropulsionaiError;
+  static PropulsionAIError = Errors.PropulsionAIError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -157,7 +157,7 @@ export class Propulsionai extends Core.APIClient {
 }
 
 export const {
-  PropulsionaiError,
+  PropulsionAIError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -175,10 +175,10 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Propulsionai {
+export namespace PropulsionAI {
   export import RequestOptions = Core.RequestOptions;
 
   export import Chats = API.Chats;
 }
 
-export default Propulsionai;
+export default PropulsionAI;
