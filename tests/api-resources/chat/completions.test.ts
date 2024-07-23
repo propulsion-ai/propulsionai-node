@@ -11,7 +11,11 @@ describe('resource completions', () => {
   test('create: only required params', async () => {
     const responsePromise = propulsionai.chat.completions.create({
       deployment: 'deployment',
-      messages: [{}, {}, {}],
+      messages: [
+        { role: 'system', content: 'content' },
+        { role: 'system', content: 'content' },
+        { role: 'system', content: 'content' },
+      ],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
