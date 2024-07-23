@@ -3,11 +3,11 @@
 import { APIResource } from '../../resource';
 import * as CompletionsAPI from './completions';
 
-export class Chat extends APIResource {
+export class Chats extends APIResource {
   completions: CompletionsAPI.Completions = new CompletionsAPI.Completions(this._client);
 }
 
-export namespace Chat {
+export namespace Chats {
   export import Completions = CompletionsAPI.Completions;
   export import CompletionCreateResponse = CompletionsAPI.CompletionCreateResponse;
   export import CompletionCreateParams = CompletionsAPI.CompletionCreateParams;
