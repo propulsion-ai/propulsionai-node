@@ -6,7 +6,6 @@ const propulsionai = new Propulsionai({
   bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
-
 async function main() {
   console.log('Running the model...');
   const response: any = await propulsionai.models.epAuto('d-ntnq', {
@@ -23,7 +22,6 @@ async function main() {
   console.log('Model Run ID:', response.id);
   console.log('Task ID:', response.task_id);
   console.log('Choices:', response.choices);
-  
 
   const stream: any = await propulsionai.models.ep('d-ntnq', {
     messages: [
