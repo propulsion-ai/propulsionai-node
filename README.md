@@ -25,7 +25,7 @@ The full API of this library can be found in [api.md](api.md).
 ```js
 import Propulsionai from 'propulsionai';
 
-const propulsionai = new Propulsionai();
+const client = new Propulsionai();
 
 async function main() {
   const completionCreateResponse = await propulsionai.chat.completions.create({
@@ -47,7 +47,7 @@ This library includes TypeScript definitions for all request params and response
 ```ts
 import Propulsionai from 'propulsionai';
 
-const propulsionai = new Propulsionai();
+const client = new Propulsionai();
 
 async function main() {
   const params: Propulsionai.Chat.CompletionCreateParams = {
@@ -112,7 +112,7 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const propulsionai = new Propulsionai({
+const client = new Propulsionai({
   maxRetries: 0, // default is 2
 });
 
@@ -129,7 +129,7 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const propulsionai = new Propulsionai({
+const client = new Propulsionai({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
@@ -153,7 +153,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const propulsionai = new Propulsionai();
+const client = new Propulsionai();
 
 const response = await propulsionai.chat.completions
   .create({ deployment: 'deployment', messages: [{}, {}, {}] })
@@ -264,7 +264,7 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const propulsionai = new Propulsionai({
+const client = new Propulsionai({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
