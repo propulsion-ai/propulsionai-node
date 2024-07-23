@@ -8,6 +8,11 @@ import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
+   * Defaults to process.env['PROPULSIONAI_API_KEY'].
+   */
+  apiKey?: string | undefined;
+
+  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
    * Defaults to process.env['PROPULSIONAI_BASE_URL'].
@@ -68,11 +73,14 @@ export interface ClientOptions {
  * API Client for interfacing with the Propulsionai API.
  */
 export class Propulsionai extends Core.APIClient {
+  apiKey: string;
+
   private _options: ClientOptions;
 
   /**
    * API Client for interfacing with the Propulsionai API.
    *
+   * @param {string | undefined} [opts.apiKey=process.env['PROPULSIONAI_API_KEY'] ?? undefined]
    * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
@@ -81,8 +89,19 @@ export class Propulsionai extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({ baseURL = Core.readEnv('PROPULSIONAI_BASE_URL'), ...opts }: ClientOptions = {}) {
+  constructor({
+    baseURL = Core.readEnv('PROPULSIONAI_BASE_URL'),
+    apiKey = Core.readEnv('PROPULSIONAI_API_KEY'),
+    ...opts
+  }: ClientOptions = {}) {
+    if (apiKey === undefined) {
+      throw new Errors.PropulsionaiError(
+        "The PROPULSIONAI_API_KEY environment variable is missing or empty; either provide it, or instantiate the Propulsionai client with an apiKey option, like new Propulsionai({ apiKey: 'My API Key' }).",
+      );
+    }
+
     const options: ClientOptions = {
+      apiKey,
       ...opts,
       baseURL: baseURL || `https://api.propulsionhq.com/api/v1`,
     };
@@ -96,9 +115,11 @@ export class Propulsionai extends Core.APIClient {
     });
 
     this._options = options;
+
+    this.apiKey = apiKey;
   }
 
-  chat: API.Chat = new API.Chat(this);
+  chats: API.Chats = new API.Chats(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -109,6 +130,10 @@ export class Propulsionai extends Core.APIClient {
       ...super.defaultHeaders(opts),
       ...this._options.defaultHeaders,
     };
+  }
+
+  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
+    return { apiKeyAuth: this.apiKey };
   }
 
   static Propulsionai = this;
@@ -153,7 +178,7 @@ export import fileFromPath = Uploads.fileFromPath;
 export namespace Propulsionai {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Chat = API.Chat;
+  export import Chats = API.Chats;
 }
 
 export default Propulsionai;
