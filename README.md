@@ -27,7 +27,7 @@ const client = new Propulsionai({
 });
 
 async function main() {
-  const completionCreateResponse = await propulsionai.chats.completions.create({
+  const completionCreateResponse = await propulsionai.chat.completions.create({
     deployment: '<your-deployment-endpoint>',
     messages: [{ role: 'user', content: 'Hello, How are you?' }],
   });
@@ -51,7 +51,7 @@ const client = new Propulsionai({
 });
 
 async function main() {
-  const params: Propulsionai.Chats.CompletionCreateParams = {
+  const params: Propulsionai.Chat.CompletionCreateParams = {
     deployment: 'deployment',
     messages: [
       { role: 'system', content: 'content' },
@@ -59,8 +59,8 @@ async function main() {
       { role: 'system', content: 'content' },
     ],
   };
-  const completionCreateResponse: Propulsionai.Chats.CompletionCreateResponse =
-    await propulsionai.chats.completions.create(params);
+  const completionCreateResponse: Propulsionai.Chat.CompletionCreateResponse =
+    await propulsionai.chat.completions.create(params);
 }
 
 main();
@@ -77,7 +77,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const completionCreateResponse = await propulsionai.chats.completions
+  const completionCreateResponse = await propulsionai.chat.completions
     .create({
       deployment: 'deployment',
       messages: [
@@ -129,7 +129,7 @@ const client = new Propulsionai({
 });
 
 // Or, configure per-request:
-await propulsionai.chats.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
   maxRetries: 5,
 });
 ```
@@ -146,7 +146,7 @@ const client = new Propulsionai({
 });
 
 // Override per-request:
-await propulsionai.chats.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -167,7 +167,7 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new Propulsionai();
 
-const response = await propulsionai.chats.completions
+const response = await propulsionai.chat.completions
   .create({
     deployment: 'deployment',
     messages: [
@@ -180,7 +180,7 @@ const response = await propulsionai.chats.completions
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: completionCreateResponse, response: raw } = await propulsionai.chats.completions
+const { data: completionCreateResponse, response: raw } = await propulsionai.chat.completions
   .create({
     deployment: 'deployment',
     messages: [
@@ -295,7 +295,7 @@ const client = new Propulsionai({
 });
 
 // Override per-request:
-await propulsionai.chats.completions.create(
+await propulsionai.chat.completions.create(
   {
     deployment: 'deployment',
     messages: [
