@@ -7,9 +7,12 @@ const propulsionai = new Propulsionai({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource chats', () => {
+describe('resource completions', () => {
   test('create: only required params', async () => {
-    const responsePromise = propulsionai.chats.create({ deployment: 'deployment', messages: [{}, {}, {}] });
+    const responsePromise = propulsionai.chat.completions.create({
+      deployment: 'deployment',
+      messages: [{}, {}, {}],
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -20,7 +23,7 @@ describe('resource chats', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await propulsionai.chats.create({
+    const response = await propulsionai.chat.completions.create({
       deployment: 'deployment',
       messages: [
         { role: 'system', content: 'content' },
