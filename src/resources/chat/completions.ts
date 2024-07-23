@@ -1,22 +1,25 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../resource';
-import * as Core from '../core';
-import * as ChatsAPI from './chats';
+import { APIResource } from '../../resource';
+import * as Core from '../../core';
+import * as CompletionsAPI from './completions';
 
-export class Chats extends APIResource {
+export class Completions extends APIResource {
   /**
    * Call a deployment endpoint with specified tools and messages.
    */
-  create(body: ChatCreateParams, options?: Core.RequestOptions): Core.APIPromise<ChatCreateResponse> {
-    return this._client.post('/chat', { body, ...options });
+  create(
+    body: CompletionCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompletionCreateResponse> {
+    return this._client.post('/chat/completions', { body, ...options });
   }
 }
 
-export interface ChatCreateResponse {
+export interface CompletionCreateResponse {
   id?: string;
 
-  choices?: Array<ChatCreateResponse.Choice>;
+  choices?: Array<CompletionCreateResponse.Choice>;
 
   created?: number;
 
@@ -24,12 +27,12 @@ export interface ChatCreateResponse {
 
   object?: string;
 
-  tool_calls?: Array<ChatCreateResponse.ToolCall>;
+  tool_calls?: Array<CompletionCreateResponse.ToolCall>;
 
-  usage?: ChatCreateResponse.Usage;
+  usage?: CompletionCreateResponse.Usage;
 }
 
-export namespace ChatCreateResponse {
+export namespace CompletionCreateResponse {
   export interface Choice {
     index?: number;
 
@@ -69,10 +72,10 @@ export namespace ChatCreateResponse {
   }
 }
 
-export interface ChatCreateParams {
+export interface CompletionCreateParams {
   deployment: string;
 
-  messages: Array<ChatCreateParams.Message>;
+  messages: Array<CompletionCreateParams.Message>;
 
   knowledgebases?: Array<string>;
 
@@ -86,9 +89,9 @@ export interface ChatCreateParams {
 
   temperature?: number;
 
-  tool_choice?: 'none' | 'auto' | 'required' | ChatCreateParams.ChatCompletionNamedToolChoice;
+  tool_choice?: 'none' | 'auto' | 'required' | CompletionCreateParams.ChatCompletionNamedToolChoice;
 
-  tools?: Array<ChatCreateParams.Tool>;
+  tools?: Array<CompletionCreateParams.Tool>;
 
   /**
    * Probability threshold for token selection in text generation, controlling output
@@ -97,7 +100,7 @@ export interface ChatCreateParams {
   top_p?: number;
 }
 
-export namespace ChatCreateParams {
+export namespace CompletionCreateParams {
   export interface Message {
     content?: string;
 
@@ -137,7 +140,7 @@ export namespace ChatCreateParams {
   }
 }
 
-export namespace Chats {
-  export import ChatCreateResponse = ChatsAPI.ChatCreateResponse;
-  export import ChatCreateParams = ChatsAPI.ChatCreateParams;
+export namespace Completions {
+  export import CompletionCreateResponse = CompletionsAPI.CompletionCreateResponse;
+  export import CompletionCreateParams = CompletionsAPI.CompletionCreateParams;
 }
