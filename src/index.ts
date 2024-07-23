@@ -65,13 +65,13 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Propulsionai API.
+ * API Client for interfacing with the PropulsionAI API.
  */
-export class Propulsionai extends Core.APIClient {
+export class PropulsionAI extends Core.APIClient {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Propulsionai API.
+   * API Client for interfacing with the PropulsionAI API.
    *
    * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
@@ -111,9 +111,9 @@ export class Propulsionai extends Core.APIClient {
     };
   }
 
-  static Propulsionai = this;
+  static PropulsionAI = this;
 
-  static PropulsionaiError = Errors.PropulsionaiError;
+  static PropulsionAIError = Errors.PropulsionAIError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -132,7 +132,7 @@ export class Propulsionai extends Core.APIClient {
 }
 
 export const {
-  PropulsionaiError,
+  PropulsionAIError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -150,10 +150,10 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace Propulsionai {
+export namespace PropulsionAI {
   export import RequestOptions = Core.RequestOptions;
 
   export import Chat = API.Chat;
 }
 
-export default Propulsionai;
+export default PropulsionAI;

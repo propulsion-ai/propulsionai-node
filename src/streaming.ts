@@ -1,5 +1,5 @@
 import { ReadableStream, type Response } from './_shims/index';
-import { PropulsionaiError } from './error';
+import { PropulsionAIError } from './error';
 
 import { APIError } from './error';
 
@@ -203,7 +203,7 @@ export async function* _iterSSEMessages(
 ): AsyncGenerator<ServerSentEvent, void, unknown> {
   if (!response.body) {
     controller.abort();
-    throw new PropulsionaiError(`Attempted to iterate over a response with no body`);
+    throw new PropulsionAIError(`Attempted to iterate over a response with no body`);
   }
 
   const sseDecoder = new SSEDecoder();
@@ -418,7 +418,7 @@ class LineDecoder {
         return Buffer.from(bytes).toString();
       }
 
-      throw new PropulsionaiError(
+      throw new PropulsionAIError(
         `Unexpected: received non-Uint8Array (${bytes.constructor.name}) stream chunk in an environment with a global "Buffer" defined, which this library assumes to be Node. Please report this error.`,
       );
     }
@@ -430,14 +430,14 @@ class LineDecoder {
         return this.textDecoder.decode(bytes);
       }
 
-      throw new PropulsionaiError(
+      throw new PropulsionAIError(
         `Unexpected: received non-Uint8Array/ArrayBuffer (${
           (bytes as any).constructor.name
         }) in a web platform. Please report this error.`,
       );
     }
 
-    throw new PropulsionaiError(
+    throw new PropulsionAIError(
       `Unexpected: neither Buffer nor TextDecoder are available as globals. Please report this error.`,
     );
   }
