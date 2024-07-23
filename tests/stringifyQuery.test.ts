@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { Propulsionai } from 'propulsionai';
+import { PropulsionAI } from 'propulsionai';
 
-const { stringifyQuery } = Propulsionai.prototype as any;
+const { stringifyQuery } = PropulsionAI.prototype as any;
 
 describe(stringifyQuery, () => {
   for (const [input, expected] of [

@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Propulsionai from 'propulsionai';
+import PropulsionAI from 'propulsionai';
 import { Response } from 'node-fetch';
 
-const propulsionai = new Propulsionai({
+const propulsionai = new PropulsionAI({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
@@ -28,12 +28,8 @@ describe('resource completions', () => {
 
   test('create: required and optional params', async () => {
     const response = await propulsionai.chat.completions.create({
-      deployment: 'deployment',
-      messages: [
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-      ],
+      deployment: '<your-deployment-endpoint>',
+      messages: [{ role: 'user', content: 'Hello, How are you?' }],
       knowledgebases: ['string', 'string', 'string'],
       max_tokens: 0,
       n: 1,
