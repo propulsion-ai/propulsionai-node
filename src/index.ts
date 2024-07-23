@@ -8,14 +8,9 @@ import * as API from './resources/index';
 
 export interface ClientOptions {
   /**
-   * Defaults to process.env['PROPULSIONAI_BEARER_TOKEN'].
-   */
-  bearerToken?: string | undefined;
-
-  /**
    * Override the default base URL for the API, e.g., "https://api.example.com/v2/"
    *
-   * Defaults to process.env['PROPULSION_AI_BASE_URL'].
+   * Defaults to process.env['PROPULSIONAI_BASE_URL'].
    */
   baseURL?: string | null | undefined;
 
@@ -70,18 +65,15 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the Propulsion AI API.
+ * API Client for interfacing with the Propulsionai API.
  */
-export class PropulsionAI extends Core.APIClient {
-  bearerToken: string;
-
+export class Propulsionai extends Core.APIClient {
   private _options: ClientOptions;
 
   /**
-   * API Client for interfacing with the Propulsion AI API.
+   * API Client for interfacing with the Propulsionai API.
    *
-   * @param {string | undefined} [opts.bearerToken=process.env['PROPULSIONAI_BEARER_TOKEN'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['PROPULSION_AI_BASE_URL'] ?? https://api.propulsionhq.com] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v1] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -89,21 +81,10 @@ export class PropulsionAI extends Core.APIClient {
    * @param {Core.Headers} opts.defaultHeaders - Default headers to include with every request to the API.
    * @param {Core.DefaultQuery} opts.defaultQuery - Default query parameters to include with every request to the API.
    */
-  constructor({
-    baseURL = Core.readEnv('PROPULSION_AI_BASE_URL'),
-    bearerToken = Core.readEnv('PROPULSIONAI_BEARER_TOKEN'),
-    ...opts
-  }: ClientOptions = {}) {
-    if (bearerToken === undefined) {
-      throw new Errors.PropulsionAIError(
-        "The PROPULSIONAI_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the PropulsionAI client with an bearerToken option, like new PropulsionAI({ bearerToken: 'My Bearer Token' }).",
-      );
-    }
-
+  constructor({ baseURL = Core.readEnv('PROPULSIONAI_BASE_URL'), ...opts }: ClientOptions = {}) {
     const options: ClientOptions = {
-      bearerToken,
       ...opts,
-      baseURL: baseURL || `https://api.propulsionhq.com`,
+      baseURL: baseURL || `https://api.propulsionhq.com/api/v1`,
     };
 
     super({
@@ -115,12 +96,9 @@ export class PropulsionAI extends Core.APIClient {
     });
 
     this._options = options;
-
-    this.bearerToken = bearerToken;
   }
 
-  models: API.Models = new API.Models(this);
-  datasets: API.Datasets = new API.Datasets(this);
+  chat: API.Chat = new API.Chat(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -133,13 +111,9 @@ export class PropulsionAI extends Core.APIClient {
     };
   }
 
-  protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { Authorization: `Bearer ${this.bearerToken}` };
-  }
+  static Propulsionai = this;
 
-  static PropulsionAI = this;
-
-  static PropulsionAIError = Errors.PropulsionAIError;
+  static PropulsionaiError = Errors.PropulsionaiError;
   static APIError = Errors.APIError;
   static APIConnectionError = Errors.APIConnectionError;
   static APIConnectionTimeoutError = Errors.APIConnectionTimeoutError;
@@ -158,7 +132,7 @@ export class PropulsionAI extends Core.APIClient {
 }
 
 export const {
-  PropulsionAIError,
+  PropulsionaiError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -176,14 +150,10 @@ export const {
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
 
-export namespace PropulsionAI {
+export namespace Propulsionai {
   export import RequestOptions = Core.RequestOptions;
 
-  export import Models = API.Models;
-  export import ModelChatResponse = API.ModelChatResponse;
-  export import ModelChatParams = API.ModelChatParams;
-
-  export import Datasets = API.Datasets;
+  export import Chat = API.Chat;
 }
 
-export default PropulsionAI;
+export default Propulsionai;
