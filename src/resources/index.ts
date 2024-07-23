@@ -1,2 +1,2 @@
-export { Chat } from './chat/chat';
-export { CompletionCreateResponse, CompletionCreateParams, Completions } from './chat/completions';
+export { Chats } from './chats/chats';
+export { CompletionCreateResponse, CompletionCreateParams, Completions } from './chats/completions';
