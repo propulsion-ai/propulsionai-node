@@ -9,7 +9,7 @@ const propulsionai = new Propulsionai({
 
 describe('resource chats', () => {
   test('create: only required params', async () => {
-    const responsePromise = propulsionai.chats.create({ deployment: 'string', messages: [{}, {}, {}] });
+    const responsePromise = propulsionai.chats.create({ deployment: 'deployment', messages: [{}, {}, {}] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,23 +21,32 @@ describe('resource chats', () => {
 
   test('create: required and optional params', async () => {
     const response = await propulsionai.chats.create({
-      deployment: 'string',
+      deployment: 'deployment',
       messages: [
-        { role: 'system', content: 'string' },
-        { role: 'system', content: 'string' },
-        { role: 'system', content: 'string' },
+        { role: 'system', content: 'content' },
+        { role: 'system', content: 'content' },
+        { role: 'system', content: 'content' },
       ],
       knowledgebases: ['string', 'string', 'string'],
       max_tokens: 0,
       n: 1,
       stream: true,
-      task_id: 'string',
+      task_id: 'task_id',
       temperature: 0,
       tool_choice: 'none',
       tools: [
-        { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
-        { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
-        { type: 'function', function: { description: 'string', name: 'string', parameters: { foo: 'bar' } } },
+        {
+          type: 'function',
+          function: { description: 'description', name: 'name', parameters: { foo: 'bar' } },
+        },
+        {
+          type: 'function',
+          function: { description: 'description', name: 'name', parameters: { foo: 'bar' } },
+        },
+        {
+          type: 'function',
+          function: { description: 'description', name: 'name', parameters: { foo: 'bar' } },
+        },
       ],
       top_p: 0,
     });
