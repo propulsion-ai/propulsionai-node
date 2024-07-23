@@ -1,18 +1,21 @@
-# Propulsion AI Node API Library
+# Propulsionai Node API Library
 
 [![NPM version](https://img.shields.io/npm/v/propulsionai.svg)](https://npmjs.org/package/propulsionai) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/propulsionai)
 
-This library provides convenient access to the Propulsion AI REST API from server-side TypeScript or JavaScript.
+This library provides convenient access to the Propulsionai REST API from server-side TypeScript or JavaScript.
 
-The REST API documentation can be found [on docs.propulsionhq.com](https://docs.propulsionhq.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found [on docs.propulsionai.com](https://docs.propulsionai.com). The full API of this library can be found in [api.md](api.md).
 
 It is generated with [Stainless](https://www.stainlessapi.com/).
 
 ## Installation
 
 ```sh
-npm install propulsionai
+npm install git+ssh://git@github.com:stainless-sdks/propulsionai-node.git
 ```
+
+> [!NOTE]
+> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install propulsionai`
 
 ## Usage
 
@@ -20,20 +23,17 @@ The full API of this library can be found in [api.md](api.md).
 
 <!-- prettier-ignore -->
 ```js
-import PropulsionAI from 'propulsionai';
+import Propulsionai from 'propulsionai';
 
-const propulsionAI = new PropulsionAI({
-  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
-});
+const propulsionai = new Propulsionai();
 
 async function main() {
-  const modelEpResponse = await propulsionAI.models.ep('REPLACE_ME', {
-    messages: [],
-    model: 'string',
-    stream: true,
+  const chatCreateResponse = await propulsionai.chats.create({
+    deployment: '<your-deployment-endpoint>',
+    messages: [{ role: 'user', content: 'Hello, How are you?' }],
   });
 
-  console.log(modelEpResponse.id);
+  console.log(chatCreateResponse.id);
 }
 
 main();
@@ -45,15 +45,13 @@ This library includes TypeScript definitions for all request params and response
 
 <!-- prettier-ignore -->
 ```ts
-import PropulsionAI from 'propulsionai';
+import Propulsionai from 'propulsionai';
 
-const propulsionAI = new PropulsionAI({
-  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
-});
+const propulsionai = new Propulsionai();
 
 async function main() {
-  const params: PropulsionAI.ModelEpParams = { messages: [], model: 'string', stream: true };
-  const modelEpResponse: PropulsionAI.ModelEpResponse = await propulsionAI.models.ep('REPLACE_ME', params);
+  const params: Propulsionai.ChatCreateParams = { deployment: 'string', messages: [{}, {}, {}] };
+  const chatCreateResponse: Propulsionai.ChatCreateResponse = await propulsionai.chats.create(params);
 }
 
 main();
@@ -70,10 +68,10 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const modelEpResponse = await propulsionAI.models
-    .ep('REPLACE_ME', { messages: [], model: 'string', stream: true })
+  const chatCreateResponse = await propulsionai.chats
+    .create({ deployment: 'string', messages: [{}, {}, {}] })
     .catch(async (err) => {
-      if (err instanceof PropulsionAI.APIError) {
+      if (err instanceof Propulsionai.APIError) {
         console.log(err.status); // 400
         console.log(err.name); // BadRequestError
         console.log(err.headers); // {server: 'nginx', ...}
@@ -110,12 +108,12 @@ You can use the `maxRetries` option to configure or disable this:
 <!-- prettier-ignore -->
 ```js
 // Configure the default for all requests:
-const propulsionAI = new PropulsionAI({
+const propulsionai = new Propulsionai({
   maxRetries: 0, // default is 2
 });
 
 // Or, configure per-request:
-await propulsionAI.models.ep('REPLACE_ME', { messages: [], model: 'string', stream: true }, {
+await propulsionai.chats.create({ deployment: 'string', messages: [{}, {}, {}] }, {
   maxRetries: 5,
 });
 ```
@@ -127,12 +125,12 @@ Requests time out after 1 minute by default. You can configure this with a `time
 <!-- prettier-ignore -->
 ```ts
 // Configure the default for all requests:
-const propulsionAI = new PropulsionAI({
+const propulsionai = new Propulsionai({
   timeout: 20 * 1000, // 20 seconds (default is 1 minute)
 });
 
 // Override per-request:
-await propulsionAI.models.ep('REPLACE_ME', { messages: [], model: 'string', stream: true }, {
+await propulsionai.chats.create({ deployment: 'string', messages: [{}, {}, {}] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -151,19 +149,19 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 
 <!-- prettier-ignore -->
 ```ts
-const propulsionAI = new PropulsionAI();
+const propulsionai = new Propulsionai();
 
-const response = await propulsionAI.models
-  .ep('REPLACE_ME', { messages: [], model: 'string', stream: true })
+const response = await propulsionai.chats
+  .create({ deployment: 'string', messages: [{}, {}, {}] })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: modelEpResponse, response: raw } = await propulsionAI.models
-  .ep('REPLACE_ME', { messages: [], model: 'string', stream: true })
+const { data: chatCreateResponse, response: raw } = await propulsionai.chats
+  .create({ deployment: 'string', messages: [{}, {}, {}] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
-console.log(modelEpResponse.id);
+console.log(chatCreateResponse.id);
 ```
 
 ### Making custom/undocumented requests
@@ -216,17 +214,17 @@ By default, this library uses `node-fetch` in Node, and expects a global `fetch`
 
 If you would prefer to use a global, web-standards-compliant `fetch` function even in a Node environment,
 (for example, if you are running Node with `--experimental-fetch` or using NextJS which polyfills with `undici`),
-add the following import before your first import `from "PropulsionAI"`:
+add the following import before your first import `from "Propulsionai"`:
 
 ```ts
 // Tell TypeScript and the package to use the global web fetch instead of node-fetch.
 // Note, despite the name, this does not add any polyfills, but expects them to be provided if needed.
 import 'propulsionai/shims/web';
-import PropulsionAI from 'propulsionai';
+import Propulsionai from 'propulsionai';
 ```
 
 To do the inverse, add `import "propulsionai/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/propulsion-ai/propulsionai-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/propulsionai-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -235,9 +233,9 @@ which can be used to inspect or alter the `Request` or `Response` before/after e
 
 ```ts
 import { fetch } from 'undici'; // as one example
-import PropulsionAI from 'propulsionai';
+import Propulsionai from 'propulsionai';
 
-const client = new PropulsionAI({
+const client = new Propulsionai({
   fetch: async (url: RequestInfo, init?: RequestInit): Promise<Response> => {
     console.log('About to make a request', url, init);
     const response = await fetch(url, init);
@@ -262,14 +260,13 @@ import http from 'http';
 import { HttpsProxyAgent } from 'https-proxy-agent';
 
 // Configure the default for all requests:
-const propulsionAI = new PropulsionAI({
+const propulsionai = new Propulsionai({
   httpAgent: new HttpsProxyAgent(process.env.PROXY_URL),
 });
 
 // Override per-request:
-await propulsionAI.models.ep(
-  'REPLACE_ME',
-  { messages: [], model: 'string', stream: true },
+await propulsionai.chats.create(
+  { deployment: 'string', messages: [{}, {}, {}] },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
@@ -286,7 +283,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/propulsion-ai/propulsionai-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/propulsionai-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 
@@ -295,7 +292,7 @@ TypeScript >= 4.5 is supported.
 The following runtimes are supported:
 
 - Node.js 18 LTS or later ([non-EOL](https://endoflife.date/nodejs)) versions.
-- Deno v1.28.0 or higher, using `import PropulsionAI from "npm:propulsionai"`.
+- Deno v1.28.0 or higher, using `import Propulsionai from "npm:propulsionai"`.
 - Bun 1.0 or later.
 - Cloudflare Workers.
 - Vercel Edge Runtime.
