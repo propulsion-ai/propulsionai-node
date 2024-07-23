@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.1.0-alpha.14 (2024-07-09)
+
+Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
+
+### Features
+
+* linting ([c1c38ab](https://github.com/propulsion-ai/propulsionai-node/commit/c1c38abc6a9b12149db5587c7aa1001846de5adf))
+* remove deployment ids from example ([96ecb22](https://github.com/propulsion-ai/propulsionai-node/commit/96ecb224d200513785d92c2834a9189592e962e5))
+
 ## 0.1.0-alpha.13 (2024-07-09)
 
 Full Changelog: [v0.1.0-alpha.12...v0.1.0-alpha.13](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.12...v0.1.0-alpha.13)
