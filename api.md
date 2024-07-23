@@ -1,11 +1,11 @@
-# Chats
+# Chat
 
 ## Completions
 
 Types:
 
-- <code><a href="./src/resources/chats/completions.ts">CompletionCreateResponse</a></code>
+- <code><a href="./src/resources/chat/completions.ts">CompletionCreateResponse</a></code>
 
 Methods:
 
-- <code title="post /chat/completions">client.chats.completions.<a href="./src/resources/chats/completions.ts">create</a>({ ...params }) -> CompletionCreateResponse</code>
+- <code title="post /chat/completions">client.chat.completions.<a href="./src/resources/chat/completions.ts">create</a>({ ...params }) -> CompletionCreateResponse</code>
