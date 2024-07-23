@@ -10,8 +10,8 @@ const propulsionai = new Propulsionai({
 describe('resource completions', () => {
   test('create: only required params', async () => {
     const responsePromise = propulsionai.chat.completions.create({
-      deployment: 'deployment',
-      messages: [{}, {}, {}],
+      deployment: '<your-deployment-endpoint>',
+      messages: [{ role: 'user', content: 'Hello, How are you?' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -24,12 +24,8 @@ describe('resource completions', () => {
 
   test('create: required and optional params', async () => {
     const response = await propulsionai.chat.completions.create({
-      deployment: 'deployment',
-      messages: [
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-      ],
+      deployment: '<your-deployment-endpoint>',
+      messages: [{ role: 'user', content: 'Hello, How are you?' }],
       knowledgebases: ['string', 'string', 'string'],
       max_tokens: 0,
       n: 1,
