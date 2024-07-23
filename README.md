@@ -50,7 +50,7 @@ import Propulsionai from 'propulsionai';
 const propulsionai = new Propulsionai();
 
 async function main() {
-  const params: Propulsionai.ChatCreateParams = { deployment: 'string', messages: [{}, {}, {}] };
+  const params: Propulsionai.ChatCreateParams = { deployment: 'deployment', messages: [{}, {}, {}] };
   const chatCreateResponse: Propulsionai.ChatCreateResponse = await propulsionai.chats.create(params);
 }
 
@@ -69,7 +69,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const chatCreateResponse = await propulsionai.chats
-    .create({ deployment: 'string', messages: [{}, {}, {}] })
+    .create({ deployment: 'deployment', messages: [{}, {}, {}] })
     .catch(async (err) => {
       if (err instanceof Propulsionai.APIError) {
         console.log(err.status); // 400
@@ -113,7 +113,7 @@ const propulsionai = new Propulsionai({
 });
 
 // Or, configure per-request:
-await propulsionai.chats.create({ deployment: 'string', messages: [{}, {}, {}] }, {
+await propulsionai.chats.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   maxRetries: 5,
 });
 ```
@@ -130,7 +130,7 @@ const propulsionai = new Propulsionai({
 });
 
 // Override per-request:
-await propulsionai.chats.create({ deployment: 'string', messages: [{}, {}, {}] }, {
+await propulsionai.chats.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -152,13 +152,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const propulsionai = new Propulsionai();
 
 const response = await propulsionai.chats
-  .create({ deployment: 'string', messages: [{}, {}, {}] })
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: chatCreateResponse, response: raw } = await propulsionai.chats
-  .create({ deployment: 'string', messages: [{}, {}, {}] })
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(chatCreateResponse.id);
@@ -266,7 +266,7 @@ const propulsionai = new Propulsionai({
 
 // Override per-request:
 await propulsionai.chats.create(
-  { deployment: 'string', messages: [{}, {}, {}] },
+  { deployment: 'deployment', messages: [{}, {}, {}] },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
