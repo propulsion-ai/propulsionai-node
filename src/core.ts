@@ -1,4 +1,5 @@
 import { VERSION } from './version';
+import { Stream } from './streaming';
 import {
   PropulsionAIError,
   APIError,
@@ -38,6 +39,18 @@ type APIResponseProps = {
 
 async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   const { response } = props;
+  if (props.options.stream) {
+    debug('response', response.status, response.url, response.headers, response.body);
+
+    // Note: there is an invariant here that isn't represented in the type system
+    // that if you set `stream: true` the response type must also be `Stream<T>`
+
+    if (props.options.__streamClass) {
+      return props.options.__streamClass.fromSSEResponse(response, props.controller) as any;
+    }
+
+    return Stream.fromSSEResponse(response, props.controller) as any;
+  }
   // fetch refuses to read the body when the status code is 204.
   if (response.status === 204) {
     return null as T;
@@ -128,9 +141,10 @@ export class APIPromise<T> extends Promise<T> {
       this.parsedPromise = this.responsePromise.then(async (props) => {
         const data = await this.parseResponse(props);
         const taskId = props.response.headers.get('X-TASK-ID');
-        if (taskId) {
-          (data as any).task_id = taskId;
-        }
+        console.log(taskId);
+        // if (taskId) {
+        //   (data as any).task_id = taskId;
+        // }
         return data;
       });
     }
@@ -761,6 +775,7 @@ export type RequestOptions<
 
   __binaryRequest?: boolean | undefined;
   __binaryResponse?: boolean | undefined;
+  __streamClass?: typeof Stream;
 };
 
 // This is required so that we can determine if a given object matches the RequestOptions
@@ -782,6 +797,7 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
 
   __binaryRequest: true,
   __binaryResponse: true,
+  __streamClass: true,
 };
 
 export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
