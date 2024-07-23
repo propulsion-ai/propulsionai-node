@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.3.0 (2024-07-23)
+
+Full Changelog: [v0.1.0-alpha.14...v0.3.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.14...v0.3.0)
+
+### Features
+
+* add streaming support ([185a81d](https://github.com/propulsion-ai/propulsionai-node/commit/185a81da58ee24a956b2d249742a5c5d9342439c))
+* add streaming support ([aa302ba](https://github.com/propulsion-ai/propulsionai-node/commit/aa302baf3fcc97774da2448e713bcd2b7aa6371b))
+* **api:** OpenAPI spec update via Stainless API ([#64](https://github.com/propulsion-ai/propulsionai-node/issues/64)) ([cf5d192](https://github.com/propulsion-ai/propulsionai-node/commit/cf5d192b536975746a02b4e1468cb8bc27fa6f7e))
+* dstore ([0f5b55d](https://github.com/propulsion-ai/propulsionai-node/commit/0f5b55d4e3183d27dce687039c5ff2aa61478fa3))
+* lint ([7377b62](https://github.com/propulsion-ai/propulsionai-node/commit/7377b621aa18602da8baf61ea84e088d2f11b0de))
+
 ## 0.1.0-alpha.14 (2024-07-09)
 
 Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
