@@ -26,11 +26,11 @@ The full API of this library can be found in [api.md](api.md).
 import PropulsionAI from 'propulsionai';
 
 const client = new PropulsionAI({
-  apiKey: process.env['PROPULSIONAI_API_KEY'], // This is the default and can be omitted
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
-  const completionCreateResponse = await propulsionai.chats.completions.create({
+  const completionCreateResponse = await propulsionai.chat.completions.create({
     deployment: '<your-deployment-endpoint>',
     messages: [{ role: 'user', content: 'Hello, How are you?' }],
   });
@@ -50,17 +50,13 @@ This library includes TypeScript definitions for all request params and response
 import PropulsionAI from 'propulsionai';
 
 const client = new PropulsionAI({
-  apiKey: process.env['PROPULSIONAI_API_KEY'], // This is the default and can be omitted
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
   const params: PropulsionAI.Chats.CompletionCreateParams = {
     deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
+    messages: [{}, {}, {}],
   };
   const completionCreateResponse: PropulsionAI.Chats.CompletionCreateResponse =
     await propulsionai.chats.completions.create(params);
@@ -80,15 +76,8 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const completionCreateResponse = await propulsionai.chats.completions
-    .create({
-      deployment: 'deployment',
-      messages: [
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-      ],
-    })
+  const completionCreateResponse = await propulsionai.chat.completions
+    .create({ deployment: 'deployment', messages: [{}, {}, {}] })
     .catch(async (err) => {
       if (err instanceof PropulsionAI.APIError) {
         console.log(err.status); // 400
@@ -132,7 +121,7 @@ const client = new PropulsionAI({
 });
 
 // Or, configure per-request:
-await propulsionai.chats.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   maxRetries: 5,
 });
 ```
@@ -149,7 +138,7 @@ const client = new PropulsionAI({
 });
 
 // Override per-request:
-await propulsionai.chats.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -170,28 +159,14 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new PropulsionAI();
 
-const response = await propulsionai.chats.completions
-  .create({
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  })
+const response = await propulsionai.chat.completions
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: completionCreateResponse, response: raw } = await propulsionai.chats.completions
-  .create({
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  })
+const { data: completionCreateResponse, response: raw } = await propulsionai.chat.completions
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(completionCreateResponse.id);
@@ -298,15 +273,8 @@ const client = new PropulsionAI({
 });
 
 // Override per-request:
-await propulsionai.chats.completions.create(
-  {
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  },
+await propulsionai.chat.completions.create(
+  { deployment: 'deployment', messages: [{}, {}, {}] },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
