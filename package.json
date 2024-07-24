@@ -1,8 +1,8 @@
 {
   "name": "propulsionai",
   "version": "0.2.1",
-  "description": "The official TypeScript library for the Propulsionai API",
-  "author": "Propulsionai <dev-feedback@propulsionai.com>",
+  "description": "The official TypeScript library for the PropulsionAI API",
+  "author": "PropulsionAI <dev-feedback@propulsionai.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
