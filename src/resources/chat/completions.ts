@@ -42,6 +42,10 @@ export interface CompletionCreateResponse {
   tool_calls?: Array<CompletionCreateResponse.ToolCall>;
 
   usage?: CompletionCreateResponse.Usage;
+
+  task_id?: string;
+  
+  poll_id?: string;
 }
 
 export namespace CompletionCreateResponse {
@@ -137,6 +141,10 @@ export interface ChatCompletionChunk {
    * statistics for the entire request.
    */
   usage?: CompletionCreateResponse.Usage;
+
+  task_id?: string;
+  
+  poll_id?: string;
 }
 
 export namespace ChatCompletionChunk {
