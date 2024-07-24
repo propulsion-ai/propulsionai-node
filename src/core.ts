@@ -141,9 +141,9 @@ export class APIPromise<T> extends Promise<T> {
       this.parsedPromise = this.responsePromise.then(async (props) => {
         const data = await this.parseResponse(props);
         const task_id = props.response.headers.get('X-TASK-ID');
-        if(task_id) (data as any).task_id = task_id;
+        if (task_id) (data as any).task_id = task_id;
         const poll_id = props.response.headers.get('X-POLLING-ID');
-        if(poll_id) (data as any).poll_id = poll_id;
+        if (poll_id) (data as any).poll_id = poll_id;
         return data;
       });
     }

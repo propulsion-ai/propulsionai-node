@@ -44,7 +44,7 @@ export interface CompletionCreateResponse {
   usage?: CompletionCreateResponse.Usage;
 
   task_id?: string;
-  
+
   poll_id?: string;
 }
 
@@ -143,7 +143,7 @@ export interface ChatCompletionChunk {
   usage?: CompletionCreateResponse.Usage;
 
   task_id?: string;
-  
+
   poll_id?: string;
 }
 
