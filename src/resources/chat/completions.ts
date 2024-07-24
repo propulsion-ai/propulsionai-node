@@ -22,9 +22,9 @@ export class Completions extends APIResource {
     body: CompletionCreateParamsBase,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse> | Core.APIPromise<Stream<ChatCompletionChunk>> {
-    return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false }) as 
-      Core.APIPromise<CompletionCreateResponse> | 
-      Core.APIPromise<Stream<ChatCompletionChunk>>;
+    return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false }) as
+      | Core.APIPromise<CompletionCreateResponse>
+      | Core.APIPromise<Stream<ChatCompletionChunk>>;
   }
 }
 
@@ -334,9 +334,7 @@ export interface CompletionCreateParamsStreaming extends CompletionCreateParamsB
   stream?: true | null;
 }
 
-export type CompletionCreateParams =
-  | CompletionCreateParamsNonStreaming
-  | CompletionCreateParamsStreaming;
+export type CompletionCreateParams = CompletionCreateParamsNonStreaming | CompletionCreateParamsStreaming;
 
 export namespace Completions {
   export import CompletionCreateResponse = CompletionsAPI.CompletionCreateResponse;
