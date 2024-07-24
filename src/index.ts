@@ -133,7 +133,7 @@ export class Propulsionai extends Core.APIClient {
   }
 
   protected override authHeaders(opts: Core.FinalRequestOptions): Core.Headers {
-    return { apiKeyAuth: this.apiKey };
+    return { Authorization: `Bearer ${this.apiKey}` };
   }
 
   static Propulsionai = this;
