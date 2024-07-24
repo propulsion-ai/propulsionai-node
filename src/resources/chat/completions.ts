@@ -41,9 +41,9 @@ export namespace CompletionCreateResponse {
 
   export namespace Choice {
     export interface Message {
-      content: string;
+      content?: string;
 
-      role: 'system' | 'user' | 'assistant' | 'tool';
+      role?: 'system' | 'user' | 'assistant' | 'tool';
     }
   }
 
@@ -102,9 +102,9 @@ export interface CompletionCreateParams {
 
 export namespace CompletionCreateParams {
   export interface Message {
-    content: string;
+    content?: string;
 
-    role: 'system' | 'user' | 'assistant' | 'tool';
+    role?: 'system' | 'user' | 'assistant' | 'tool';
   }
 
   export interface ChatCompletionNamedToolChoice {
