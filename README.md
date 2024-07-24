@@ -32,7 +32,7 @@ const client = new PropulsionAI({
 async function main() {
   const completionCreateResponse = await propulsionAI.chat.completions.create({
     deployment: '<your-deployment-endpoint>',
-    messages: [{ role: 'user', content: 'Hello, How are you?' }],
+    messages: [{ role: 'user', content: 'Hello, How are you?.' }],
   });
 
   console.log(completionCreateResponse.id);
