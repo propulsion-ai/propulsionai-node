@@ -23,7 +23,7 @@ The full API of this library can be found in [api.md](api.md).
 import Propulsionai from 'propulsionai';
 
 const client = new Propulsionai({
-  apiKey: process.env['PROPULSIONAI_API_KEY'], // This is the default and can be omitted
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
@@ -47,7 +47,7 @@ This library includes TypeScript definitions for all request params and response
 import Propulsionai from 'propulsionai';
 
 const client = new Propulsionai({
-  apiKey: process.env['PROPULSIONAI_API_KEY'], // This is the default and can be omitted
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'], // This is the default and can be omitted
 });
 
 async function main() {
