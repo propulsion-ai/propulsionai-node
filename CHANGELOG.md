@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.3.0 (2024-07-24)
+
+Full Changelog: [v0.2.1...v0.3.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.2.1...v0.3.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#89](https://github.com/propulsion-ai/propulsionai-node/issues/89)) ([f1b5759](https://github.com/propulsion-ai/propulsionai-node/commit/f1b5759c2a653e15107e68ca195ddcdba589db26))
+* **api:** update via SDK Studio ([#91](https://github.com/propulsion-ai/propulsionai-node/issues/91)) ([428d10b](https://github.com/propulsion-ai/propulsionai-node/commit/428d10b60f317d124008b00a995784df52feadb4))
+* **api:** update via SDK Studio ([#93](https://github.com/propulsion-ai/propulsionai-node/issues/93)) ([bc15e9a](https://github.com/propulsion-ai/propulsionai-node/commit/bc15e9a6ca682059cf0f7452ece605ce36c4034f))
+* various codegen changes ([a8abdad](https://github.com/propulsion-ai/propulsionai-node/commit/a8abdad4244642a08a9e2476748e9de020165fbb))
+
+
+### Chores
+
+* **internal:** restore release please config ([dc7bce6](https://github.com/propulsion-ai/propulsionai-node/commit/dc7bce64750cf7f0bbbde84f47ef14cd269d3ca8))
+* remove some unintentional custom code ([313216f](https://github.com/propulsion-ai/propulsionai-node/commit/313216f4e79fc4af16d6e234b58073eecccb972f))
+
 ## 0.1.0-alpha.14 (2024-07-09)
 
 Full Changelog: [v0.1.0-alpha.13...v0.1.0-alpha.14](https://github.com/propulsion-ai/propulsionai-node/compare/v0.1.0-alpha.13...v0.1.0-alpha.14)
