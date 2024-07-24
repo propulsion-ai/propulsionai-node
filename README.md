@@ -56,11 +56,7 @@ const client = new PropulsionAI({
 async function main() {
   const params: PropulsionAI.Chats.CompletionCreateParams = {
     deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
+    messages: [{}, {}, {}],
   };
   const completionCreateResponse: PropulsionAI.Chats.CompletionCreateResponse =
     await propulsionai.chats.completions.create(params);
@@ -81,14 +77,7 @@ a subclass of `APIError` will be thrown:
 ```ts
 async function main() {
   const completionCreateResponse = await propulsionai.chat.completions
-    .create({
-      deployment: 'deployment',
-      messages: [
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-        { role: 'system', content: 'content' },
-      ],
-    })
+    .create({ deployment: 'deployment', messages: [{}, {}, {}] })
     .catch(async (err) => {
       if (err instanceof PropulsionAI.APIError) {
         console.log(err.status); // 400
@@ -132,7 +121,7 @@ const client = new PropulsionAI({
 });
 
 // Or, configure per-request:
-await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   maxRetries: 5,
 });
 ```
@@ -149,7 +138,7 @@ const client = new PropulsionAI({
 });
 
 // Override per-request:
-await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{ role: 'system', content: 'content' }, { role: 'system', content: 'content' }, { role: 'system', content: 'content' }] }, {
+await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -171,27 +160,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 const client = new PropulsionAI();
 
 const response = await propulsionai.chat.completions
-  .create({
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  })
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
 const { data: completionCreateResponse, response: raw } = await propulsionai.chat.completions
-  .create({
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  })
+  .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
 console.log(completionCreateResponse.id);
@@ -299,14 +274,7 @@ const client = new PropulsionAI({
 
 // Override per-request:
 await propulsionai.chat.completions.create(
-  {
-    deployment: 'deployment',
-    messages: [
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-      { role: 'system', content: 'content' },
-    ],
-  },
+  { deployment: 'deployment', messages: [{}, {}, {}] },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
   },
