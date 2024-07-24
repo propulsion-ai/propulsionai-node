@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Propulsionai from 'propulsionai';
+import { PropulsionAI } from 'propulsionai';
 import { Response } from 'node-fetch';
 
-const propulsionai = new Propulsionai({
+const propulsionai = new PropulsionAI({
   bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });

@@ -1,6 +1,7 @@
 import { VERSION } from './version';
+import { Stream } from './streaming';
 import {
-  PropulsionaiError,
+  PropulsionAIError,
   APIError,
   APIConnectionError,
   APIConnectionTimeoutError,
@@ -38,6 +39,18 @@ type APIResponseProps = {
 
 async function defaultParseResponse<T>(props: APIResponseProps): Promise<T> {
   const { response } = props;
+  if (props.options.stream) {
+    debug('response', response.status, response.url, response.headers, response.body);
+
+    // Note: there is an invariant here that isn't represented in the type system
+    // that if you set `stream: true` the response type must also be `Stream<T>`
+
+    if (props.options.__streamClass) {
+      return props.options.__streamClass.fromSSEResponse(response, props.controller) as any;
+    }
+
+    return Stream.fromSSEResponse(response, props.controller) as any;
+  }
   // fetch refuses to read the body when the status code is 204.
   if (response.status === 204) {
     return null as T;
@@ -104,6 +117,7 @@ export class APIPromise<T> extends Promise<T> {
   asResponse(): Promise<Response> {
     return this.responsePromise.then((p) => p.response);
   }
+
   /**
    * Gets the parsed response data and the raw `Response` instance.
    *
@@ -122,9 +136,17 @@ export class APIPromise<T> extends Promise<T> {
     return { data, response };
   }
 
-  private parse(): Promise<T> {
+  private async parse(): Promise<T> {
     if (!this.parsedPromise) {
-      this.parsedPromise = this.responsePromise.then(this.parseResponse);
+      this.parsedPromise = this.responsePromise.then(async (props) => {
+        const data = await this.parseResponse(props);
+        const taskId = props.response.headers.get('X-TASK-ID');
+        console.log(taskId);
+        // if (taskId) {
+        //   (data as any).task_id = taskId;
+        // }
+        return data;
+      });
     }
     return this.parsedPromise;
   }
@@ -486,7 +508,7 @@ export abstract class APIClient {
         if (value === null) {
           return `${encodeURIComponent(key)}=`;
         }
-        throw new PropulsionaiError(
+        throw new PropulsionAIError(
           `Cannot stringify type ${typeof value}; Expected string, number, boolean, or null. If you need to pass nested query parameters, you can manually encode them, e.g. { query: { 'foo[key1]': value1, 'foo[key2]': value2 } }, and please open a GitHub issue requesting better support for your use case.`,
         );
       })
@@ -632,7 +654,7 @@ export abstract class AbstractPage<Item> implements AsyncIterable<Item> {
   async getNextPage(): Promise<this> {
     const nextInfo = this.nextPageInfo();
     if (!nextInfo) {
-      throw new PropulsionaiError(
+      throw new PropulsionAIError(
         'No next page expected; please check `.hasNextPage()` before calling `.getNextPage()`.',
       );
     }
@@ -753,6 +775,7 @@ export type RequestOptions<
 
   __binaryRequest?: boolean | undefined;
   __binaryResponse?: boolean | undefined;
+  __streamClass?: typeof Stream;
 };
 
 // This is required so that we can determine if a given object matches the RequestOptions
@@ -774,6 +797,7 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
 
   __binaryRequest: true,
   __binaryResponse: true,
+  __streamClass: true,
 };
 
 export const isRequestOptions = (obj: unknown): obj is RequestOptions => {
@@ -968,10 +992,10 @@ export const sleep = (ms: number) => new Promise((resolve) => setTimeout(resolve
 
 const validatePositiveInteger = (name: string, n: unknown): number => {
   if (typeof n !== 'number' || !Number.isInteger(n)) {
-    throw new PropulsionaiError(`${name} must be an integer`);
+    throw new PropulsionAIError(`${name} must be an integer`);
   }
   if (n < 0) {
-    throw new PropulsionaiError(`${name} must be a positive integer`);
+    throw new PropulsionAIError(`${name} must be a positive integer`);
   }
   return n;
 };
@@ -983,7 +1007,7 @@ export const castToError = (err: any): Error => {
 
 export const ensurePresent = <T>(value: T | null | undefined): T => {
   if (value == null)
-    throw new PropulsionaiError(`Expected a value to be given but received ${value} instead.`);
+    throw new PropulsionAIError(`Expected a value to be given but received ${value} instead.`);
   return value;
 };
 
@@ -1008,14 +1032,14 @@ export const coerceInteger = (value: unknown): number => {
   if (typeof value === 'number') return Math.round(value);
   if (typeof value === 'string') return parseInt(value, 10);
 
-  throw new PropulsionaiError(`Could not coerce ${value} (type: ${typeof value}) into a number`);
+  throw new PropulsionAIError(`Could not coerce ${value} (type: ${typeof value}) into a number`);
 };
 
 export const coerceFloat = (value: unknown): number => {
   if (typeof value === 'number') return value;
   if (typeof value === 'string') return parseFloat(value);
 
-  throw new PropulsionaiError(`Could not coerce ${value} (type: ${typeof value}) into a number`);
+  throw new PropulsionAIError(`Could not coerce ${value} (type: ${typeof value}) into a number`);
 };
 
 export const coerceBoolean = (value: unknown): boolean => {
@@ -1081,7 +1105,7 @@ function applyHeadersMut(targetHeaders: Headers, newHeaders: Headers): void {
 
 export function debug(action: string, ...args: any[]) {
   if (typeof process !== 'undefined' && process?.env?.['DEBUG'] === 'true') {
-    console.log(`Propulsionai:DEBUG:${action}`, ...args);
+    console.log(`PropulsionAI:DEBUG:${action}`, ...args);
   }
 }
 
@@ -1158,7 +1182,7 @@ export const toBase64 = (str: string | null | undefined): string => {
     return btoa(str);
   }
 
-  throw new PropulsionaiError('Cannot generate b64 string; Expected `Buffer` or `btoa` to be defined');
+  throw new PropulsionAIError('Cannot generate b64 string; Expected `Buffer` or `btoa` to be defined');
 };
 
 export function isObj(obj: unknown): obj is Record<string, unknown> {
