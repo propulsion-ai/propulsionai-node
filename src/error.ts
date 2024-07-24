@@ -2,9 +2,9 @@
 
 import { castToError, Headers } from './core';
 
-export class PropulsionaiError extends Error {}
+export class PropulsionAIError extends Error {}
 
-export class APIError extends PropulsionaiError {
+export class APIError extends PropulsionAIError {
   readonly status: number | undefined;
   readonly headers: Headers | undefined;
   readonly error: Object | undefined;
