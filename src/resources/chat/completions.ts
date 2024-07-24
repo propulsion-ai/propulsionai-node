@@ -3,16 +3,20 @@
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
+import { Stream } from '../../streaming';
 
 export class Completions extends APIResource {
   /**
    * Call a deployment endpoint with specified tools and messages.
    */
+  create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<CompletionCreateResponse>;
   create(
     body: CompletionCreateParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CompletionCreateResponse> {
-    return this._client.post('/chat/completions', { body, ...options });
+  ): Core.APIPromise<CompletionCreateResponse> | Core.APIPromise<Stream<CompletionCreateResponse>> {
+    return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false }) as 
+      Core.APIPromise<CompletionCreateResponse> | 
+      Core.APIPromise<Stream<CompletionCreateResponse>>;
   }
 }
 
