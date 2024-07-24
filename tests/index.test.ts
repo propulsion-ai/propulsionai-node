@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import Propulsionai from 'propulsionai';
+import PropulsionAI from 'propulsionai';
 import { APIUserAbortError } from 'propulsionai';
 import { Headers } from 'propulsionai/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
@@ -20,7 +20,7 @@ describe('instantiate client', () => {
   });
 
   describe('defaultHeaders', () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: 'http://localhost:5000/',
       defaultHeaders: { 'X-My-Default-Header': '2' },
       bearerToken: 'My Bearer Token',
@@ -52,7 +52,7 @@ describe('instantiate client', () => {
 
   describe('defaultQuery', () => {
     test('with null query params given', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo' },
         bearerToken: 'My Bearer Token',
@@ -61,7 +61,7 @@ describe('instantiate client', () => {
     });
 
     test('multiple default query params', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { apiVersion: 'foo', hello: 'world' },
         bearerToken: 'My Bearer Token',
@@ -70,7 +70,7 @@ describe('instantiate client', () => {
     });
 
     test('overriding with `undefined`', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/',
         defaultQuery: { hello: 'world' },
         bearerToken: 'My Bearer Token',
@@ -80,7 +80,7 @@ describe('instantiate client', () => {
   });
 
   test('custom fetch', async () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: 'http://localhost:5000/',
       bearerToken: 'My Bearer Token',
       fetch: (url) => {
@@ -97,7 +97,7 @@ describe('instantiate client', () => {
   });
 
   test('custom signal', async () => {
-    const client = new Propulsionai({
+    const client = new PropulsionAI({
       baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
       bearerToken: 'My Bearer Token',
       fetch: (...args) => {
@@ -124,7 +124,7 @@ describe('instantiate client', () => {
 
   describe('baseUrl', () => {
     test('trailing slash', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/custom/path/',
         bearerToken: 'My Bearer Token',
       });
@@ -132,7 +132,7 @@ describe('instantiate client', () => {
     });
 
     test('no trailing slash', () => {
-      const client = new Propulsionai({
+      const client = new PropulsionAI({
         baseURL: 'http://localhost:5000/custom/path',
         bearerToken: 'My Bearer Token',
       });
@@ -144,55 +144,55 @@ describe('instantiate client', () => {
     });
 
     test('explicit option', () => {
-      const client = new Propulsionai({ baseURL: 'https://example.com', bearerToken: 'My Bearer Token' });
+      const client = new PropulsionAI({ baseURL: 'https://example.com', bearerToken: 'My Bearer Token' });
       expect(client.baseURL).toEqual('https://example.com');
     });
 
     test('env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = 'https://example.com/from_env';
-      const client = new Propulsionai({ bearerToken: 'My Bearer Token' });
+      const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
       expect(client.baseURL).toEqual('https://example.com/from_env');
     });
 
     test('empty env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = ''; // empty
-      const client = new Propulsionai({ bearerToken: 'My Bearer Token' });
+      const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
       expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
     });
 
     test('blank env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = '  '; // blank
-      const client = new Propulsionai({ bearerToken: 'My Bearer Token' });
+      const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
       expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
     });
   });
 
   test('maxRetries option is correctly set', () => {
-    const client = new Propulsionai({ maxRetries: 4, bearerToken: 'My Bearer Token' });
+    const client = new PropulsionAI({ maxRetries: 4, bearerToken: 'My Bearer Token' });
     expect(client.maxRetries).toEqual(4);
 
     // default
-    const client2 = new Propulsionai({ bearerToken: 'My Bearer Token' });
+    const client2 = new PropulsionAI({ bearerToken: 'My Bearer Token' });
     expect(client2.maxRetries).toEqual(2);
   });
 
   test('with environment variable arguments', () => {
     // set options via env var
     process.env['PROPULSIONAI_BEARER_TOKEN'] = 'My Bearer Token';
-    const client = new Propulsionai();
+    const client = new PropulsionAI();
     expect(client.bearerToken).toBe('My Bearer Token');
   });
 
   test('with overriden environment variable arguments', () => {
     // set options via env var
     process.env['PROPULSIONAI_BEARER_TOKEN'] = 'another My Bearer Token';
-    const client = new Propulsionai({ bearerToken: 'My Bearer Token' });
+    const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
     expect(client.bearerToken).toBe('My Bearer Token');
   });
 });
 
 describe('request building', () => {
-  const client = new Propulsionai({ bearerToken: 'My Bearer Token' });
+  const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
 
   describe('Content-Length', () => {
     test('handles multi-byte characters', () => {
@@ -234,7 +234,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ bearerToken: 'My Bearer Token', timeout: 10, fetch: testFetch });
+    const client = new PropulsionAI({ bearerToken: 'My Bearer Token', timeout: 10, fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -261,7 +261,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ bearerToken: 'My Bearer Token', fetch: testFetch });
+    const client = new PropulsionAI({ bearerToken: 'My Bearer Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
@@ -288,7 +288,7 @@ describe('retries', () => {
       return new Response(JSON.stringify({ a: 1 }), { headers: { 'Content-Type': 'application/json' } });
     };
 
-    const client = new Propulsionai({ bearerToken: 'My Bearer Token', fetch: testFetch });
+    const client = new PropulsionAI({ bearerToken: 'My Bearer Token', fetch: testFetch });
 
     expect(await client.request({ path: '/foo', method: 'get' })).toEqual({ a: 1 });
     expect(count).toEqual(2);
