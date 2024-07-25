@@ -29,7 +29,7 @@ export namespace ItemCreateParams {
   export interface Data {
     chosen?: string | null;
 
-    history?: Array<Array<string>>;
+    history?: Array<Array<string>> | null;
 
     images?: string | null;
 
@@ -47,7 +47,7 @@ export namespace ItemCreateParams {
 
     system?: string | null;
 
-    tools?: Array<Data.Tool>;
+    tools?: Array<Data.Tool> | null;
   }
 
   export namespace Data {
