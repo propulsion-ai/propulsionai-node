@@ -17,6 +17,8 @@ export class Dataset extends APIResource {
 }
 
 export interface DatasetCreateResponse {
+  id?: number;
+
   dataset?: DatasetCreateResponse.Dataset;
 
   message?: string;

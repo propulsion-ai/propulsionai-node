@@ -157,13 +157,13 @@ describe('instantiate client', () => {
     test('empty env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = ''; // empty
       const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
-      expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
+      expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v2');
     });
 
     test('blank env variable', () => {
       process.env['PROPULSIONAI_BASE_URL'] = '  '; // blank
       const client = new PropulsionAI({ bearerToken: 'My Bearer Token' });
-      expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v1');
+      expect(client.baseURL).toEqual('https://api.propulsionhq.com/api/v2');
     });
   });
 
