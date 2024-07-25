@@ -14,13 +14,17 @@ export class Completions extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse>;
   create(
-    body: CompletionCreateParamsForcedNonStreaming,
+    body: CompletionCreateParamsStreamingNullTools,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<CompletionCreateResponse>;
+  ): Core.APIPromise<Stream<ChatCompletionChunk>>;
   create(
     body: CompletionCreateParamsStreaming,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Stream<ChatCompletionChunk>>;
+  create(
+    body: CompletionCreateParamsForcedNonStreaming,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompletionCreateResponse>;
   create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<ChatCompletionChunk>;
   create(
     body: CompletionCreateParamsBase,
@@ -88,7 +92,7 @@ export namespace CompletionCreateResponse {
 
           description?: string;
 
-          parameters?: Record<string, unknown>;
+          arguments?: Record<string, unknown>;
         }
       }
     }
@@ -337,14 +341,17 @@ export interface CompletionCreateParamsNonStreaming extends CompletionCreatePara
   stream?: false | null;
   tools?: Array<CompletionCreateParamsBase.Tool> | null;
 }
-
+export interface CompletionCreateParamsStreamingNullTools extends CompletionCreateParamsBase {
+  stream: true;
+  tools: [];
+}
 export interface CompletionCreateParamsForcedNonStreaming extends CompletionCreateParamsBase {
-  stream?: true;
-  tools?: Array<CompletionCreateParamsBase.Tool>;
+  stream: true;
+  tools: Array<CompletionCreateParamsBase.Tool>;
 }
 
 export interface CompletionCreateParamsStreaming extends CompletionCreateParamsBase {
-  stream?: true;
+  stream: true;
   tools?: [] | null;
 }
 
