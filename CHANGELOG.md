@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 (2024-07-25)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#97](https://github.com/propulsion-ai/propulsionai-node/issues/97)) ([c1cdb04](https://github.com/propulsion-ai/propulsionai-node/commit/c1cdb04c2f6ad9b180538786c0c95ea9fb2af805))
+
 ## 0.3.0 (2024-07-24)
 
 Full Changelog: [v0.2.1...v0.3.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.2.1...v0.3.0)
