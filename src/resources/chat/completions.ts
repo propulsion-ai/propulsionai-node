@@ -86,9 +86,9 @@ export namespace CompletionCreateResponse {
         export interface Function {
           name: string;
 
-          arguments?: Record<string, unknown>;
-
           description?: string;
+
+          parameters?: Record<string, unknown>;
         }
       }
     }
@@ -334,41 +334,17 @@ export namespace CompletionCreateParamsBase {
 }
 
 export interface CompletionCreateParamsNonStreaming extends CompletionCreateParamsBase {
-  /**
-   * If set, partial message deltas will be sent, like in ChatGPT. Tokens will be
-   * sent as data-only
-   * [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-   * as they become available, with the stream terminated by a `data: [DONE]`
-   * message.
-   * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
-   */
   stream?: false | null;
   tools?: Array<CompletionCreateParamsBase.Tool> | null;
 }
 
 export interface CompletionCreateParamsForcedNonStreaming extends CompletionCreateParamsBase {
-  /**
-   * If set, partial message deltas will be sent, like in ChatGPT. Tokens will be
-   * sent as data-only
-   * [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-   * as they become available, with the stream terminated by a `data: [DONE]`
-   * message.
-   * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
-   */
   stream?: true;
   tools?: Array<CompletionCreateParamsBase.Tool>;
 }
 
 export interface CompletionCreateParamsStreaming extends CompletionCreateParamsBase {
-  /**
-   * If set, partial message deltas will be sent, like in ChatGPT. Tokens will be
-   * sent as data-only
-   * [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
-   * as they become available, with the stream terminated by a `data: [DONE]`
-   * message.
-   * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
-   */
-  stream?: true | null;
+  stream?: true;
   tools?: [] | null;
 }
 
