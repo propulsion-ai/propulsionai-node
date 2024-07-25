@@ -57,6 +57,4 @@ export namespace Dataset {
   export import DatasetCreateResponse = DatasetAPI.DatasetCreateResponse;
   export import DatasetCreateParams = DatasetAPI.DatasetCreateParams;
   export import Record = RecordAPI.Record;
-  export import RecordCreateResponse = RecordAPI.RecordCreateResponse;
-  export import RecordCreateParams = RecordAPI.RecordCreateParams;
 }
