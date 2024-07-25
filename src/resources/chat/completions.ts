@@ -14,6 +14,10 @@ export class Completions extends APIResource {
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse>;
   create(
+    body: CompletionCreateParamsForcedNonStreaming,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompletionCreateResponse>;
+  create(
     body: CompletionCreateParamsStreaming,
     options?: Core.RequestOptions,
   ): Core.APIPromise<Stream<ChatCompletionChunk>>;
@@ -22,6 +26,15 @@ export class Completions extends APIResource {
     body: CompletionCreateParamsBase,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse> | Core.APIPromise<Stream<ChatCompletionChunk>> {
+    let stream: boolean = body.stream || false;
+    if (body.stream) {
+      if (body.tools && body.tools.length > 0) {
+        stream = false;
+        body.stream = false;
+      } else {
+        body.tools = null;
+      }
+    }
     return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false }) as
       | Core.APIPromise<CompletionCreateResponse>
       | Core.APIPromise<Stream<ChatCompletionChunk>>;
@@ -269,7 +282,7 @@ export interface CompletionCreateParamsBase {
 
   tool_choice?: 'none' | 'auto' | 'required' | CompletionCreateParamsBase.ChatCompletionNamedToolChoice;
 
-  tools?: Array<CompletionCreateParamsBase.Tool>;
+  tools?: Array<CompletionCreateParamsBase.Tool> | null;
 
   /**
    * Probability threshold for token selection in text generation, controlling output
@@ -328,6 +341,20 @@ export interface CompletionCreateParamsNonStreaming extends CompletionCreatePara
    * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
    */
   stream?: false | null;
+  tools?: Array<CompletionCreateParamsBase.Tool> | null;
+}
+
+export interface CompletionCreateParamsForcedNonStreaming extends CompletionCreateParamsBase {
+  /**
+   * If set, partial message deltas will be sent, like in ChatGPT. Tokens will be
+   * sent as data-only
+   * [server-sent events](https://developer.mozilla.org/en-US/docs/Web/API/Server-sent_events/Using_server-sent_events#Event_stream_format)
+   * as they become available, with the stream terminated by a `data: [DONE]`
+   * message.
+   * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
+   */
+  stream?: true;
+  tools?: Array<CompletionCreateParamsBase.Tool>;
 }
 
 export interface CompletionCreateParamsStreaming extends CompletionCreateParamsBase {
@@ -340,6 +367,7 @@ export interface CompletionCreateParamsStreaming extends CompletionCreateParamsB
    * [Example Python code](https://cookbook.openai.com/examples/how_to_stream_completions).
    */
   stream?: true | null;
+  tools?: [] | null;
 }
 
 export type CompletionCreateParams = CompletionCreateParamsNonStreaming | CompletionCreateParamsStreaming;
