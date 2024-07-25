@@ -20,4 +20,12 @@ Methods:
 
 - <code title="post /dataset">client.dataset.<a href="./src/resources/dataset/dataset.ts">create</a>({ ...params }) -> DatasetCreateResponse</code>
 
-## Record
+## Item
+
+Types:
+
+- <code><a href="./src/resources/dataset/item.ts">ItemCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /dataset/item">client.dataset.item.<a href="./src/resources/dataset/item.ts">create</a>({ ...params }) -> ItemCreateResponse</code>
