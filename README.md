@@ -11,11 +11,8 @@ It is generated with [Stainless](https://www.stainlessapi.com/).
 ## Installation
 
 ```sh
-npm install git+ssh://git@github.com:stainless-sdks/propulsionai-node.git
+npm install propulsionai
 ```
-
-> [!NOTE]
-> Once this package is [published to npm](https://app.stainlessapi.com/docs/guides/publish), this will become: `npm install propulsionai`
 
 ## Usage
 
@@ -30,9 +27,9 @@ const client = new PropulsionAI({
 });
 
 async function main() {
-  const completionCreateResponse = await propulsionai.chat.completions.create({
+  const completionCreateResponse = await propulsionAI.chat.completions.create({
     deployment: '<your-deployment-endpoint>',
-    messages: [{ role: 'user', content: 'Hello, How are you?' }],
+    messages: [{ role: 'user', content: 'Hello, How are you?.' }],
   });
 
   console.log(completionCreateResponse.id);
@@ -54,12 +51,12 @@ const client = new PropulsionAI({
 });
 
 async function main() {
-  const params: PropulsionAI.Chats.CompletionCreateParams = {
+  const params: PropulsionAI.Chat.CompletionCreateParams = {
     deployment: 'deployment',
     messages: [{}, {}, {}],
   };
-  const completionCreateResponse: PropulsionAI.Chats.CompletionCreateResponse =
-    await propulsionai.chats.completions.create(params);
+  const completionCreateResponse: PropulsionAI.Chat.CompletionCreateResponse =
+    await propulsionAI.chat.completions.create(params);
 }
 
 main();
@@ -76,7 +73,7 @@ a subclass of `APIError` will be thrown:
 <!-- prettier-ignore -->
 ```ts
 async function main() {
-  const completionCreateResponse = await propulsionai.chat.completions
+  const completionCreateResponse = await propulsionAI.chat.completions
     .create({ deployment: 'deployment', messages: [{}, {}, {}] })
     .catch(async (err) => {
       if (err instanceof PropulsionAI.APIError) {
@@ -121,7 +118,7 @@ const client = new PropulsionAI({
 });
 
 // Or, configure per-request:
-await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
+await propulsionAI.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   maxRetries: 5,
 });
 ```
@@ -138,7 +135,7 @@ const client = new PropulsionAI({
 });
 
 // Override per-request:
-await propulsionai.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
+await propulsionAI.chat.completions.create({ deployment: 'deployment', messages: [{}, {}, {}] }, {
   timeout: 5 * 1000,
 });
 ```
@@ -159,13 +156,13 @@ You can also use the `.withResponse()` method to get the raw `Response` along wi
 ```ts
 const client = new PropulsionAI();
 
-const response = await propulsionai.chat.completions
+const response = await propulsionAI.chat.completions
   .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .asResponse();
 console.log(response.headers.get('X-My-Header'));
 console.log(response.statusText); // access the underlying Response object
 
-const { data: completionCreateResponse, response: raw } = await propulsionai.chat.completions
+const { data: completionCreateResponse, response: raw } = await propulsionAI.chat.completions
   .create({ deployment: 'deployment', messages: [{}, {}, {}] })
   .withResponse();
 console.log(raw.headers.get('X-My-Header'));
@@ -232,7 +229,7 @@ import PropulsionAI from 'propulsionai';
 ```
 
 To do the inverse, add `import "propulsionai/shims/node"` (which does import polyfills).
-This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/stainless-sdks/propulsionai-node/tree/main/src/_shims#readme)).
+This can also be useful if you are getting the wrong TypeScript types for `Response` ([more details](https://github.com/propulsion-ai/propulsionai-node/tree/main/src/_shims#readme)).
 
 ### Logging and middleware
 
@@ -273,7 +270,7 @@ const client = new PropulsionAI({
 });
 
 // Override per-request:
-await propulsionai.chat.completions.create(
+await propulsionAI.chat.completions.create(
   { deployment: 'deployment', messages: [{}, {}, {}] },
   {
     httpAgent: new http.Agent({ keepAlive: false }),
@@ -291,7 +288,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/propulsionai-node/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/propulsion-ai/propulsionai-node/issues) with questions, bugs, or suggestions.
 
 ## Requirements
 

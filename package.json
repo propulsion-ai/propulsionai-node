@@ -1,12 +1,12 @@
 {
   "name": "propulsionai",
-  "version": "0.2.1",
+  "version": "0.3.0",
   "description": "The official TypeScript library for the PropulsionAI API",
   "author": "PropulsionAI <dev-feedback@propulsionai.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",
   "type": "commonjs",
-  "repository": "github:stainless-sdks/propulsionai-node",
+  "repository": "github:propulsion-ai/propulsionai-node",
   "license": "Apache-2.0",
   "packageManager": "yarn@1.22.22",
   "files": [

@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { PropulsionAI } from 'propulsionai';
+import PropulsionAI from 'propulsionai';
 import { APIUserAbortError } from 'propulsionai';
 import { Headers } from 'propulsionai/core';
 import defaultFetch, { Response, type RequestInit, type RequestInfo } from 'node-fetch';
