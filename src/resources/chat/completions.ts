@@ -56,8 +56,6 @@ export interface CompletionCreateResponse {
 
   usage?: CompletionCreateResponse.Usage;
 
-  task_id?: string;
-
   poll_id?: string;
 }
 
