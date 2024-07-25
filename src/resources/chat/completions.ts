@@ -59,9 +59,9 @@ export namespace CompletionCreateResponse {
         export interface Function {
           name: string;
 
-          description?: string;
+          arguments?: Record<string, unknown>;
 
-          parameters?: Record<string, unknown>;
+          description?: string;
         }
       }
     }
