@@ -8,9 +8,9 @@ const propulsionAI = new PropulsionAI({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource record', () => {
+describe('resource item', () => {
   test('create: only required params', async () => {
-    const responsePromise = propulsionAI.dataset.record.create({ data: {}, dataset_id: 0 });
+    const responsePromise = propulsionAI.dataset.item.create({ data: {}, dataset_id: 0 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource record', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await propulsionAI.dataset.record.create({
+    const response = await propulsionAI.dataset.item.create({
       data: {
         query: 'query',
         tools: [

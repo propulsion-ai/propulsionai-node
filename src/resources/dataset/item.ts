@@ -2,30 +2,30 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import * as RecordAPI from './record';
+import * as ItemAPI from './item';
 
-export class Record extends APIResource {
+export class Item extends APIResource {
   /**
-   * Creates a new record in a dataset.
+   * Creates a new item in a dataset.
    */
-  create(body: RecordCreateParams, options?: Core.RequestOptions): Core.APIPromise<RecordCreateResponse> {
-    return this._client.post('/dataset/record', { body, ...options });
+  create(body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<ItemCreateResponse> {
+    return this._client.post('/dataset/item', { body, ...options });
   }
 }
 
-export interface RecordCreateResponse {
+export interface ItemCreateResponse {
   message?: string;
 
   task_id?: string;
 }
 
-export interface RecordCreateParams {
-  data: RecordCreateParams.Data;
+export interface ItemCreateParams {
+  data: ItemCreateParams.Data;
 
   dataset_id: number;
 }
 
-export namespace RecordCreateParams {
+export namespace ItemCreateParams {
   export interface Data {
     chosen?: string | null;
 
@@ -75,7 +75,7 @@ export namespace RecordCreateParams {
   }
 }
 
-export namespace Record {
-  export import RecordCreateResponse = RecordAPI.RecordCreateResponse;
-  export import RecordCreateParams = RecordAPI.RecordCreateParams;
+export namespace Item {
+  export import ItemCreateResponse = ItemAPI.ItemCreateResponse;
+  export import ItemCreateParams = ItemAPI.ItemCreateParams;
 }

@@ -2,12 +2,11 @@
 
 import { APIResource } from '../../resource';
 import * as Core from '../../core';
-import { Record } from './record';
 import * as DatasetAPI from './dataset';
-import * as RecordAPI from './record';
+import * as ItemAPI from './item';
 
 export class Dataset extends APIResource {
-  record: RecordAPI.Record = new RecordAPI.Record(this._client);
+  item: ItemAPI.Item = new ItemAPI.Item(this._client);
 
   /**
    * Creates a new dataset.
@@ -56,7 +55,7 @@ export interface DatasetCreateParams {
 export namespace Dataset {
   export import DatasetCreateResponse = DatasetAPI.DatasetCreateResponse;
   export import DatasetCreateParams = DatasetAPI.DatasetCreateParams;
-  export import Record = RecordAPI.Record;
-  export import RecordCreateResponse = RecordAPI.RecordCreateResponse;
-  export import RecordCreateParams = RecordAPI.RecordCreateParams;
+  export import Item = ItemAPI.Item;
+  export import ItemCreateResponse = ItemAPI.ItemCreateResponse;
+  export import ItemCreateParams = ItemAPI.ItemCreateParams;
 }
