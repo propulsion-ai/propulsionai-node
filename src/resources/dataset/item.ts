@@ -14,9 +14,9 @@ export class Item extends APIResource {
 }
 
 export interface ItemCreateResponse {
-  message?: string;
+  id?: string;
 
-  task_id?: string;
+  message?: string;
 }
 
 export interface ItemCreateParams {
