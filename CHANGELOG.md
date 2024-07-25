@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.5.1 (2024-07-25)
+
+Full Changelog: [v0.5.0...v0.5.1](https://github.com/propulsion-ai/propulsionai-node/compare/v0.5.0...v0.5.1)
+
+### Bug Fixes
+
+* **compat:** remove ReadableStream polyfill redundant since node v16 ([#103](https://github.com/propulsion-ai/propulsionai-node/issues/103)) ([40a50e2](https://github.com/propulsion-ai/propulsionai-node/commit/40a50e297db899ea34f9f3961785021d0ca58afc))
+
 ## 0.5.0 (2024-07-25)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.4.0...v0.5.0)
