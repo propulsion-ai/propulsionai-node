@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.7.0 (2024-07-25)
+
+Full Changelog: [v0.6.0...v0.7.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.6.0...v0.7.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#109](https://github.com/propulsion-ai/propulsionai-node/issues/109)) ([b399c6a](https://github.com/propulsion-ai/propulsionai-node/commit/b399c6a823cf3f642cc83dad9ce1dd116954b49a))
+
 ## 0.6.0 (2024-07-25)
 
 Full Changelog: [v0.5.1...v0.6.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.5.1...v0.6.0)
