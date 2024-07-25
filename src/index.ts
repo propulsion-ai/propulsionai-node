@@ -81,7 +81,7 @@ export class PropulsionAI extends Core.APIClient {
    * API Client for interfacing with the PropulsionAI API.
    *
    * @param {string | undefined} [opts.bearerToken=process.env['PROPULSIONAI_BEARER_TOKEN'] ?? undefined]
-   * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v1] - Override the default base URL for the API.
+   * @param {string} [opts.baseURL=process.env['PROPULSIONAI_BASE_URL'] ?? https://api.propulsionhq.com/api/v2] - Override the default base URL for the API.
    * @param {number} [opts.timeout=1 minute] - The maximum amount of time (in milliseconds) the client will wait for a response before timing out.
    * @param {number} [opts.httpAgent] - An HTTP agent used to manage HTTP(s) connections.
    * @param {Core.Fetch} [opts.fetch] - Specify a custom `fetch` function implementation.
@@ -103,7 +103,7 @@ export class PropulsionAI extends Core.APIClient {
     const options: ClientOptions = {
       bearerToken,
       ...opts,
-      baseURL: baseURL || `https://api.propulsionhq.com/api/v1`,
+      baseURL: baseURL || `https://api.propulsionhq.com/api/v2`,
     };
 
     super({
