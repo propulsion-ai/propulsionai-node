@@ -27,7 +27,7 @@ export interface CompletionCreateResponse {
 
   object?: string;
 
-  tool_calls?: Array<CompletionCreateResponse.ToolCall>;
+  task_id?: string;
 
   usage?: CompletionCreateResponse.Usage;
 }
@@ -44,22 +44,26 @@ export namespace CompletionCreateResponse {
       content?: string;
 
       role?: 'system' | 'user' | 'assistant' | 'tool';
+
+      tool_calls?: Array<Message.ToolCall>;
     }
-  }
 
-  export interface ToolCall {
-    function?: ToolCall.Function;
+    export namespace Message {
+      export interface ToolCall {
+        function?: ToolCall.Function;
 
-    type?: 'function';
-  }
+        type?: 'function';
+      }
 
-  export namespace ToolCall {
-    export interface Function {
-      name: string;
+      export namespace ToolCall {
+        export interface Function {
+          name: string;
 
-      description?: string;
+          description?: string;
 
-      parameters?: Record<string, unknown>;
+          parameters?: Record<string, unknown>;
+        }
+      }
     }
   }
 
