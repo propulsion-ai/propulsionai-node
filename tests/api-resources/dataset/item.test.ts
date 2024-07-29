@@ -3,14 +3,14 @@
 import PropulsionAI from 'propulsionai';
 import { Response } from 'node-fetch';
 
-const client = new PropulsionAI({
+const propulsionAI = new PropulsionAI({
   bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource item', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.dataset.item.create({ data: {}, dataset_id: 0 });
+    const responsePromise = propulsionAI.dataset.item.create({ data: {}, dataset_id: 0 });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,7 +21,7 @@ describe('resource item', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.dataset.item.create({
+    const response = await propulsionAI.dataset.item.create({
       data: {
         query: 'query',
         tools: [
