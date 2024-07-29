@@ -20,7 +20,7 @@ export class Knowledgebase extends APIResource {
 }
 
 export interface KnowledgebaseCreateResponse {
-  id?: string;
+  id?: number;
 
   message?: string;
 }
