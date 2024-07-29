@@ -37,7 +37,7 @@ export namespace Knowledgebase {
   export import KnowledgebaseCreateResponse = KnowledgebaseAPI.KnowledgebaseCreateResponse;
   export import KnowledgebaseCreateParams = KnowledgebaseAPI.KnowledgebaseCreateParams;
   export import File = FileAPI.File;
-  export import FileCreateResponse = FileAPI.FileCreateResponse;
   export import FileDeleteResponse = FileAPI.FileDeleteResponse;
-  export import FileCreateParams = FileAPI.FileCreateParams;
+  export import FileUploadResponse = FileAPI.FileUploadResponse;
+  export import FileUploadParams = FileAPI.FileUploadParams;
 }
