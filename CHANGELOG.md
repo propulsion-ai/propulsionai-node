@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.17.0 (2024-07-29)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#144](https://github.com/propulsion-ai/propulsionai-node/issues/144)) ([2ef5453](https://github.com/propulsion-ai/propulsionai-node/commit/2ef54538e5d868f03de8b5cdaf80e43ff769bf08))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#142](https://github.com/propulsion-ai/propulsionai-node/issues/142)) ([e2dfdb0](https://github.com/propulsion-ai/propulsionai-node/commit/e2dfdb0b594ddb68001d1382a926765c0e52f700))
+
 ## 0.16.0 (2024-07-29)
 
 Full Changelog: [v0.15.0...v0.16.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.15.0...v0.16.0)
