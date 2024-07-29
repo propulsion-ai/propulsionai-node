@@ -8,9 +8,9 @@ const client = new PropulsionAI({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource dataset', () => {
+describe('resource knowledgebase', () => {
   test('create: only required params', async () => {
-    const responsePromise = client.dataset.create({ name: 'name' });
+    const responsePromise = client.knowledgebase.create({ name: 'name', tags: 'tags' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,11 +21,10 @@ describe('resource dataset', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.dataset.create({
+    const response = await client.knowledgebase.create({
       name: 'name',
+      tags: 'tags',
       description: 'description',
-      metadata: { foo: 'bar' },
-      settings: { foo: 'bar' },
     });
   });
 });

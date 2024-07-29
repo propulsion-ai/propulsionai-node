@@ -1,5 +1,92 @@
 # Changelog
 
+## 0.19.0 (2024-07-29)
+
+Full Changelog: [v0.18.0...v0.19.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.18.0...v0.19.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#152](https://github.com/propulsion-ai/propulsionai-node/issues/152)) ([6195d5e](https://github.com/propulsion-ai/propulsionai-node/commit/6195d5e7e4b294bc26b1193f7d853a252fff19ec))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#150](https://github.com/propulsion-ai/propulsionai-node/issues/150)) ([2d89e63](https://github.com/propulsion-ai/propulsionai-node/commit/2d89e63b269087804b3eb6d9a65f570386eda09c))
+* **docs:** fix incorrect client var names ([#153](https://github.com/propulsion-ai/propulsionai-node/issues/153)) ([54af27b](https://github.com/propulsion-ai/propulsionai-node/commit/54af27b982db48dc85d4ea1e1e006058d2f37f96))
+
+## 0.18.0 (2024-07-29)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#148](https://github.com/propulsion-ai/propulsionai-node/issues/148)) ([e147e55](https://github.com/propulsion-ai/propulsionai-node/commit/e147e55e1bdf5fea99473dbacf9add9bf9265779))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#146](https://github.com/propulsion-ai/propulsionai-node/issues/146)) ([31f7fc4](https://github.com/propulsion-ai/propulsionai-node/commit/31f7fc4cc22a46c1151b1ad9a508f9794ba9545c))
+
+## 0.17.0 (2024-07-29)
+
+Full Changelog: [v0.16.0...v0.17.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.16.0...v0.17.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#144](https://github.com/propulsion-ai/propulsionai-node/issues/144)) ([2ef5453](https://github.com/propulsion-ai/propulsionai-node/commit/2ef54538e5d868f03de8b5cdaf80e43ff769bf08))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#142](https://github.com/propulsion-ai/propulsionai-node/issues/142)) ([e2dfdb0](https://github.com/propulsion-ai/propulsionai-node/commit/e2dfdb0b594ddb68001d1382a926765c0e52f700))
+
+## 0.16.0 (2024-07-29)
+
+Full Changelog: [v0.15.0...v0.16.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.15.0...v0.16.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#140](https://github.com/propulsion-ai/propulsionai-node/issues/140)) ([7f99773](https://github.com/propulsion-ai/propulsionai-node/commit/7f99773902dcbd8bcddd373828c47455d41219cb))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#138](https://github.com/propulsion-ai/propulsionai-node/issues/138)) ([516f44c](https://github.com/propulsion-ai/propulsionai-node/commit/516f44c0785a88ca523f09ca259490d8b588eef1))
+
+## 0.15.0 (2024-07-29)
+
+Full Changelog: [v0.14.0...v0.15.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.14.0...v0.15.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#136](https://github.com/propulsion-ai/propulsionai-node/issues/136)) ([f6cedf1](https://github.com/propulsion-ai/propulsionai-node/commit/f6cedf10bd80553efb017bf76defc11e426bed21))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#134](https://github.com/propulsion-ai/propulsionai-node/issues/134)) ([531ba56](https://github.com/propulsion-ai/propulsionai-node/commit/531ba56446ddeb06ab20dc9836816b31fc68b676))
+
+## 0.14.0 (2024-07-29)
+
+Full Changelog: [v0.13.0...v0.14.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.13.0...v0.14.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#132](https://github.com/propulsion-ai/propulsionai-node/issues/132)) ([8c061b6](https://github.com/propulsion-ai/propulsionai-node/commit/8c061b68742ce9ca392a3fdefa2fd2e71c87402b))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#130](https://github.com/propulsion-ai/propulsionai-node/issues/130)) ([6d51829](https://github.com/propulsion-ai/propulsionai-node/commit/6d51829066f006efd490a38e69829637e4bbbd71))
+
+## 0.13.0 (2024-07-29)
+
+Full Changelog: [v0.12.0...v0.13.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.12.0...v0.13.0)
+
+### Features
+
+* **api:** OpenAPI spec update via Stainless API ([#128](https://github.com/propulsion-ai/propulsionai-node/issues/128)) ([e2508c9](https://github.com/propulsion-ai/propulsionai-node/commit/e2508c9a265ab8ff635163da4c87f7b20f1d0892))
+
 ## 0.12.0 (2024-07-25)
 
 Full Changelog: [v0.11.0...v0.12.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.11.0...v0.12.0)
