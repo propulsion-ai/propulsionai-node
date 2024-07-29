@@ -3,14 +3,14 @@
 import PropulsionAI from 'propulsionai';
 import { Response } from 'node-fetch';
 
-const propulsionAI = new PropulsionAI({
+const client = new PropulsionAI({
   bearerToken: 'My Bearer Token',
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
 describe('resource completions', () => {
   test('create: only required params', async () => {
-    const responsePromise = propulsionAI.chat.completions.create({
+    const responsePromise = client.chat.completions.create({
       deployment: 'deployment',
       messages: [{}, {}, {}],
     });
@@ -24,7 +24,7 @@ describe('resource completions', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await propulsionAI.chat.completions.create({
+    const response = await client.chat.completions.create({
       deployment: 'deployment',
       messages: [
         { role: 'system', content: 'content' },
