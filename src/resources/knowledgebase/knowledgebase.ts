@@ -28,8 +28,6 @@ export interface KnowledgebaseCreateResponse {
 export interface KnowledgebaseCreateParams {
   name: string;
 
-  project_id: number;
-
   tags: string;
 
   description?: string;
