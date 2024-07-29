@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.18.0 (2024-07-29)
+
+Full Changelog: [v0.17.0...v0.18.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.17.0...v0.18.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#148](https://github.com/propulsion-ai/propulsionai-node/issues/148)) ([e147e55](https://github.com/propulsion-ai/propulsionai-node/commit/e147e55e1bdf5fea99473dbacf9add9bf9265779))
+
+
+### Chores
+
+* **docs:** fix incorrect client var names ([#146](https://github.com/propulsion-ai/propulsionai-node/issues/146)) ([31f7fc4](https://github.com/propulsion-ai/propulsionai-node/commit/31f7fc4cc22a46c1151b1ad9a508f9794ba9545c))
+
 ## 0.17.0 (2024-07-29)
 
 Full Changelog: [v0.16.0...v0.17.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.16.0...v0.17.0)
