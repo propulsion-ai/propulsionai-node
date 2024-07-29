@@ -44,10 +44,10 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/knowledgebase/file.ts">FileCreateResponse</a></code>
 - <code><a href="./src/resources/knowledgebase/file.ts">FileDeleteResponse</a></code>
+- <code><a href="./src/resources/knowledgebase/file.ts">FileUploadResponse</a></code>
 
 Methods:
 
-- <code title="post /knowledgebase/{knowledgebase_id}/file">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">create</a>(knowledgebaseId, { ...params }) -> FileCreateResponse</code>
 - <code title="delete /knowledgebase/{knowledgebase_id}/file/{file_id}">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">delete</a>(knowledgebaseId, fileId) -> FileDeleteResponse</code>
+- <code title="post /knowledgebase/{knowledgebase_id}/file">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">upload</a>(knowledgebaseId, { ...params }) -> FileUploadResponse</code>
