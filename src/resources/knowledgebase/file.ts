@@ -6,20 +6,6 @@ import * as FileAPI from './file';
 
 export class File extends APIResource {
   /**
-   * Uploads a file to a knowledgebase.
-   */
-  create(
-    knowledgebaseId: number,
-    body: FileCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FileCreateResponse> {
-    return this._client.post(
-      `/knowledgebase/${knowledgebaseId}/file`,
-      Core.multipartFormRequestOptions({ body, ...options }),
-    );
-  }
-
-  /**
    * Deletes a file from a knowledgebase.
    */
   delete(
@@ -29,12 +15,20 @@ export class File extends APIResource {
   ): Core.APIPromise<FileDeleteResponse> {
     return this._client.delete(`/knowledgebase/${knowledgebaseId}/file/${fileId}`, options);
   }
-}
 
-export interface FileCreateResponse {
-  id?: string;
-
-  message?: string;
+  /**
+   * Uploads a file to a knowledgebase.
+   */
+  upload(
+    knowledgebaseId: number,
+    body: FileUploadParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<FileUploadResponse> {
+    return this._client.post(
+      `/knowledgebase/${knowledgebaseId}/file`,
+      Core.multipartFormRequestOptions({ body, ...options }),
+    );
+  }
 }
 
 export interface FileDeleteResponse {
@@ -43,12 +37,18 @@ export interface FileDeleteResponse {
   message?: string;
 }
 
-export interface FileCreateParams {
+export interface FileUploadResponse {
+  id?: string;
+
+  message?: string;
+}
+
+export interface FileUploadParams {
   file: Core.Uploadable;
 }
 
 export namespace File {
-  export import FileCreateResponse = FileAPI.FileCreateResponse;
   export import FileDeleteResponse = FileAPI.FileDeleteResponse;
-  export import FileCreateParams = FileAPI.FileCreateParams;
+  export import FileUploadResponse = FileAPI.FileUploadResponse;
+  export import FileUploadParams = FileAPI.FileUploadParams;
 }
