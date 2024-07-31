@@ -139,6 +139,7 @@ export class PropulsionAI extends Core.APIClient {
   }
 
   static PropulsionAI = this;
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static PropulsionAIError = Errors.PropulsionAIError;
   static APIError = Errors.APIError;
