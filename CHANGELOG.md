@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.20.0 (2024-07-31)
+
+Full Changelog: [v0.19.0...v0.20.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.19.0...v0.20.0)
+
+### Features
+
+* **api:** update via SDK Studio ([#158](https://github.com/propulsion-ai/propulsionai-node/issues/158)) ([6094e27](https://github.com/propulsion-ai/propulsionai-node/commit/6094e270ddcdb68eaaf0e97f38b6b693b2a4dd0f))
+
+
+### Chores
+
+* **ci:** correctly tag pre-release npm packages ([#157](https://github.com/propulsion-ai/propulsionai-node/issues/157)) ([c90a550](https://github.com/propulsion-ai/propulsionai-node/commit/c90a5504ce471c492b308c2e314be497c33af001))
+* **internal:** add constant for default timeout ([#156](https://github.com/propulsion-ai/propulsionai-node/issues/156)) ([5b5286c](https://github.com/propulsion-ai/propulsionai-node/commit/5b5286c232ba2293b8e920fa995f7b5b4f3acbf3))
+
 ## 0.19.0 (2024-07-29)
 
 Full Changelog: [v0.18.0...v0.19.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.18.0...v0.19.0)

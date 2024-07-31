@@ -4,7 +4,7 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as FileAPI from './file';
 
-export class File extends APIResource {
+export class FileResource extends APIResource {
   /**
    * Deletes a file from a knowledgebase.
    */
@@ -23,7 +23,7 @@ export class File extends APIResource {
     knowledgebaseId: number,
     body: FileUploadParams,
     options?: Core.RequestOptions,
-  ): Core.APIPromise<FileUploadResponse> {
+  ): Core.APIPromise<File> {
     return this._client.post(
       `/knowledgebase/${knowledgebaseId}/file`,
       Core.multipartFormRequestOptions({ body, ...options }),
@@ -31,13 +31,13 @@ export class File extends APIResource {
   }
 }
 
-export interface FileDeleteResponse {
+export interface File {
   id?: string;
 
   message?: string;
 }
 
-export interface FileUploadResponse {
+export interface FileDeleteResponse {
   id?: string;
 
   message?: string;
@@ -47,8 +47,8 @@ export interface FileUploadParams {
   file: Core.Uploadable;
 }
 
-export namespace File {
+export namespace FileResource {
+  export import File = FileAPI.File;
   export import FileDeleteResponse = FileAPI.FileDeleteResponse;
-  export import FileUploadResponse = FileAPI.FileUploadResponse;
   export import FileUploadParams = FileAPI.FileUploadParams;
 }
