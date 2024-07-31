@@ -34,20 +34,20 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/knowledgebase/knowledgebase.ts">KnowledgebaseCreateResponse</a></code>
+- <code><a href="./src/resources/knowledgebase/knowledgebase.ts">Knowledgebase</a></code>
 
 Methods:
 
-- <code title="post /knowledgebase">client.knowledgebase.<a href="./src/resources/knowledgebase/knowledgebase.ts">create</a>({ ...params }) -> KnowledgebaseCreateResponse</code>
+- <code title="post /knowledgebase">client.knowledgebase.<a href="./src/resources/knowledgebase/knowledgebase.ts">create</a>({ ...params }) -> Knowledgebase</code>
 
 ## File
 
 Types:
 
+- <code><a href="./src/resources/knowledgebase/file.ts">File</a></code>
 - <code><a href="./src/resources/knowledgebase/file.ts">FileDeleteResponse</a></code>
-- <code><a href="./src/resources/knowledgebase/file.ts">FileUploadResponse</a></code>
 
 Methods:
 
 - <code title="delete /knowledgebase/{knowledgebase_id}/file/{file_id}">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">delete</a>(knowledgebaseId, fileId) -> FileDeleteResponse</code>
-- <code title="post /knowledgebase/{knowledgebase_id}/file">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">upload</a>(knowledgebaseId, { ...params }) -> FileUploadResponse</code>
+- <code title="post /knowledgebase/{knowledgebase_id}/file">client.knowledgebase.file.<a href="./src/resources/knowledgebase/file.ts">upload</a>(knowledgebaseId, { ...params }) -> File</code>
