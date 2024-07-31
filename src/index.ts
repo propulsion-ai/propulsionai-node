@@ -121,7 +121,7 @@ export class PropulsionAI extends Core.APIClient {
 
   chat: API.Chat = new API.Chat(this);
   dataset: API.Dataset = new API.Dataset(this);
-  knowledgebase: API.Knowledgebase = new API.Knowledgebase(this);
+  knowledgebase: API.KnowledgebaseResource = new API.KnowledgebaseResource(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
     return this._options.defaultQuery;
@@ -187,8 +187,8 @@ export namespace PropulsionAI {
   export import DatasetCreateResponse = API.DatasetCreateResponse;
   export import DatasetCreateParams = API.DatasetCreateParams;
 
+  export import KnowledgebaseResource = API.KnowledgebaseResource;
   export import Knowledgebase = API.Knowledgebase;
-  export import KnowledgebaseCreateResponse = API.KnowledgebaseCreateResponse;
   export import KnowledgebaseCreateParams = API.KnowledgebaseCreateParams;
 }
 

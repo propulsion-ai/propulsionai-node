@@ -3,7 +3,7 @@
 export { Chat } from './chat/chat';
 export { DatasetCreateResponse, DatasetCreateParams, Dataset } from './dataset/dataset';
 export {
-  KnowledgebaseCreateResponse,
-  KnowledgebaseCreateParams,
   Knowledgebase,
+  KnowledgebaseCreateParams,
+  KnowledgebaseResource,
 } from './knowledgebase/knowledgebase';
