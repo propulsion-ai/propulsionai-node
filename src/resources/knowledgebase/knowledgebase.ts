@@ -5,21 +5,18 @@ import * as Core from '../../core';
 import * as KnowledgebaseAPI from './knowledgebase';
 import * as FileAPI from './file';
 
-export class Knowledgebase extends APIResource {
-  file: FileAPI.File = new FileAPI.File(this._client);
+export class KnowledgebaseResource extends APIResource {
+  file: FileAPI.FileResource = new FileAPI.FileResource(this._client);
 
   /**
    * Creates a new knowledgebase.
    */
-  create(
-    body: KnowledgebaseCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<KnowledgebaseCreateResponse> {
+  create(body: KnowledgebaseCreateParams, options?: Core.RequestOptions): Core.APIPromise<Knowledgebase> {
     return this._client.post('/knowledgebase', { body, ...options });
   }
 }
 
-export interface KnowledgebaseCreateResponse {
+export interface Knowledgebase {
   id?: number;
 
   message?: string;
@@ -33,11 +30,11 @@ export interface KnowledgebaseCreateParams {
   description?: string;
 }
 
-export namespace Knowledgebase {
-  export import KnowledgebaseCreateResponse = KnowledgebaseAPI.KnowledgebaseCreateResponse;
+export namespace KnowledgebaseResource {
+  export import Knowledgebase = KnowledgebaseAPI.Knowledgebase;
   export import KnowledgebaseCreateParams = KnowledgebaseAPI.KnowledgebaseCreateParams;
+  export import FileResource = FileAPI.FileResource;
   export import File = FileAPI.File;
   export import FileDeleteResponse = FileAPI.FileDeleteResponse;
-  export import FileUploadResponse = FileAPI.FileUploadResponse;
   export import FileUploadParams = FileAPI.FileUploadParams;
 }
