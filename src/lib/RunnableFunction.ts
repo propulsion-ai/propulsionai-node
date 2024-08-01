@@ -8,11 +8,11 @@ export type RunnableFunctionWithParse<Args extends object> = {
   /**
    * @param args the return value from `parse`.
    * @param runner the runner evaluating this callback.
-   * @returns a string to send back to OpenAI.
+   * @returns a string to send back to PropulsionAI.
    */
   function: (args: Args, runner: ChatCompletionRunner) => PromiseOrValue<unknown>;
   /**
-   * @param input the raw args from the OpenAI function call.
+   * @param input the raw args from the PropulsionAI function call.
    * @returns the parsed arguments to pass to `function`
    */
   parse: (input: string) => PromiseOrValue<Args>;
@@ -32,8 +32,8 @@ export type RunnableFunctionWithParse<Args extends object> = {
 
 export type RunnableFunctionWithoutParse = {
   /**
-   * @param args the raw args from the OpenAI function call.
-   * @returns a string to send back to OpenAI
+   * @param args the raw args from the PropulsionAI function call.
+   * @returns a string to send back to PropulsionAI
    */
   function: (args: string, runner: ChatCompletionRunner) => PromiseOrValue<unknown>;
   /**
