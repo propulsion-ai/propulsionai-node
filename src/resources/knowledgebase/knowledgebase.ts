@@ -17,7 +17,7 @@ export class KnowledgebaseResource extends APIResource {
 }
 
 export interface Knowledgebase {
-  id?: number;
+  code?: string;
 
   message?: string;
 }
@@ -35,6 +35,4 @@ export namespace KnowledgebaseResource {
   export import KnowledgebaseCreateParams = KnowledgebaseAPI.KnowledgebaseCreateParams;
   export import FileResource = FileAPI.FileResource;
   export import File = FileAPI.File;
-  export import FileDeleteResponse = FileAPI.FileDeleteResponse;
-  export import FileUploadParams = FileAPI.FileUploadParams;
 }
