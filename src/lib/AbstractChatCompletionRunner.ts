@@ -1,21 +1,19 @@
-import * as Core from "../core";
-import { type CompletionCreateResponse } from "../resources/chat/completions";
+import * as Core from '../core';
+import { type CompletionCreateResponse } from '../resources/chat/completions';
 import {
   type Completions,
   type CompletionCreateResponse as ChatCompletion,
   type CompletionCreateParamsBase,
   type CompletionCreateParams as ChatCompletionCreateParams,
-} from "../resources/chat/completions";
-import { APIUserAbortError, PropulsionAIError } from "../error";
+} from '../resources/chat/completions';
+import { APIUserAbortError, PropulsionAIError } from '../error';
 import {
   type RunnableFunction,
   isRunnableFunctionWithParse,
   type BaseFunctionsArgs,
 } from './RunnableFunction';
-import { ChatCompletionFunctionRunnerParams, ChatCompletionToolRunnerParams } from './ChatCompletionRunner';
-import {
-  ChatCompletionStreamingToolRunnerParams,
-} from './ChatCompletionStreamingRunner';
+import { ChatCompletionToolRunnerParams } from './ChatCompletionRunner';
+import { ChatCompletionStreamingToolRunnerParams } from './ChatCompletionStreamingRunner';
 import { isToolMessage, isAssistantMessage } from './chatCompletionUtils';
 
 const DEFAULT_MAX_CHAT_COMPLETIONS = 10;
@@ -92,7 +90,7 @@ export abstract class AbstractChatCompletionRunner<
   }
 
   protected _addMessage(message: ChatCompletionMessageParam, emit = true) {
-    if (!('content' in message)) message.content = "";
+    if (!('content' in message)) message.content = '';
 
     this.messages.push(message);
 
@@ -104,7 +102,7 @@ export abstract class AbstractChatCompletionRunner<
       }
     }
   }
-  
+
   protected _set_task_id(task_id: string) {
     this.task_id = task_id;
   }
@@ -232,7 +230,7 @@ export abstract class AbstractChatCompletionRunner<
       const message = this.messages[i];
       if (isAssistantMessage(message)) {
         let { ...rest } = message;
-        if(!message.content) {
+        if (!message.content) {
           message.content = '';
         }
         const ret: ChatCompletionMessage = { ...rest, content: message.content ?? null };
@@ -444,7 +442,7 @@ export abstract class AbstractChatCompletionRunner<
       { ...options, signal: this.controller.signal },
     );
     this._connected();
-    if(chatCompletion.task_id) {
+    if (chatCompletion.task_id) {
       this._set_task_id(chatCompletion.task_id);
     }
     return this._addChatCompletion(chatCompletion);
@@ -523,11 +521,11 @@ export abstract class AbstractChatCompletionRunner<
         return;
       }
       for (const tool_call of message.tool_calls) {
-        if (!tool_call.type) tool_call.type = "function";
+        if (!tool_call.type) tool_call.type = 'function';
         if (tool_call.type !== 'function') continue;
         const tool_call_id = tool_call.id;
         let f = tool_call.function;
-        if(!f) continue;
+        if (!f) continue;
         const { name, arguments: args } = f;
         const fn = functionsByName[name];
 
@@ -555,7 +553,7 @@ export abstract class AbstractChatCompletionRunner<
           this._addMessage({ role, tool_call_id, content });
           continue;
         }
-        
+
         // @ts-expect-error it can't rule out `never` type.
         const rawContent = await fn.function(parsed, this);
         const content = this.#stringifyFunctionCallResult(rawContent);

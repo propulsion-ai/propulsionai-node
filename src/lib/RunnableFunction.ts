@@ -10,10 +10,7 @@ export type RunnableFunctionWithParse<Args extends object> = {
    * @param runner the runner evaluating this callback.
    * @returns a string to send back to OpenAI.
    */
-  function: (
-    args: Args,
-    runner: ChatCompletionRunner,
-  ) => PromiseOrValue<unknown>;
+  function: (args: Args, runner: ChatCompletionRunner) => PromiseOrValue<unknown>;
   /**
    * @param input the raw args from the OpenAI function call.
    * @returns the parsed arguments to pass to `function`
@@ -38,10 +35,7 @@ export type RunnableFunctionWithoutParse = {
    * @param args the raw args from the OpenAI function call.
    * @returns a string to send back to OpenAI
    */
-  function: (
-    args: string,
-    runner: ChatCompletionRunner,
-  ) => PromiseOrValue<unknown>;
+  function: (args: string, runner: ChatCompletionRunner) => PromiseOrValue<unknown>;
   /**
    * The parameters the function accepts, describes as a JSON Schema object.
    */

@@ -4,7 +4,7 @@ import PropulsionAI from 'propulsionai';
 
 const client = new PropulsionAI({
   bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'],
-  baseURL: "https://npapi.propulsionhq.com/api/v2"
+  baseURL: 'https://npapi.propulsionhq.com/api/v2',
 });
 
 async function main() {
@@ -22,9 +22,7 @@ async function main() {
       file: file,
     });
     console.log(`Knowledgebase file uploaded with id: ${kb_file.id}`);
-    
   }
-
 }
 
 main();

@@ -1,17 +1,17 @@
-import * as Core from "../core";
-import { PropulsionAIError, APIUserAbortError } from "../error";
+import * as Core from '../core';
+import { PropulsionAIError, APIUserAbortError } from '../error';
 import {
   type Completions,
   type CompletionCreateParamsBase,
   type ChatCompletionChunk,
-  type CompletionCreateResponse
-} from "../resources/chat/completions";
+  type CompletionCreateResponse,
+} from '../resources/chat/completions';
 import {
   AbstractChatCompletionRunner,
   type AbstractChatCompletionRunnerEvents,
 } from './AbstractChatCompletionRunner';
-import { type ReadableStream } from "../_shims/index";
-import { Stream } from "../streaming";
+import { type ReadableStream } from '../_shims/index';
+import { Stream } from '../streaming';
 
 export interface ChatCompletionStreamEvents extends AbstractChatCompletionRunnerEvents {
   content: (contentDelta: string, contentSnapshot: string) => void;
@@ -24,7 +24,8 @@ export type ChatCompletionStreamParams = Omit<CompletionCreateParamsBase, 'strea
 
 export class ChatCompletionStream
   extends AbstractChatCompletionRunner<ChatCompletionStreamEvents>
-  implements AsyncIterable<ChatCompletionChunk> {
+  implements AsyncIterable<ChatCompletionChunk>
+{
   #currentChatCompletionSnapshot: ChatCompletionSnapshot | undefined;
 
   get currentChatCompletionSnapshot(): ChatCompletionSnapshot | undefined {
@@ -55,7 +56,7 @@ export class ChatCompletionStream
         completions,
         { ...params, stream: true },
         { ...options, headers: { ...options?.headers, 'X-Stainless-Helper-Method': 'stream' } },
-      )
+      ),
     );
     return runner;
   }
@@ -275,9 +276,13 @@ function finalizeChatCompletion(snapshot: ChatCompletionSnapshot): CompletionCre
                 const { function: fn, type, id, ...toolRest } = tool_call;
                 const { arguments: args, name, ...fnRest } = fn || {};
                 if (id == null)
-                  throw new PropulsionAIError(`missing choices[${index}].tool_calls[${i}].id\n${str(snapshot)}`);
+                  throw new PropulsionAIError(
+                    `missing choices[${index}].tool_calls[${i}].id\n${str(snapshot)}`,
+                  );
                 if (type == null)
-                  throw new PropulsionAIError(`missing choices[${index}].tool_calls[${i}].type\n${str(snapshot)}`);
+                  throw new PropulsionAIError(
+                    `missing choices[${index}].tool_calls[${i}].type\n${str(snapshot)}`,
+                  );
                 if (name == null)
                   throw new PropulsionAIError(
                     `missing choices[${index}].tool_calls[${i}].function.name\n${str(snapshot)}`,
