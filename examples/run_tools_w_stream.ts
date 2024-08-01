@@ -2,7 +2,7 @@ import PropulsionAI from 'propulsionai';
 import { RunnableToolFunction } from 'propulsionai/lib/RunnableFunction';
 
 const client = new PropulsionAI({
-  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN']
+  bearerToken: process.env['PROPULSIONAI_BEARER_TOKEN'],
 });
 
 const custom_parser = (s: string) => {
@@ -16,7 +16,7 @@ const custom_parser = (s: string) => {
     console.error('Error parsing JSON:', e); // Log any parsing errors
     return s; // Return the original string if there are any errors
   }
-}
+};
 
 const tools: RunnableToolFunction<any>[] = [
   {
