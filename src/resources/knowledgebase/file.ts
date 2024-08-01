@@ -6,26 +6,40 @@ import * as FileAPI from './file';
 
 export class FileResource extends APIResource {
   /**
+   * Uploads a file to a knowledgebase.
+   */
+  create(
+    knowledgebaseCode: string,
+    body: FileCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<File> {
+    return this._client.post(
+      `/knowledgebase/${knowledgebaseCode}/file`,
+      Core.multipartFormRequestOptions({ body, ...options }),
+    );
+  }
+
+  /**
    * Deletes a file from a knowledgebase.
    */
   delete(
-    knowledgebaseId: number,
+    knowledgebaseCode: string,
     fileId: string,
     options?: Core.RequestOptions,
   ): Core.APIPromise<FileDeleteResponse> {
-    return this._client.delete(`/knowledgebase/${knowledgebaseId}/file/${fileId}`, options);
+    return this._client.delete(`/knowledgebase/${knowledgebaseCode}/file/${fileId}`, options);
   }
 
   /**
    * Uploads a file to a knowledgebase.
    */
   upload(
-    knowledgebaseId: number,
+    knowledgebaseCode: string,
     body: FileUploadParams,
     options?: Core.RequestOptions,
   ): Core.APIPromise<File> {
     return this._client.post(
-      `/knowledgebase/${knowledgebaseId}/file`,
+      `/knowledgebase/${knowledgebaseCode}/file`,
       Core.multipartFormRequestOptions({ body, ...options }),
     );
   }
@@ -37,10 +51,20 @@ export interface File {
   message?: string;
 }
 
+export interface KnowledgebaseFileUploadResponse {
+  id?: string;
+
+  message?: string;
+}
+
 export interface FileDeleteResponse {
   id?: string;
 
   message?: string;
+}
+
+export interface FileCreateParams {
+  file: Core.Uploadable;
 }
 
 export interface FileUploadParams {
@@ -49,6 +73,8 @@ export interface FileUploadParams {
 
 export namespace FileResource {
   export import File = FileAPI.File;
+  export import KnowledgebaseFileUploadResponse = FileAPI.KnowledgebaseFileUploadResponse;
   export import FileDeleteResponse = FileAPI.FileDeleteResponse;
+  export import FileCreateParams = FileAPI.FileCreateParams;
   export import FileUploadParams = FileAPI.FileUploadParams;
 }
