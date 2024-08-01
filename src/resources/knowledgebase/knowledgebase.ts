@@ -4,9 +4,11 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as KnowledgebaseAPI from './knowledgebase';
 import * as FileAPI from './file';
+import * as ItemAPI from './item';
 
 export class KnowledgebaseResource extends APIResource {
   file: FileAPI.FileResource = new FileAPI.FileResource(this._client);
+  item: ItemAPI.Item = new ItemAPI.Item(this._client);
 
   /**
    * Creates a new knowledgebase.
@@ -35,4 +37,11 @@ export namespace KnowledgebaseResource {
   export import KnowledgebaseCreateParams = KnowledgebaseAPI.KnowledgebaseCreateParams;
   export import FileResource = FileAPI.FileResource;
   export import File = FileAPI.File;
+  export import KnowledgebaseFileUploadResponse = FileAPI.KnowledgebaseFileUploadResponse;
+  export import FileDeleteResponse = FileAPI.FileDeleteResponse;
+  export import FileCreateParams = FileAPI.FileCreateParams;
+  export import FileUploadParams = FileAPI.FileUploadParams;
+  export import Item = ItemAPI.Item;
+  export import KnowledgebaseItemResponse = ItemAPI.KnowledgebaseItemResponse;
+  export import ItemCreateParams = ItemAPI.ItemCreateParams;
 }

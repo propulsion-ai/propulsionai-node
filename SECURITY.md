@@ -20,7 +20,7 @@ or products provided by PropulsionAI please follow the respective company's secu
 
 ### PropulsionAI Terms and Policies
 
-Please contact dev-feedback@propulsionai.com for any questions or concerns regarding security of our services.
+Please contact dev-feedback@propulsionhq.com for any questions or concerns regarding security of our services.
 
 ---
 
