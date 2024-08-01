@@ -4,6 +4,31 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
 import { Stream } from '../../streaming';
+import { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
+export { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
+// import {
+//   ChatCompletionStreamingRunner,
+//   ChatCompletionStreamingFunctionRunnerParams,
+// } from '../../lib/ChatCompletionStreamingRunner';
+// export {
+//   ChatCompletionStreamingRunner,
+//   ChatCompletionStreamingFunctionRunnerParams,
+// } from '../../lib/ChatCompletionStreamingRunner';
+import { BaseFunctionsArgs } from '../../lib/RunnableFunction';
+export {
+  RunnableFunction,
+  RunnableFunctions,
+  RunnableFunctionWithParse,
+  RunnableFunctionWithoutParse,
+  ParsingFunction,
+  ParsingToolFunction,
+} from '../../lib/RunnableFunction';
+import { ChatCompletionToolRunnerParams } from '../../lib/ChatCompletionRunner';
+export { ChatCompletionToolRunnerParams } from '../../lib/ChatCompletionRunner';
+// import { ChatCompletionStreamingToolRunnerParams } from '../../lib/ChatCompletionStreamingRunner';
+// export { ChatCompletionStreamingToolRunnerParams } from '../../lib/ChatCompletionStreamingRunner';
+// import { ChatCompletionStream, type ChatCompletionStreamParams } from '../../lib/ChatCompletionStream';
+// export { ChatCompletionStream, type ChatCompletionStreamParams } from '../../lib/ChatCompletionStream';
 
 export class Completions extends APIResource {
   /**
@@ -43,12 +68,52 @@ export class Completions extends APIResource {
       | Core.APIPromise<CompletionCreateResponse>
       | Core.APIPromise<Stream<ChatCompletionChunk>>;
   }
+
+  /**
+   * A convenience helper for using tool calls with the /chat/completions endpoint
+   * which automatically calls the JavaScript functions you provide and sends their
+   * results back to the /chat/completions endpoint, looping as long as the model
+   * requests function calls.
+   */
+  runTools<FunctionsArgs extends BaseFunctionsArgs>(
+    body: ChatCompletionToolRunnerParams<FunctionsArgs>,
+    options?: Core.RequestOptions,
+  ): ChatCompletionRunner;
+  // runTools<FunctionsArgs extends BaseFunctionsArgs>(
+  //   body: ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
+  //   options?: Core.RequestOptions,
+  // ): ChatCompletionStreamingRunner;
+  runTools<FunctionsArgs extends BaseFunctionsArgs>(
+    body:
+      | ChatCompletionToolRunnerParams<FunctionsArgs>,
+    options?: Core.RequestOptions,
+  ): ChatCompletionRunner {
+    // if (body.stream) {
+    //   return ChatCompletionStreamingRunner.runTools(
+    //     this._client.chat.completions,
+    //     body as ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
+    //     options,
+    //   );
+    // }
+    return ChatCompletionRunner.runTools(
+      this._client.chat.completions,
+      body as ChatCompletionToolRunnerParams<FunctionsArgs>,
+      options,
+    );
+  }
+
+  /**
+   * Creates a chat completion stream
+   */
+  // stream(body: ChatCompletionStreamParams, options?: Core.RequestOptions): ChatCompletionStream {
+  //   return ChatCompletionStream.createChatCompletion(this._client.chat.completions, body, options);
+  // }
 }
 
 export interface CompletionCreateResponse {
   id?: string;
 
-  choices?: Array<CompletionCreateResponse.Choice>;
+  choices: Array<CompletionCreateResponse.Choice>;
 
   created?: number;
 
@@ -81,9 +146,11 @@ export namespace CompletionCreateResponse {
 
     export namespace Message {
       export interface ToolCall {
-        function?: ToolCall.Function;
+        id: string;
 
-        type?: 'function';
+        function: ToolCall.Function;
+
+        type: 'function';
       }
 
       export namespace ToolCall {
@@ -99,11 +166,11 @@ export namespace CompletionCreateResponse {
   }
 
   export interface Usage {
-    completion_tokens?: number;
+    completion_tokens: number;
 
-    prompt_tokens?: number;
+    prompt_tokens: number;
 
-    total_tokens?: number;
+    total_tokens: number;
   }
 }
 
@@ -282,7 +349,7 @@ export interface CompletionCreateParamsBase {
 
   stream?: boolean | null;
 
-  task_id?: string;
+  task_id?: string | null;
 
   temperature?: number;
 
@@ -302,6 +369,8 @@ export namespace CompletionCreateParamsBase {
     content?: string;
 
     role?: 'system' | 'user' | 'assistant' | 'tool';
+
+    tool_call_id?: string;
   }
 
   export interface ChatCompletionNamedToolChoice {

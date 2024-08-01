@@ -449,7 +449,6 @@ export abstract class APIClient {
     }
 
     const responseHeaders = createResponseHeaders(response.headers);
-
     if (!response.ok) {
       if (retriesRemaining && this.shouldRetry(response)) {
         const retryMessage = `retrying, ${retriesRemaining} attempts remaining`;
