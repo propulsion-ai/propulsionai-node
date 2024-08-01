@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.22.0 (2024-08-01)
+
+Full Changelog: [v0.21.0...v0.22.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.21.0...v0.22.0)
+
+### Features
+
+* cleanup ([d869586](https://github.com/propulsion-ai/propulsionai-node/commit/d86958650e36f75712dd4740f500599514babf67))
+
 ## 0.21.0 (2024-08-01)
 
 Full Changelog: [v0.20.0...v0.21.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.20.0...v0.21.0)
