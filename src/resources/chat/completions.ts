@@ -4,7 +4,7 @@ import { APIResource } from '../../resource';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
 import { Stream } from '../../streaming';
-import { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
+import { ChatCompletionRunner } from '../../lib/ChatCompletionRunner';
 export { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
 import {
   ChatCompletionStreamingRunner,

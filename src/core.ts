@@ -466,7 +466,7 @@ export abstract class APIClient {
       const err = this.makeStatusError(response.status, errJSON, errMessage, responseHeaders);
       throw err;
     }
-    
+
     return { response, options, controller };
   }
 

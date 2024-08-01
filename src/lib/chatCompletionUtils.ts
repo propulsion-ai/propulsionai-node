@@ -1,6 +1,4 @@
-import {
-  type CompletionCreateParamsBase,
-} from "../resources/chat/completions";
+import { type CompletionCreateParamsBase } from '../resources/chat/completions';
 
 type ChatCompletionMessageParam = CompletionCreateParamsBase.Message;
 type ChatCompletionToolMessageParam = CompletionCreateParamsBase.Message;
