@@ -1,5 +1,22 @@
 # Changelog
 
+## 0.21.0 (2024-08-01)
+
+Full Changelog: [v0.20.0...v0.21.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.20.0...v0.21.0)
+
+### Features
+
+* add example ([d3a6c4d](https://github.com/propulsion-ai/propulsionai-node/commit/d3a6c4d326e9bfac875ff021fdd9a9a291de3b78))
+* add run_tools ([13dcca4](https://github.com/propulsion-ai/propulsionai-node/commit/13dcca4ef0b279fe9fe87c5b0878dc20852a595a))
+* **api:** OpenAPI spec update via Stainless API ([#160](https://github.com/propulsion-ai/propulsionai-node/issues/160)) ([f8637bb](https://github.com/propulsion-ai/propulsionai-node/commit/f8637bb7006f828575fa31d9846c6329ecb380c0))
+* **api:** update via SDK Studio ([#162](https://github.com/propulsion-ai/propulsionai-node/issues/162)) ([f734d0e](https://github.com/propulsion-ai/propulsionai-node/commit/f734d0e2d49f008c089592a880d0a4965506e2ac))
+* clean ([7b79dfa](https://github.com/propulsion-ai/propulsionai-node/commit/7b79dfafa6dcefbd694586de10599848f64dd3db))
+* fix ([c2c2548](https://github.com/propulsion-ai/propulsionai-node/commit/c2c2548922d20b17a9af4e99432b08e997cc89a0))
+* lint ([da0b95d](https://github.com/propulsion-ai/propulsionai-node/commit/da0b95d946212f181a1c410951a9579d0652bfad))
+* lint ([7e2ba2c](https://github.com/propulsion-ai/propulsionai-node/commit/7e2ba2c957f7e78d8ec566d28191ac8c5716febd))
+* streaming with function calls ([67f56d0](https://github.com/propulsion-ai/propulsionai-node/commit/67f56d0f3333923eca178190063078727328542d))
+* streaming with function calls ([9e56f1f](https://github.com/propulsion-ai/propulsionai-node/commit/9e56f1fb7f81c87e6301af76cc41334f44b725ab))
+
 ## 0.20.0 (2024-07-31)
 
 Full Changelog: [v0.19.0...v0.20.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.19.0...v0.20.0)
