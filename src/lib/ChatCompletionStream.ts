@@ -104,7 +104,6 @@ export class ChatCompletionStream
     );
     this._connected();
     for await (const chunk of stream) {
-      // console.log(JSON.stringify(chunk), "------CHUNK-------------")
       this.#addChunk(chunk);
     }
     if (stream.controller.signal?.aborted) {
@@ -253,7 +252,6 @@ export class ChatCompletionStream
 
 function finalizeChatCompletion(snapshot: ChatCompletionSnapshot): CompletionCreateResponse {
   const { id, choices, created, model, system_fingerprint, ...rest } = snapshot;
-  // console.log(snapshot, "-------FINALIZE------------")
   return {
     ...rest,
     id,

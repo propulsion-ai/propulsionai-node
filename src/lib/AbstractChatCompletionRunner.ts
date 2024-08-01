@@ -550,13 +550,7 @@ export abstract class AbstractChatCompletionRunner<
           if (typeof args !== 'string') {
             throw new PropulsionAIError('Invalid arguments');
           }
-          console.log('');
-          console.log('args', args, JSON.parse(args));
-          console.log(isRunnableFunctionWithParse(fn));
-          console.log('');
           parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
-          console.log(parsed, 'parsed', typeof parsed);
-          console.log('');
         } catch (error) {
           const content = error instanceof Error ? error.message : String(error);
           this._addMessage({ role, tool_call_id, content });
@@ -565,7 +559,6 @@ export abstract class AbstractChatCompletionRunner<
 
         // @ts-expect-error it can't rule out `never` type.
         const rawContent = await fn.function(parsed, this);
-        console.log(rawContent, 'rawContent');
         const content = this.#stringifyFunctionCallResult(rawContent);
         this._addMessage({ role, tool_call_id, content });
         if (singleFunctionToCall) {

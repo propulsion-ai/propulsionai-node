@@ -434,7 +434,6 @@ export abstract class APIClient {
 
     const controller = new AbortController();
     const response = await this.fetchWithTimeout(url, req, timeout, controller).catch(castToError);
-    // console.log(response, "------innnn response")
     if (response instanceof Error) {
       if (options.signal?.aborted) {
         throw new APIUserAbortError();
