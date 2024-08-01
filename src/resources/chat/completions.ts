@@ -6,14 +6,14 @@ import * as CompletionsAPI from './completions';
 import { Stream } from '../../streaming';
 import { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
 export { ChatCompletionRunner, ChatCompletionFunctionRunnerParams } from '../../lib/ChatCompletionRunner';
-// import {
-//   ChatCompletionStreamingRunner,
-//   ChatCompletionStreamingFunctionRunnerParams,
-// } from '../../lib/ChatCompletionStreamingRunner';
-// export {
-//   ChatCompletionStreamingRunner,
-//   ChatCompletionStreamingFunctionRunnerParams,
-// } from '../../lib/ChatCompletionStreamingRunner';
+import {
+  ChatCompletionStreamingRunner,
+  ChatCompletionStreamingToolRunnerParams,
+} from '../../lib/ChatCompletionStreamingRunner';
+export {
+  ChatCompletionStreamingRunner,
+  ChatCompletionStreamingFunctionRunnerParams,
+} from '../../lib/ChatCompletionStreamingRunner';
 import { BaseFunctionsArgs } from '../../lib/RunnableFunction';
 export {
   RunnableFunction,
@@ -50,20 +50,11 @@ export class Completions extends APIResource {
     body: CompletionCreateParamsForcedNonStreaming,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse>;
-  create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<ChatCompletionChunk>;
+  // create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<ChatCompletionChunk>;
   create(
     body: CompletionCreateParamsBase,
     options?: Core.RequestOptions,
   ): Core.APIPromise<CompletionCreateResponse> | Core.APIPromise<Stream<ChatCompletionChunk>> {
-    let stream: boolean = body.stream || false;
-    if (body.stream) {
-      if (body.tools && body.tools.length > 0) {
-        stream = false;
-        body.stream = false;
-      } else {
-        body.tools = null;
-      }
-    }
     return this._client.post('/chat/completions', { body, ...options, stream: body.stream ?? false }) as
       | Core.APIPromise<CompletionCreateResponse>
       | Core.APIPromise<Stream<ChatCompletionChunk>>;
@@ -79,22 +70,23 @@ export class Completions extends APIResource {
     body: ChatCompletionToolRunnerParams<FunctionsArgs>,
     options?: Core.RequestOptions,
   ): ChatCompletionRunner;
-  // runTools<FunctionsArgs extends BaseFunctionsArgs>(
-  //   body: ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
-  //   options?: Core.RequestOptions,
-  // ): ChatCompletionStreamingRunner;
+  runTools<FunctionsArgs extends BaseFunctionsArgs>(
+    body: ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
+    options?: Core.RequestOptions,
+  ): ChatCompletionStreamingRunner;
   runTools<FunctionsArgs extends BaseFunctionsArgs>(
     body:
-      | ChatCompletionToolRunnerParams<FunctionsArgs>,
+      | ChatCompletionToolRunnerParams<FunctionsArgs>
+      | ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
     options?: Core.RequestOptions,
-  ): ChatCompletionRunner {
-    // if (body.stream) {
-    //   return ChatCompletionStreamingRunner.runTools(
-    //     this._client.chat.completions,
-    //     body as ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
-    //     options,
-    //   );
-    // }
+  ): ChatCompletionRunner | ChatCompletionStreamingRunner {
+    if (body.stream) {
+      return ChatCompletionStreamingRunner.runTools(
+        this._client.chat.completions,
+        body as ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
+        options,
+      );
+    }
     return ChatCompletionRunner.runTools(
       this._client.chat.completions,
       body as ChatCompletionToolRunnerParams<FunctionsArgs>,
@@ -133,15 +125,25 @@ export namespace CompletionCreateResponse {
     index?: number;
 
     message?: Choice.Message;
+
+    /**
+     * The reason the model stopped generating tokens. This will be `stop` if the model
+     * hit a natural stop point or a provided stop sequence, `length` if the maximum
+     * number of tokens specified in the request was reached, `content_filter` if
+     * content was omitted due to a flag from our content filters, `tool_calls` if the
+     * model called a tool, or `function_call` (deprecated) if the model called a
+     * function.
+     */
+    finish_reason: 'stop' | 'length' | 'tool_calls' | 'content_filter';
   }
 
   export namespace Choice {
     export interface Message {
-      content?: string;
+      content: string | null;
 
-      role?: 'system' | 'user' | 'assistant' | 'tool';
+      role: 'system' | 'user' | 'assistant' | 'tool';
 
-      tool_calls?: Array<Message.ToolCall>;
+      tool_calls: Array<Message.ToolCall>;
     }
 
     export namespace Message {
@@ -159,7 +161,7 @@ export namespace CompletionCreateResponse {
 
           description?: string;
 
-          arguments?: Record<string, unknown>;
+          arguments: string;
         }
       }
     }
@@ -248,7 +250,7 @@ export namespace ChatCompletionChunk {
      * model called a tool, or `function_call` (deprecated) if the model called a
      * function.
      */
-    finish_reason: 'stop' | 'length' | 'tool_calls' | 'content_filter' | 'function_call' | null;
+    finish_reason: 'stop' | 'length' | 'tool_calls' | 'content_filter' | null;
 
     /**
      * The index of the choice in the list of choices.
@@ -421,7 +423,7 @@ export interface CompletionCreateParamsForcedNonStreaming extends CompletionCrea
 
 export interface CompletionCreateParamsStreaming extends CompletionCreateParamsBase {
   stream: true;
-  tools?: [] | null;
+  // tools?: [] | null;
 }
 
 export type CompletionCreateParams = CompletionCreateParamsNonStreaming | CompletionCreateParamsStreaming;

@@ -13,10 +13,9 @@ import {
   type BaseFunctionsArgs,
 } from './RunnableFunction';
 import { ChatCompletionFunctionRunnerParams, ChatCompletionToolRunnerParams } from './ChatCompletionRunner';
-// import {
-//   ChatCompletionStreamingFunctionRunnerParams,
-//   ChatCompletionStreamingToolRunnerParams,
-// } from './ChatCompletionStreamingRunner';
+import {
+  ChatCompletionStreamingToolRunnerParams,
+} from './ChatCompletionStreamingRunner';
 import { isToolMessage, isAssistantMessage } from './chatCompletionUtils';
 
 const DEFAULT_MAX_CHAT_COMPLETIONS = 10;
@@ -465,8 +464,8 @@ export abstract class AbstractChatCompletionRunner<
   protected async _runTools<FunctionsArgs extends BaseFunctionsArgs>(
     completions: Completions,
     params:
-      | ChatCompletionToolRunnerParams<FunctionsArgs>,
-      // | ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
+      | ChatCompletionToolRunnerParams<FunctionsArgs>
+      | ChatCompletionStreamingToolRunnerParams<FunctionsArgs>,
     options?: RunnerOptions,
   ) {
     const role = 'tool' as const;
@@ -550,7 +549,7 @@ export abstract class AbstractChatCompletionRunner<
 
         let parsed;
         try {
-          parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(JSON.stringify(args)) : args;
+          parsed = isRunnableFunctionWithParse(fn) ? await fn.parse(args) : args;
         } catch (error) {
           const content = error instanceof Error ? error.message : String(error);
           this._addMessage({ role, tool_call_id, content });
