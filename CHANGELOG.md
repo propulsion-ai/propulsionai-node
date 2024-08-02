@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.23.0 (2024-08-02)
+
+Full Changelog: [v0.22.0...v0.23.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.22.0...v0.23.0)
+
+### Features
+
+* fix task_id while streaming ([ef44460](https://github.com/propulsion-ai/propulsionai-node/commit/ef444605f1767c693552114bbbf8d2b8d3d0254a))
+* lint ([b49a6c2](https://github.com/propulsion-ai/propulsionai-node/commit/b49a6c25968fec80ce981c8a23d27565015b1c99))
+
 ## 0.22.0 (2024-08-01)
 
 Full Changelog: [v0.21.0...v0.22.0](https://github.com/propulsion-ai/propulsionai-node/compare/v0.21.0...v0.22.0)
