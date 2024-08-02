@@ -102,7 +102,7 @@ export class ChatCompletionStream
       { ...params, stream: true },
       { ...options, signal: this.controller.signal },
     );
-    if(stream.task_id) {
+    if (stream.task_id) {
       this._set_task_id(stream.task_id);
       this._emit('task_id', stream.task_id);
     }
