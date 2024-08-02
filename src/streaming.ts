@@ -14,7 +14,7 @@ export type ServerSentEvent = {
 export class Stream<Item> implements AsyncIterable<Item> {
   controller: AbortController;
   task_id: null | string;
-  
+
   constructor(
     private iterator: () => AsyncIterator<Item>,
     controller: AbortController,
