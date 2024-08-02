@@ -70,7 +70,7 @@ const tools: RunnableToolFunction<any>[] = [
 async function main() {
   const runner = await client.chat.completions
     .runTools({
-      deployment: 'd-ntnq',
+      deployment: '<deployment_id>',
       stream: true,
       tools,
       messages: [

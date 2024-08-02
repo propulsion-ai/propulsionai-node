@@ -12,19 +12,15 @@ export type ServerSentEvent = {
 };
 
 export class Stream<Item> implements AsyncIterable<Item> {
-  task_id(task_id: string) {
-    throw new Error('Method not implemented.');
-  }
-  poll_id(poll_id: string) {
-    throw new Error('Method not implemented.');
-  }
   controller: AbortController;
-
+  task_id: null | string;
+  
   constructor(
     private iterator: () => AsyncIterator<Item>,
     controller: AbortController,
   ) {
     this.controller = controller;
+    this.task_id = null;
   }
 
   static fromSSEResponse<Item>(response: Response, controller: AbortController) {
