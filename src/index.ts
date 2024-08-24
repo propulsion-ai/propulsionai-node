@@ -2,8 +2,7 @@
 
 import * as Errors from './error';
 import * as Uploads from './uploads';
-import { isRequestOptions } from './core';
-import { type Agent, type RequestInit } from './_shims/index';
+import { type Agent } from './_shims/index';
 import * as Core from './core';
 import * as API from './resources/index';
 
@@ -71,7 +70,7 @@ export interface ClientOptions {
 }
 
 /**
- * API Client for interfacing with the PropulsionAI API. 
+ * API Client for interfacing with the PropulsionAI API.
  */
 export class PropulsionAI extends Core.APIClient {
   bearerToken: string;
@@ -97,7 +96,7 @@ export class PropulsionAI extends Core.APIClient {
   }: ClientOptions = {}) {
     if (bearerToken === undefined) {
       throw new Errors.PropulsionAIError(
-        'The PROPULSIONAI_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the PropulsionAI client with an bearerToken option, like new PropulsionAI({ bearerToken: \'My Bearer Token\' }).'
+        "The PROPULSIONAI_BEARER_TOKEN environment variable is missing or empty; either provide it, or instantiate the PropulsionAI client with an bearerToken option, like new PropulsionAI({ bearerToken: 'My Bearer Token' }).",
       );
     }
 
@@ -125,7 +124,7 @@ export class PropulsionAI extends Core.APIClient {
   knowledgebase: API.KnowledgebaseResource = new API.KnowledgebaseResource(this);
 
   protected override defaultQuery(): Core.DefaultQuery | undefined {
-    return this._options.defaultQuery
+    return this._options.defaultQuery;
   }
 
   protected override defaultHeaders(opts: Core.FinalRequestOptions): Core.Headers {
@@ -140,7 +139,7 @@ export class PropulsionAI extends Core.APIClient {
   }
 
   static PropulsionAI = this;
-  static DEFAULT_TIMEOUT = 60000 // 1 minute
+  static DEFAULT_TIMEOUT = 60000; // 1 minute
 
   static PropulsionAIError = Errors.PropulsionAIError;
   static APIError = Errors.APIError;
@@ -160,7 +159,21 @@ export class PropulsionAI extends Core.APIClient {
   static fileFromPath = Uploads.fileFromPath;
 }
 
-export const { PropulsionAIError, APIError, APIConnectionError, APIConnectionTimeoutError, APIUserAbortError, NotFoundError, ConflictError, RateLimitError, BadRequestError, AuthenticationError, InternalServerError, PermissionDeniedError, UnprocessableEntityError } = Errors
+export const {
+  PropulsionAIError,
+  APIError,
+  APIConnectionError,
+  APIConnectionTimeoutError,
+  APIUserAbortError,
+  NotFoundError,
+  ConflictError,
+  RateLimitError,
+  BadRequestError,
+  AuthenticationError,
+  InternalServerError,
+  PermissionDeniedError,
+  UnprocessableEntityError,
+} = Errors;
 
 export import toFile = Uploads.toFile;
 export import fileFromPath = Uploads.fileFromPath;
