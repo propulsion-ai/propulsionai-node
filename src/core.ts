@@ -215,7 +215,7 @@ export abstract class APIClient {
       Accept: 'application/json',
       'Content-Type': 'application/json',
       'User-Agent': this.getUserAgent(),
-      ...getPlatformHeaders(),
+...getPlatformHeaders(),
       ...this.authHeaders(opts),
     };
   }
@@ -770,6 +770,8 @@ export type RequestOptions<
   signal?: AbortSignal | undefined | null;
   idempotencyKey?: string;
 
+
+
   __binaryRequest?: boolean | undefined;
   __binaryResponse?: boolean | undefined;
   __streamClass?: typeof Stream;
@@ -791,6 +793,8 @@ const requestOptionsKeys: KeysEnum<RequestOptions> = {
   httpAgent: true,
   signal: true,
   idempotencyKey: true,
+
+
 
   __binaryRequest: true,
   __binaryResponse: true,

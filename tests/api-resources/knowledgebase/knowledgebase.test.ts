@@ -1,12 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import PropulsionAI from 'propulsionai';
+import PropulsionAI, { toFile } from 'propulsionai';
 import { Response } from 'node-fetch';
 
-const client = new PropulsionAI({
-  bearerToken: 'My Bearer Token',
-  baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
-});
+const client = new PropulsionAI({ bearerToken: 'My Bearer Token', baseURL: process.env["TEST_API_BASE_URL"] ?? 'http://127.0.0.1:4010' });
 
 describe('resource knowledgebase', () => {
   test('create: only required params', async () => {
@@ -21,10 +18,6 @@ describe('resource knowledgebase', () => {
   });
 
   test('create: required and optional params', async () => {
-    const response = await client.knowledgebase.create({
-      name: 'name',
-      tags: 'tags',
-      description: 'description',
-    });
+    const response = await client.knowledgebase.create({ name: 'name', tags: 'tags', description: 'description' });
   });
 });

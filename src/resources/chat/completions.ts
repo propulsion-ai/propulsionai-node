@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
 import { Stream } from '../../streaming';
@@ -368,11 +370,27 @@ export interface CompletionCreateParamsBase {
 
 export namespace CompletionCreateParamsBase {
   export interface Message {
-    content?: string;
+    content?: string | Array<Message.UnionMember1>;
 
     role?: 'system' | 'user' | 'assistant' | 'tool';
 
     tool_call_id?: string;
+  }
+
+  export namespace Message {
+    export interface UnionMember1 {
+      image_url?: UnionMember1.ImageURL;
+
+      text?: string;
+
+      type?: 'text' | 'image_url';
+    }
+
+    export namespace UnionMember1 {
+      export interface ImageURL {
+        url?: string;
+      }
+    }
   }
 
   export interface ChatCompletionNamedToolChoice {
