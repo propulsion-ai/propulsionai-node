@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as ItemAPI from './item';
 
@@ -52,9 +54,25 @@ export namespace ItemCreateParams {
 
   export namespace Data {
     export interface Message {
-      content?: string;
+      content?: string | Array<Message.UnionMember1>;
 
       role?: 'system' | 'user' | 'assistant' | 'tool';
+    }
+
+    export namespace Message {
+      export interface UnionMember1 {
+        image_url?: UnionMember1.ImageURL;
+
+        text?: string;
+
+        type?: 'text' | 'image_url';
+      }
+
+      export namespace UnionMember1 {
+        export interface ImageURL {
+          url?: string;
+        }
+      }
     }
 
     export interface Tool {
