@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
 
@@ -8,10 +10,7 @@ export class Completions extends APIResource {
   /**
    * Call a deployment endpoint with specified tools and messages.
    */
-  create(
-    body: CompletionCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<CompletionCreateResponse> {
+  create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<CompletionCreateResponse> {
     return this._client.post('/chat/completions', { body, ...options });
   }
 }
@@ -106,9 +105,25 @@ export interface CompletionCreateParams {
 
 export namespace CompletionCreateParams {
   export interface Message {
-    content?: string;
+    content?: string | Array<Message.UnionMember1>;
 
     role?: 'system' | 'user' | 'assistant' | 'tool';
+  }
+
+  export namespace Message {
+    export interface UnionMember1 {
+      image_url?: UnionMember1.ImageURL;
+
+      text?: string;
+
+      type?: 'text' | 'image_url';
+    }
+
+    export namespace UnionMember1 {
+      export interface ImageURL {
+        url?: string;
+      }
+    }
   }
 
   export interface ChatCompletionNamedToolChoice {

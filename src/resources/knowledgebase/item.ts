@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as ItemAPI from './item';
 
@@ -8,11 +10,7 @@ export class Item extends APIResource {
   /**
    * Upload content to a knowledgebase.
    */
-  create(
-    knowledgebaseCode: string,
-    body: ItemCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<KnowledgebaseItemResponse> {
+  create(knowledgebaseCode: string, body: ItemCreateParams, options?: Core.RequestOptions): Core.APIPromise<KnowledgebaseItemResponse> {
     return this._client.post(`/knowledgebase/${knowledgebaseCode}/item`, { body, ...options });
   }
 }

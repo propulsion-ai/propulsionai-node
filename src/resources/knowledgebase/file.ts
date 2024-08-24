@@ -1,47 +1,32 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
+import { isRequestOptions } from '../../core';
+import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as FileAPI from './file';
+import { type Uploadable, multipartFormRequestOptions } from '../../core';
 
 export class FileResource extends APIResource {
   /**
    * Uploads a file to a knowledgebase.
    */
-  create(
-    knowledgebaseCode: string,
-    body: FileCreateParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<File> {
-    return this._client.post(
-      `/knowledgebase/${knowledgebaseCode}/file`,
-      Core.multipartFormRequestOptions({ body, ...options }),
-    );
+  create(knowledgebaseCode: string, body: FileCreateParams, options?: Core.RequestOptions): Core.APIPromise<File> {
+    return this._client.post(`/knowledgebase/${knowledgebaseCode}/file`, Core.multipartFormRequestOptions({ body, ...options }));
   }
 
   /**
    * Deletes a file from a knowledgebase.
    */
-  delete(
-    knowledgebaseCode: string,
-    fileId: string,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<FileDeleteResponse> {
+  delete(knowledgebaseCode: string, fileId: string, options?: Core.RequestOptions): Core.APIPromise<FileDeleteResponse> {
     return this._client.delete(`/knowledgebase/${knowledgebaseCode}/file/${fileId}`, options);
   }
 
   /**
    * Uploads a file to a knowledgebase.
    */
-  upload(
-    knowledgebaseCode: string,
-    body: FileUploadParams,
-    options?: Core.RequestOptions,
-  ): Core.APIPromise<File> {
-    return this._client.post(
-      `/knowledgebase/${knowledgebaseCode}/file`,
-      Core.multipartFormRequestOptions({ body, ...options }),
-    );
+  upload(knowledgebaseCode: string, body: FileUploadParams, options?: Core.RequestOptions): Core.APIPromise<File> {
+    return this._client.post(`/knowledgebase/${knowledgebaseCode}/file`, Core.multipartFormRequestOptions({ body, ...options }));
   }
 }
 
