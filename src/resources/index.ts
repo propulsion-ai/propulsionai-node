@@ -2,4 +2,8 @@
 
 export { Chat } from './chat/chat';
 export { DatasetCreateResponse, DatasetCreateParams, Dataset } from './dataset/dataset';
-export { Knowledgebase, KnowledgebaseCreateParams, KnowledgebaseResource } from './knowledgebase/knowledgebase';
+export {
+  Knowledgebase,
+  KnowledgebaseCreateParams,
+  KnowledgebaseResource,
+} from './knowledgebase/knowledgebase';

@@ -1,10 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
-import { Item } from './item';
 import * as DatasetAPI from './dataset';
 import * as ItemAPI from './item';
 

@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../resource';
-import { isRequestOptions } from '../../core';
-import { APIPromise } from '../../core';
 import * as Core from '../../core';
 import * as CompletionsAPI from './completions';
 
@@ -10,7 +8,10 @@ export class Completions extends APIResource {
   /**
    * Call a deployment endpoint with specified tools and messages.
    */
-  create(body: CompletionCreateParams, options?: Core.RequestOptions): Core.APIPromise<CompletionCreateResponse> {
+  create(
+    body: CompletionCreateParams,
+    options?: Core.RequestOptions,
+  ): Core.APIPromise<CompletionCreateResponse> {
     return this._client.post('/chat/completions', { body, ...options });
   }
 }
